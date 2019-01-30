@@ -3,11 +3,11 @@
     xmlns:expr='http://www.google.com/2005/gml/expr'>
 <!--
   * ++++++++++++++++++++++++++++++++++++++++++++++++
-  * Name 	    :   Bootstrap 4 RAR v3 Portfolio
-  * Author	 	:	Anas RAR
-  * Author URL 	:	anasrar.github.io
-  * Create		: 	13th January 2019
-  * Last Update	: 	14th January 2019
+  * Name        :   Bootstrap 4 RAR v3 Portfolio
+  * Author      :   Anas RAR
+  * Author URL  :	anasrar.github.io
+  * Create		:   13th January 2019
+  * Last Update	:   14th January 2019
   * ++++++++++++++++++++++++++++++++++++++++++++++++
   -->
 
@@ -61,6 +61,9 @@
       footer {
         border-top: 1px solid #e8e8e8
       }
+      .break-word {
+        word-break: break-word;
+      }
     </style>
 
 </head>
@@ -77,6 +80,9 @@
                     <button aria-expanded='false' aria-haspopup='true' class='btn btn-dark btn-sm dropdown-toggle'
                         data-offset='0,4' data-toggle='dropdown' id='dropdownMenu' type='button'>Menu</button>
                     <section aria-labelledby='dropdownMenu' class='dropdown-menu dropdown-menu-right' id='navMobile'>
+                        <a href="/blog" target="_blank" title="Blog" class="dropdown-item">Blog</a>
+                        <a href="/project" target="_blank" title="Project" class="dropdown-item">Project</a>
+                        <a data-target="#ModalContact" data-toggle="modal" href="#ModalContact" title="Contact" class="dropdown-item">Contact</a>
                     </section>
                 </section>
                 <nav class='d-none d-md-block' id='navDefault'>
@@ -150,7 +156,7 @@
                 <section class='row'>
                     <section class='col-6'>
                         <p class='mb-1 small'>Jl. Asrama Palad, Cibinong</p>
-                        <p class='mb-1 small'>Bogor, Jawa Barat</p>
+                        <p class='mb-1 small'>Bogor, West Java</p>
                         <p class='mb-0 small'>Indonesia - ID</p>
                     </section>
                     <section class='col-6 text-right'>
@@ -180,7 +186,7 @@
                     </section>
                     <section class='col-6 text-right'>
                         <p class='mb-1 small'>0800 - 0000 - 0000</p>
-                        <p class='mb-0 small'>email@host.domain</p>
+                        <p class='mb-0 small break-word'>mynameanasrar@gmail.com</p>
                     </section>
                 </section>
             </section>
@@ -225,19 +231,18 @@
         </section>
     </section>
     <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133576589-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-133576589-1');
+    </script>
+
     <script type='text/javascript'>
         'use strict';
         $(function () {
-            var $header = $('body>header:first-child'),
-                $page = $('body>#fullpage'),
-                $navDefault = $('#navDefault'),
-                $navMobile = $('#navMobile');
-            (function () {
-                var li = $navDefault.find('li>a').clone();
-                li.each(function (i, el) {
-                    $navMobile.append($(el).addClass('dropdown-item'))
-                });
-            })();
             $('#contactForm').on('submit', function (e) {
                 e.preventDefault();
             });
