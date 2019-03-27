@@ -1,0 +1,92 @@
+---
+---
+
+
+html {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: 600;
+    margin: 0 0 1rem;
+}
+
+.anas_card {
+    border: 1px solid #dee2e6;
+    > ._body {
+        > ._thumbnail {
+            position: relative;
+            overflow: hidden;
+            height: 0;
+            padding-bottom: 61%;
+            &:hover > img {
+                transform: scale(1.4) rotate(-3deg);
+                transition: transform 0.3s ease-in-out;
+            }
+            > ._tags {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.767);
+                z-index: 3;
+            }
+        }
+    }
+
+}
+
+.text-word-break-all {
+    word-break: break-all
+}
+.text-word-break-word {
+    word-break: break-word
+}
+
+.top-1 {
+    top: .25rem !important
+}
+.top-2 {
+    top: .5rem !important
+}
+.top-3 {
+    top: 1rem !important
+}
+.top-4 {
+    top: 1.5rem !important
+}
+.top-5 {
+    top: 3rem !important
+}
+.bottom-1 {
+    bottom: .25rem !important
+}
+.bottom-2 {
+    bottom: .5rem !important
+}
+.bottom-3 {
+    bottom: 1rem !important
+}
+.bottom-4 {
+    bottom: 1.5rem !important
+}
+.bottom-5 {
+    bottom: 3rem !important
+}
+
+@import "syntax-highlighter";

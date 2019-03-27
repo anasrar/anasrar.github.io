@@ -1,0 +1,30 @@
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="{{ "/assets/css/main.css" | prepend: site.baseurl }}" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+    <!--
+        # Theme Name : ☔ Bersih For Jekyll
+        # Version    : 1.4.7
+        # Author     : Anas RAR
+        # Email      : mynameanasrar@gmail.com
+        # LICENSE    : MIT (https://github.com/anasrar/Bersih/blob/master/LICENSE)
+    -->
+
+    {% if page.title %}<title>{{ page.title }} | {{ site.title }}</title>{% else %}<title>{{ site.title }} | {{ site.description }}</title>{% endif %}
+
+    {% if site.theme_color %}<!-- Chrome, Firefox OS and Opera -->
+    <meta content="{{ site.theme_color }}" name="theme-color" />
+    <!-- Windows Phone -->
+    <meta content="{{ site.theme_color }}" name="msapplication-navbutton-color" />
+    <!-- iOS Safari -->
+    <meta content="{{ site.theme_color }}" name="apple-mobile-web-app-status-bar-style" />{% endif %}
+
+    <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}" />
+
+{% seo title=false %}
+
+</head>

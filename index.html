@@ -1,256 +1,59 @@
-<!DOCTYPE html>
-<html dir='ltr' lang='en' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data'
-    xmlns:expr='http://www.google.com/2005/gml/expr'>
-<!--
-  * ++++++++++++++++++++++++++++++++++++++++++++++++
-  * Name        :   Bootstrap 4 RAR v3 Portfolio
-  * Author      :   Anas RAR
-  * Author URL  :	anasrar.github.io
-  * Create		:   13th January 2019
-  * Last Update	:   14th January 2019
-  * ++++++++++++++++++++++++++++++++++++++++++++++++
-  -->
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
-<head>
-    <meta charset='UTF-8' />
-    <meta content='IE=edge' http-equiv='X-UA-Compatible' />
-    <meta content='width=device-width, initial-scale=1' name='viewport' />
-    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
-    <!-- Chrome, Firefox OS and Opera -->
-    <meta content='#23272b' name='theme-color' />
-    <!-- Windows Phone -->
-    <meta content='#23272b' name='msapplication-navbutton-color' />
-    <!-- iOS Safari -->
-    <meta content='#23272b' name='apple-mobile-web-app-status-bar-style' />
-    <title>Anas RAR</title>
-    <meta content='Hii, My Name Anas RAR' name='description' />
-    <meta content='Hii, My Name Anas RAR' name='keywords' />
-    <link href='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css' rel='stylesheet' type='text/css' />
-    <script src='//code.jquery.com/jquery-3.3.1.min.js' type='text/javascript'></script>
-    <link href='//fonts.googleapis.com/css?family=Poppins:600,700|Rubik:400,500,600,700' rel='stylesheet' />
-    <style>
-        html, body {height: 100%}
-      a {
-        color: #0037d8
-      }
-      body {
-        font-family: 'Rubik', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-      }
-      #fullpage {position:relative;min-height:100%}
-      header {
-        background-color: #fff;
-        border-bottom: 1px solid #e8e8e8
-      }
-      header>section {
-        transition: padding 0.3s linear
-      }
-      header>section>section>h1 {
-        transition: margin 0.3s linear
-      }
-      header.on-sticky>section>section>h1 {
-        margin: 0;
-      }
-      .tilt>figure>img {
-        box-shadow: 0 14px 20px -15px rgba(0, 0, 0, 0.14901960784313725);
-      }
-
-
-      footer {
-        border-top: 1px solid #e8e8e8
-      }
-      .break-word {
-        word-break: break-word;
-      }
-    </style>
-
-    <meta name="google-site-verification" content="p2LcVEQMJMq_5jG4fS7Bh4K4x6s3pDjV_GUrkX8d4WU" />
-
-</head>
-
-<body>
-    <section class='d-flex flex-column' id='fullpage'>
-        <header>
-            <section class='container py-3 d-flex flex-row align-items-center'>
-                <section class='flex-grow-1'>
-                    <h1 class='mb-0 mb-md-2'>Anas RAR</h1>
-                    <h2 class='h5 m-0 d-none d-md-block'>Web Developer</h2>
-                </section>
-                <section class='dropdown d-md-none'>
-                    <button aria-expanded='false' aria-haspopup='true' class='btn btn-dark btn-sm dropdown-toggle'
-                        data-offset='0,4' data-toggle='dropdown' id='dropdownMenu' type='button'>Menu</button>
-                    <section aria-labelledby='dropdownMenu' class='dropdown-menu dropdown-menu-right' id='navMobile'>
-                        <a href="/blog" target="_blank" title="Blog" class="dropdown-item">Blog</a>
-                        <a href="/project" target="_blank" title="Project" class="dropdown-item">Project</a>
-                        <a data-target="#ModalContact" data-toggle="modal" href="#ModalContact" title="Contact" class="dropdown-item">Contact</a>
-                    </section>
-                </section>
-                <nav class='d-none d-md-block' id='navDefault'>
-                    <ul class='m-0 list-inline'>
-                        <li class='list-inline-item'><a href='/blog' target='_blank' title='Blog'>Blog</a></li>
-                        <li class='list-inline-item'><a href='/project' target='_blank' title='Project'>Project</a></li>
-                        <li class='list-inline-item'><a data-target='#ModalContact' data-toggle='modal' href='#ModalContact'
-                                title='Contact'>Contact</a></li>
-                    </ul>
-                </nav>
-            </section>
-        </header>
-        <main class='flex-fill py-4 container d-md-flex flex-md-row'>
-            <section class='row align-items-md-center flex-md-grow-1'>
-                <section class='col-12 col-md-5'>
-                    <section class='tilt'>
-                        <figure class='text-center'>
-                            <img alt='Anas RAR' class='w-100 clip' src='/anasrar-portfolio.png' />
-                        </figure>
-                    </section>
-                </section>
-                <section class='col-12 col-md-7 text-center'>
-                    <h3 class='h2'>Hii</h3>
-                    <p class='mb-0'>My name is <strong>Anas RAR</strong> from Bogor, West Java, Indonesia</p>
-                    <p class='mb-0'>I Design and Create a Website</p>
-                    <p>Recently I Made a Website with NodeJS and MongoDB</p>
-                    <section class='dropdown mb-4'>
-                        <button class='btn btn-dark btn-sm' data-target='#ModalContact' data-toggle='modal' type='button'>Contact</button>
-                        <button aria-expanded='false' aria-haspopup='true' class='btn btn-secondary btn-sm dropdown-toggle'
-                            data-offset='0,4' data-toggle='dropdown' id='dropdownMenuButton' type='button'>Me on</button>
-                        <section aria-labelledby='dropdownMenuButton' class='dropdown-menu'>
-                            <a class='dropdown-item' href='//github.com/anasrar' rel='noreferrer' target='_blank'>Github</a>
-                            <a class='dropdown-item' href='#' rel='noreferrer' target='_blank'>Twitter</a>
-                            <a class='dropdown-item' href='//codepen.io/anasrar/' rel='noreferrer' target='_blank'>Codepen</a>
-                        </section>
-                    </section>
-                    <section class='row text-center'>
-                        <section class='col-12 col-md-4'>
-                            <figure>
-                                <img alt='Web Design' src='//img.icons8.com/cotton/64/000000/laptop-cleaning.png' />
-                                <figcaption>
-                                    <h3 class='h4 mt-2'>Web Designer</h3>
-                                </figcaption>
-                            </figure>
-                            <p>Web Design, Prototyping, and Make it Responsive</p>
-                        </section>
-                        <section class='col-12 col-md-4'>
-                            <figure>
-                                <img alt='Web Developer' src='//img.icons8.com/cotton/64/000000/laptop-coding.png' />
-                                <figcaption>
-                                    <h3 class='h4 mt-2'>Web Developer</h3>
-                                </figcaption>
-                            </figure>
-                            <p>Creating a Website with NodeJS, Ruby, and PHP</p>
-                        </section>
-                        <section class='col-12 col-md-4'>
-                            <figure>
-                                <img alt='Web Debugger' src='//img.icons8.com/cotton/64/000000/laptop-error.png' />
-                                <figcaption>
-                                    <h3 class='h4 mt-2'>Web Debugger</h3>
-                                </figcaption>
-                            </figure>
-                            <p>Fixing a Bug to Make More Bugs</p>
-                        </section>
-                    </section>
-                </section>
-            </section>
-        </main>
-        <footer>
-            <section class='container  py-3'>
-                <section class='row'>
-                    <section class='col-6'>
-                        <p class='mb-1 small'>Jl. Asrama Palad, Cibinong</p>
-                        <p class='mb-1 small'>Bogor, West Java</p>
-                        <p class='mb-0 small'>Indonesia - ID</p>
-                    </section>
-                    <section class='col-6 text-right'>
-                        <nav>
-                            <ul class='mb-3 list-unstyled'>
-                                <li class='mb-1 small'><a href='/blog' title='Blog'>Blog</a></li>
-                                <li class='mb-1 small'><a href='/project' title='Project'>Project</a></li>
-                                <li class='small'><a data-target='#ModalContact' data-toggle='modal' href='#ModalContact'
-                                        title='Contact'>Contact</a></li>
-                            </ul>
-                        </nav>
-                    </section>
-                    <section class='col-6 align-self-end'>
-                        <nav>
-                            <ul class='m-0 list-inline'>
-                                <li class='list-inline-item small'>
-                                    <h6 class='mb-0'>Built With</h6>
-                                </li>
-                                <li class='list-inline-item small'><a href='//jquery.com' rel='noreferrer' target='_blank'
-                                        title='jQuery'>jQuery</a></li>
-                                <li class='list-inline-item small'><a href='//getbootstrap.com' rel='noreferrer' target='_blank'
-                                        title='Bootstrap'>Bootstrap</a></li>
-                                <li class='list-inline-item small'><a href='//icons8.com' rel='noreferrer' target='_blank'
-                                        title='Icons8'>Icons8</a></li>
-                            </ul>
-                        </nav>
-                    </section>
-                    <section class='col-6 text-right'>
-                        <p class='mb-1 small'>0800 - 0000 - 0000</p>
-                        <p class='mb-0 small break-word'>mynameanasrar@gmail.com</p>
-                    </section>
-                </section>
-            </section>
-        </footer>
+layout: default
+---
+<section class="row align-items-md-center flex-md-grow-1">
+    <section class="col-12 col-md-5">
+        <section class="tilt">
+            <figure class="text-center">
+                <img alt="Anas RAR" class="w-100 clip" src="/assets/images/anasrar-portfolio.png">
+            </figure>
+        </section>
     </section>
-    <section aria-hidden='true' aria-labelledby='ModalContactTitle' class='modal fade' id='ModalContact' role='dialog'
-        tabindex='-1'>
-        <section class='modal-dialog modal-dialog-centered' role='document'>
-            <section class='modal-content'>
-                <section class='modal-header'>
-                    <h5 class='modal-title' id='ModalContactTitle'>Contact</h5>
-                    <button aria-label='Close' class='close' data-dismiss='modal' type='button'>
-                        <span aria-hidden='true'>&times;</span>
-                    </button>
-                </section>
-                <section class='modal-body'>
-                    <form id='contactForm'>
-                        <div class='form-row'>
-                            <div class='form-group col-md-6'>
-                                <label for='inputName'>Name</label>
-                                <input class='form-control form-control-sm' id='inputName' placeholder='Name' type='text' />
-                            </div>
-                            <div class='form-group col-md-6'>
-                                <label for='inputEmail'>Email</label>
-                                <input class='form-control form-control-sm' id='inputEmail' placeholder='Email' type='Email' />
-                            </div>
-                        </div>
-                        <div class='form-group'>
-                            <label for='inputMessage'>Message</label>
-                            <textarea class='form-control form-control-sm' id='inputMessage' rows='5'></textarea>
-                        </div>
-                        <section class='alert alert-warning small'>
-                            *This Just Example Contact Form
-                        </section>
-                        <section class='text-right'>
-                            <button class='btn btn-sm btn-primary' type='submit'>Send</button>
-                            <button class='btn btn-sm btn-secondary' data-dismiss='modal' type='button'>Close</button>
-                        </section>
-                    </form>
-                </section>
+    <section class="col-12 col-md-7 text-center">
+        <h3 class="h2">Hii</h3>
+        <p class="mb-0">My name is <strong>Anas RAR</strong> from Bogor, West Java, Indonesia</p>
+        <p class="mb-0">I Design and Create a Website</p>
+        <p>Recently I Made a Website with NodeJS and MongoDB</p>
+        <section class="dropdown mb-4">
+            <a class="btn btn-dark btn-sm" href="mailto:mynameanasrar@gmail.com">Contact</a>
+            <button aria-expanded="false" aria-haspopup="true" class="btn btn-secondary btn-sm dropdown-toggle" data-offset="0,4" data-toggle="dropdown" id="dropdownMenuButton" type="button">Me on</button>
+            <section aria-labelledby="dropdownMenuButton" class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="//github.com/anasrar" rel="noreferrer" target="_blank">Github</a>
+                <a class="dropdown-item" href="#" rel="noreferrer" target="_blank">Twitter</a>
+                <a class="dropdown-item" href="//codepen.io/anasrar/" rel="noreferrer" target="_blank">Codepen</a>
+            </section>
+        </section>
+        <section class="row text-center">
+            <section class="col-12 col-md-4">
+                <figure>
+                    <img alt="Web Design" src="//img.icons8.com/cotton/64/000000/laptop-cleaning.png">
+                    <figcaption>
+                        <h3 class="h4 mt-2">Web Designer</h3>
+                    </figcaption>
+                </figure>
+                <p>Web Design, Prototyping, and Make it Responsive</p>
+            </section>
+            <section class="col-12 col-md-4">
+                <figure>
+                    <img alt="Web Developer" src="//img.icons8.com/cotton/64/000000/laptop-coding.png">
+                    <figcaption>
+                        <h3 class="h4 mt-2">Web Developer</h3>
+                    </figcaption>
+                </figure>
+                <p>Creating a Website with NodeJS, Ruby, and PHP</p>
+            </section>
+            <section class="col-12 col-md-4">
+                <figure>
+                    <img alt="Web Debugger" src="//img.icons8.com/cotton/64/000000/laptop-error.png">
+                    <figcaption>
+                        <h3 class="h4 mt-2">Web Debugger</h3>
+                    </figcaption>
+                </figure>
+                <p>Fixing a Bug to Make More Bugs</p>
             </section>
         </section>
     </section>
-    <script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.bundle.min.js'></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133576589-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-133576589-1');
-    </script>
-
-    <script type='text/javascript'>
-        'use strict';
-        $(function () {
-            $('#contactForm').on('submit', function (e) {
-                e.preventDefault();
-            });
-        });
-    </script>
-</body>
-
-</html>
+</section>
