@@ -14,9 +14,11 @@
         # LICENSE    : MIT (https://github.com/anasrar/Bersih/blob/master/LICENSE)
     -->
 
-    {% if page.title %}<title>{{ page.title }} | {{ site.title }}</title>{% else %}<title>{{ site.title }} | {{ site.description }}</title>{% endif %}
+    {% if page.title %}<title>{{ page.title }} | {{ site.title }}</title>{% else %}<title>{{ site.title }} |
+        {{ site.description }}</title>{% endif %}
 
-    {% if site.theme_color %}<!-- Chrome, Firefox OS and Opera -->
+    {% if site.theme_color %}
+    <!-- Chrome, Firefox OS and Opera -->
     <meta content="{{ site.theme_color }}" name="theme-color" />
     <!-- Windows Phone -->
     <meta content="{{ site.theme_color }}" name="msapplication-navbutton-color" />
@@ -25,6 +27,35 @@
 
     <link rel="shortcut icon" href="{{ "/favicon.ico" | prepend: site.baseurl }}" />
 
-{% seo title=false %}
+    {% seo title=false %}
+
+    <script type='application/ld+json'>
+    {
+      "@context": "http://www.schema.org",
+      "@type": "person",
+      "name": "Anas RAR",
+      "jobTitle": "Web Developer",
+      "height": "64",
+      "gender": "male",
+      "url": "http://anasrar.github.io",
+      "sameAs": [
+         "https://facebook.com/mynameanasrar",
+         "https://github.com/anasrar",
+         "https://codepen.io/anasrar"
+      ],
+      "image": "https://anasrar.github.io/assets/images/anasrar-portfolio.png",
+      "address": {
+         "@type": "PostalAddress",
+         "streetAddress": "Jl. Asrama Palad",
+         "addressLocality": "Bogor",
+         "addressRegion": "West Java",
+         "postalCode": "16917",
+         "addressCountry": "Indonesia"
+      },
+      "email": "mynameanasrar@gmail.com",
+      "birthPlace": "Central Java",
+      "nationality": "Indonesia"
+    }
+    </script>
 
 </head>
