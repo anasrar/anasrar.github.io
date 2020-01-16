@@ -1,7 +1,5 @@
 list:
-- title: "📁 Project"
+- title: "Work"
   url: "/project/"
-- title: "☕ Blog"
+- title: "Blog"
   url: "/blog/"
-- title: "📧 Contact"
-  url: "mailto:mynameanasrar@gmail.com"
