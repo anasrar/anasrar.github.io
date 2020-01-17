@@ -22,7 +22,7 @@ a:hover {
 
 body {
     min-height: 100vh;
-    background: url('../images/bg.gif') repeat center, #0c1032;
+    background: url('../images/bg.webp') repeat center, #0c1032;
     max-width: 55rem;
     margin: auto;
     display: flex;
@@ -74,10 +74,15 @@ aside>nav>ul>li:hover:nth-child(even) {
 }
 
 #social {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+}
+
+#social>ul{
+    line-height: 0;
 }
 
 #social>ul>li {
+    line-height: 0;
     list-style: none;
     display: inline-block;
     margin: 0 1rem;
@@ -114,5 +119,34 @@ aside>nav>ul>li:hover:nth-child(even) {
 
     aside>nav>ul>li {
         font-size: 4.5rem;
+    }
+}
+
+#player {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    width: 300px;
+    background: #f8d601;
+    padding: 0.5rem;
+    margin: 0 auto 1rem;
+    box-shadow: 3px 3px #9e40ff;
+    text-align: left;
+    header {
+        display: block;
+        text-align: center;
+        font-size: 0.75rem;
+        color: black;
+        text-shadow: none;
+        font-weight: 700;
+    }
+    #control {
+        line-height: 0;
+        color: black;
+        user-select: none;
+        .btnControl {
+            cursor: pointer;
+        }
     }
 }
