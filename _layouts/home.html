@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+{% include head.html %}
+
+<body class="home">
+    <section id="header" class="section">
+        <h1 class="font-heading fz-4rem uppercase">Anas RAR</h1>
+        <h2>open-source enthusiast</h2>
+    </section>
+    <section class="section">
+        <h3 class="heading">Me On</h3>
+        <section id="me-on">
+            <section style=" display: grid; grid-gap: 1rem; grid-template-columns: 1.5rem 1fr;
+                        grid-template-rows: 1.5rem; align-items: center; justify-content: start;">
+                {% for item in site.data.meon.items %}
+                <section>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fill-current" d="{{ item.svgPath }}" />
+                    </svg>
+                </section>
+                <section>
+                    {% if item.url != null and item.url != "" %}
+                    <a class="link" href="{{ item.url }}">
+                        {{ item.text }}
+                    </a>
+                    {% else %}
+                    {{ item.text }}
+                    {% endif %}
+                </section>
+                {% endfor %}
+            </section>
+        </section>
+    </section>
+    <section class="section">
+        <h3 class="heading">My Top 8</h3>
+        <section>
+            <section style=" display: grid; grid-gap: 1rem; grid-template-columns: repeat(4, 2.25rem);
+                        grid-template-rows: 2.25rem; align-items: center; justify-content: start;">
+                {% for item in site.data.mytop.items %}
+                <section>
+                    <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path class="fill-current" d="{{ item.svgPath }}" />
+                    </svg>
+                </section>
+                {% endfor %}
+            </section>
+        </section>
+    </section>
+    <section class="section">
+        <h3 class="heading">Project</h3>
+        <section id="project">
+            {% for item in site.data.projects.items %}
+            {% assign repository = site.github.public_repositories 
+                | where: "name", item.project 
+                | first %}
+
+            <section class="__card">
+                <section class="header">
+                    <section>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                            <path fill-rule="evenodd" class="fill-current"
+                                d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z">
+                            </path>
+                        </svg>
+                    </section>
+                    <section>
+                        <a class="link" href="{{ repository.html_url }}">{{ repository.name }}</a>
+                    </section>
+                </section>
+                <section class="desc">
+                    {{ repository.description }}
+                </section>
+                <section class="footer">
+                    <section>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                            <path fill-rule="evenodd" class="fill-current"
+                                d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z">
+                            </path>
+                        </svg>
+                    </section>
+                    <section>
+                        <a class="link" href="{{ repository.html_url }}/stargazers">
+                            {{ repository.stargazers_count }}
+                        </a>
+                    </section>
+                    <section>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                            <path fill-rule="evenodd" class="fill-current"
+                                d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z">
+                            </path>
+                        </svg>
+                    </section>
+                    <section>
+                        <a class="link" href="{{ repository.html_url }}/network/members">
+                            {{ repository.forks_count }}
+                        </a>
+                    </section>
+                    {% if item.links %}
+                    <section>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                            <path fill-rule="evenodd" class="fill-current"
+                                d="M10.604 1h4.146a.25.25 0 01.25.25v4.146a.25.25 0 01-.427.177L13.03 4.03 9.28 7.78a.75.75 0 01-1.06-1.06l3.75-3.75-1.543-1.543A.25.25 0 0110.604 1zM3.75 2A1.75 1.75 0 002 3.75v8.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 12.25v-3.5a.75.75 0 00-1.5 0v3.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-8.5a.25.25 0 01.25-.25h3.5a.75.75 0 000-1.5h-3.5z">
+                            </path>
+                        </svg>
+                    </section>
+                    <section>
+                        {% for link in item.links %}
+                        <a class="link" href="{{ link.url }}">{{ link.text }}</a> {% if forloop.last == false %}&nbsp; ●
+                        &nbsp;{% endif %}
+                        {% endfor %}
+                    </section>
+                    {% endif %}
+                </section>
+            </section>
+            {% endfor %}
+        </section>
+    </section>
+    <section class="section">
+        <h3 class="heading">Blog</h3>
+        <section id="blog">
+            {% for post in site.posts %}
+            {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+            {% capture next_year %}{{ post.previous.date | date: "%Y" }}{% endcapture %}
+
+            {% if forloop.first %}
+            <section>
+                <h3 id="{{ this_year }}-ref" class="year">{{this_year}}</h3>
+            </section>
+            <section>
+                {% endif %}
+                <article>
+                    <header>
+                        <time datetime="{{ post.date }}">
+                            {{ post.date | date: "%d %b" }}
+                        </time>
+                        <a href="{{ site.baseurl }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                    </header>
+                </article>
+                {% if forloop.last %}
+            </section>
+            {% else %}
+            {% if this_year != next_year %}
+        </section>
+        <section>
+            <h3 id="{{ next_year }}-ref" class="year">{{next_year}}</h3>
+        </section>
+        <section>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </section>
+    </section>
+</body>
+
+</html>
