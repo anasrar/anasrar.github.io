@@ -354,7 +354,7 @@ display: none;
 :root {
     --main-dark-color: #1b1c20;
     --main-light-color: #ffffff;
-    --main-text-family: 'Heebo', sans-serif;
+    --main-text-family: 'Manrope', sans-serif;
     --main-heading-family: 'Syncopate', sans-serif;
     --link-color: #FFCF52;
     --link-color-hover: #52CBFF;
@@ -365,7 +365,7 @@ html {
     background-color: var(--main-dark-color);
     font-family: var(--main-text-family);
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 body {
@@ -538,7 +538,7 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 2.5rem;
     }
     b, strong {
-        font-weight: 600;
+        font-weight: 700;
     }
     a {
         color: var(--link-color);
@@ -549,6 +549,10 @@ h1, h2, h3, h4, h5, h6 {
     }
     img {
         max-width: 100%;
+    }
+    p {
+        line-height: 1.75rem;
+        margin: 1rem 0 1.5rem;
     }
 }
 
