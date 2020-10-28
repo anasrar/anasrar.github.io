@@ -3,3 +3,7 @@ items:
     links:
       - text: "Documentation"
         url: "//anasrar.github.io/Blender-UE4-Workspace/"
+  - project: "ReNim"
+    links:
+      - text: "Documentation"
+        url: "//blenderartists.org/t/renim-node-based-retarget-animation/1261958/"
