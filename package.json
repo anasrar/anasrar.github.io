@@ -1,0 +1,94 @@
+{
+  "name": "anasrin",
+  "description": "personel",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Anas Rin <mynameanasrar@gmail.com> (https://anasrar.github.io)",
+  "license": "MIT",
+  "keywords": [
+    "gatsby",
+    "typescript"
+  ],
+  "scripts": {
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "type-check": "tsc",
+    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "postinstall": "husky install",
+    "test": "jest",
+    "commit": "cz"
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "yarn lint --fix",
+      "yarn format"
+    ]
+  },
+  "dependencies": {
+    "@hookstate/core": "3.0.13",
+    "@react-three/fiber": "7.0.24",
+    "framer-motion": "5.5.5",
+    "gatsby": "4.4.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "three": "0.136.0",
+    "tsconfig-paths-webpack-plugin": "3.5.2"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "7.16.5",
+    "@babel/preset-typescript": "7.16.5",
+    "@commitlint/cli": "15.0.0",
+    "@commitlint/config-conventional": "15.0.0",
+    "@emotion/react": "11.7.1",
+    "@emotion/styled": "11.6.0",
+    "@mdx-js/mdx": "1.6.22",
+    "@mdx-js/react": "1.6.22",
+    "@testing-library/dom": "8.11.1",
+    "@testing-library/jest-dom": "5.16.1",
+    "@testing-library/react": "12.1.2",
+    "@testing-library/react-hooks": "7.0.2",
+    "@types/jest": "27.0.3",
+    "@types/mdx-js__react": "1.5.5",
+    "@types/node": "16.11.14",
+    "@types/react": "17.0.37",
+    "@types/react-dom": "17.0.11",
+    "@types/react-helmet": "6.1.5",
+    "@types/three": "0.135.0",
+    "@typescript-eslint/eslint-plugin": "5.7.0",
+    "@typescript-eslint/parser": "5.7.0",
+    "babel-jest": "27.4.5",
+    "babel-preset-gatsby": "2.4.0",
+    "commitizen": "4.2.4",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "8.5.0",
+    "eslint-config-airbnb": "19.0.2",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-import-resolver-typescript": "2.5.0",
+    "eslint-plugin-import": "2.25.3",
+    "eslint-plugin-jest": "25.3.0",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.27.1",
+    "eslint-plugin-react-hooks": "4.3.0",
+    "gatsby-plugin-mdx": "3.5.2",
+    "gatsby-plugin-react-helmet": "5.5.0",
+    "gatsby-source-filesystem": "4.5.2",
+    "husky": "7.0.4",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "27.4.5",
+    "lint-staged": "12.1.3",
+    "prettier": "2.5.1",
+    "react-helmet": "6.1.0",
+    "ts-jest": "27.1.2",
+    "ts-node": "10.4.0",
+    "typescript": "4.5.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
