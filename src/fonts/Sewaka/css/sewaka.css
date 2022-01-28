@@ -1,0 +1,65 @@
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-Regular.otf") format("opentype");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-Italic.otf") format("opentype");
+	font-weight: normal;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-SemiBold.otf") format("opentype");
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-SemiBoldItalic.otf") format("opentype");
+	font-weight: 600;
+	font-style: italic;
+	font-display: swap;
+}
+
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-Bold.otf") format("opentype");
+	font-weight: 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-BoldItalic.otf") format("opentype");
+	font-weight: 700;
+	font-style: italic;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-ExtraBold.otf") format("opentype");
+	font-weight: 800;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Sewaka";
+	src: url("../fonts/SewakaSans-ExtraBoldItalic.otf") format("opentype");
+	font-weight: 800;
+	font-style: italic;
+	font-display: swap;
+}
+
