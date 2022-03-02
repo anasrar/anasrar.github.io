@@ -1,4 +1,5 @@
 import "./src/css/reset.css";
+import "./src/css/syntax.css";
 import "./src/fonts/Fungis/css/fungis.css";
 import "./src/fonts/NeutralFace/css/neutral-face.css";
 import "./src/fonts/Sewaka/css/sewaka.css";
