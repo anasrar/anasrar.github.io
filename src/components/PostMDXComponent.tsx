@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
+import Highlight, { defaultProps } from "prism-react-renderer";
+import HighlightTheme from "prism-react-renderer/themes/palenight";
 
 import Typography from "./Typography";
 import Flex from "./Flex";
@@ -125,7 +127,13 @@ const a: React.FC = ({ children, ...props }) => (
 );
 
 const ul: React.FC = ({ children, ...props }) => (
-	<Flex element="ul" margin="0 0 .75rem 0" flexFlow="column nowrap" gap=".5rem" {...props}>
+	<Flex
+		element="ul"
+		margin="0 0 .75rem 0"
+		flexFlow="column nowrap"
+		gap=".5rem"
+		{...props}
+	>
 		{children}
 	</Flex>
 );
@@ -136,6 +144,34 @@ const List = styled.li`
 const li: React.FC = ({ children, ...props }) => (
 	<List {...props}>{children}</List>
 );
+
+const pre: React.FC = ({ children }) => {
+	const childrenProps = (children as JSX.Element).props;
+	const language = childrenProps.className.replace(/language-/, "") || "";
+
+	return (
+		<Highlight
+			{...defaultProps}
+			code={childrenProps.children.trim()}
+			language={language}
+			theme={HighlightTheme}
+		>
+			{({ className, style, tokens, getLineProps, getTokenProps }) => (
+				<pre className={className} style={{ ...style }}>
+					<div>
+						{tokens.map((line, i) => (
+							<div key={i} {...getLineProps({ line, key: i })}>
+								{line.map((token, key) => (
+									<span key={key} {...getTokenProps({ token, key })} />
+								))}
+							</div>
+						))}
+					</div>
+				</pre>
+			)}
+		</Highlight>
+	);
+};
 
 const PostMDXComponent = {
 	h1,
@@ -150,6 +186,8 @@ const PostMDXComponent = {
 
 	ul,
 	li,
+
+	pre,
 };
 
 export default PostMDXComponent;
