@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { motion } from "framer-motion";
 
 import Typography from "./Typography";
 import Flex from "./Flex";
+
+import { CursorTextScale, CursorText } from "@/states/Cursor";
 
 const h1: React.FC = ({ children, ...props }) => (
 	<Typography
@@ -102,19 +105,37 @@ const p: React.FC = ({ children, ...props }) => (
 	</Typography>
 );
 
+const Anchor = styled(motion.a)`
+	color: #80dada;
+	text-decoration: #8080ff wavy underline;
+`;
+const a: React.FC = ({ children, ...props }) => (
+	<Anchor
+		onHoverStart={() => {
+			CursorText.set((_) => `LINK`);
+			CursorTextScale.set((_) => 1);
+		}}
+		onHoverEnd={() => {
+			CursorTextScale.set(() => 0);
+		}}
+		{...props}
+	>
+		{children}
+	</Anchor>
+);
+
 const ul: React.FC = ({ children, ...props }) => (
-	<Flex element="ul" flexFlow="column nowrap" gap=".5rem" {...props}>
+	<Flex element="ul" margin="0 0 .75rem 0" flexFlow="column nowrap" gap=".5rem" {...props}>
 		{children}
 	</Flex>
 );
 
-const li: React.FC = ({ children, ...props }) => {
-	const List = styled.li`
-		list-style: "◉  " inside;
-	`;
-
-	return <List {...props}>{children}</List>;
-};
+const List = styled.li`
+	list-style: "◉  " inside;
+`;
+const li: React.FC = ({ children, ...props }) => (
+	<List {...props}>{children}</List>
+);
 
 const PostMDXComponent = {
 	h1,
@@ -124,6 +145,7 @@ const PostMDXComponent = {
 	h5,
 	h6,
 
+	a,
 	p,
 
 	ul,
