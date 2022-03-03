@@ -44,6 +44,12 @@ Template : [https://github.com/jpedroschmitz/gatsby-starter-ts](https://github.c
 │       ├── FUNGIS Bold.otf
 │       ├── FUNGIS Heavy.otf
 │       └── FUNGIS Regular.otf
+├── JetBrainsMono
+│   └── fonts
+│       ├── JetBrainsMono-Bold.ttf
+│       ├── JetBrainsMono-BoldItalic.ttf
+│       ├── JetBrainsMono-Italic.ttf
+│       └── JetBrainsMono-Regular.ttf
 ├── KharkivTone
 │   └── fonts
 │       └── KharkivTone.ttf
