@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { motion } from "framer-motion";
+import { motion, HTMLMotionProps } from "framer-motion";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import HighlightTheme from "prism-react-renderer/themes/palenight";
 
@@ -107,6 +107,26 @@ const p: React.FC = ({ children, ...props }) => (
 	</Typography>
 );
 
+const Image = styled(motion.img)`
+	margin: 0 auto;
+	cursor: zoom-in;
+`;
+const img: React.FC<HTMLMotionProps<"img">> = ({ ...props }) => (
+	<Image
+		onClick={(ev: React.MouseEvent<HTMLImageElement>) => {
+			window.open((ev.target as HTMLImageElement).src, "_blank");
+		}}
+		onHoverStart={() => {
+			CursorText.set((_) => `IMAGE`);
+			CursorTextScale.set((_) => 1);
+		}}
+		onHoverEnd={() => {
+			CursorTextScale.set(() => 0);
+		}}
+		{...props}
+	/>
+);
+
 const Anchor = styled(motion.a)`
 	color: #80dada;
 	text-decoration: #8080ff wavy underline;
@@ -183,6 +203,7 @@ const PostMDXComponent = {
 
 	a,
 	p,
+	img,
 
 	ul,
 	li,
