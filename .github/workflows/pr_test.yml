@@ -1,0 +1,39 @@
+name: Build Test
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    name: Build Test
+    runs-on: ubuntu-latest
+    env:
+      font: ${{ secrets.URL_ZIP_FONTS }}
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Download and Extract Font 📦
+        run: |
+          wget -q -O "fonts.zip" "$font"
+          unzip -o -qq "./fonts.zip" -d ./src/fonts/
+
+      - name: Install 🔧
+        run: npm ci
+
+      - name: Check Types 🔍
+        run: npm run type-check
+        continue-on-error: true
+
+      - name: Check Linting 🔍
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build 🔧
+        run: npm run build
+        continue-on-error: true
