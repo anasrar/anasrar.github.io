@@ -1,0 +1,23 @@
+pre {
+	margin: 0 0 0.75rem 0;
+	width: 100%;
+	overflow: auto;
+	border: 2px solid #80dada;
+	border-radius: 0.4rem;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 1rem;
+}
+
+pre > div {
+	padding: 0.5rem;
+}
+
+code {
+	display: inline-block;
+	padding: 0.1rem 0.4rem;
+	border-radius: 0.25rem;
+	background: rgba(255, 255, 255, 0.9);
+	color: #000;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 0.8rem;
+}

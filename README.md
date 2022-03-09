@@ -19,6 +19,7 @@ Template : [https://github.com/jpedroschmitz/gatsby-starter-ts](https://github.c
 - [Kharkiv Tone](https://www.behance.net/gallery/105478373/Kharkiv-Tone-Font)
 - [NEUTRAL FACE](https://www.behance.net/gallery/104641293/NEUTRAL-FACE-FREE-FONT)
 - [Sewaka](https://github.com/budapatrayasa/Sewaka-Typeface-Family/)
+- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 
 ### Zip Font Structure
 
@@ -44,6 +45,12 @@ Template : [https://github.com/jpedroschmitz/gatsby-starter-ts](https://github.c
 │       ├── FUNGIS Bold.otf
 │       ├── FUNGIS Heavy.otf
 │       └── FUNGIS Regular.otf
+├── JetBrainsMono
+│   └── fonts
+│       ├── JetBrainsMono-Bold.ttf
+│       ├── JetBrainsMono-BoldItalic.ttf
+│       ├── JetBrainsMono-Italic.ttf
+│       └── JetBrainsMono-Regular.ttf
 ├── KharkivTone
 │   └── fonts
 │       └── KharkivTone.ttf
@@ -70,6 +77,7 @@ Download all font and extract like **Zip Font Structure** on `src/fonts/`
 ```
 npm ci
 ```
+
 ```
 npm run build
 ```
