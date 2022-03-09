@@ -114,7 +114,7 @@ const Image = styled(motion.img)`
 const img: React.FC<HTMLMotionProps<"img">> = ({ ...props }) => (
 	<Image
 		onClick={(ev: React.MouseEvent<HTMLImageElement>) => {
-			window.open((ev.target as HTMLImageElement).src, "_blank");
+			window.open((ev.target as HTMLImageElement).src, `_blank`);
 		}}
 		onHoverStart={() => {
 			CursorText.set((_) => `IMAGE`);
@@ -167,7 +167,7 @@ const li: React.FC = ({ children, ...props }) => (
 
 const pre: React.FC = ({ children }) => {
 	const childrenProps = (children as JSX.Element).props;
-	const language = childrenProps.className.replace(/language-/, "") || "";
+	const language = childrenProps.className.replace(/language-/, ``) || ``;
 
 	return (
 		<Highlight
