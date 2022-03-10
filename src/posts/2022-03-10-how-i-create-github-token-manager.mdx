@@ -1,0 +1,167 @@
+---
+title: "How I Create - Github Token Manager"
+date: 2022-03-10 00:00:00
+---
+
+### TL;DR
+
+It's just some simple **CR~~U~~D** using **SQLite** and **AES-CBC 128-bit** with **git** integration.  
+Project repository ➜ [https://github.com/anasrar/gah](https://github.com/anasrar/gah)
+
+### Github Token
+
+Back in December 2020, Github announce that token is require for any Git operations, start in August 13, 2021 [[blog post](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/)].
+
+Although it's good you can set different permission and expire date on each token, I just don't want to copy token on text file every Git operations like my co-worker did, so this is why I create simple token manager.
+
+### Initial Goal
+
+The initial goal is just simple CLI CR~~U~~D who encrypt Github token and decrypt the token when I need without something like NodeJS and Python installed, just download the binary ➜ add to PATH ➜ done, and being able to move the database file from Linux to Windows and vice versa.
+
+That is why I choose C++ for this project, and I think just fun to learn more about C++.
+
+### Ingredients
+
+- C++ compiler ➜ GCC for Linux and MSVC for Windows
+- CMake ➜ [site](https://cmake.org/)
+- linuxdeployqt ➜ [repository](https://github.com/probonopd/linuxdeployqt)
+- SQLite ➜ [site](https://www.sqlite.org/index.html)
+- PicoSHA2 ➜ [repository](https://github.com/okdshin/PicoSHA2)
+- plusaes ➜ [repository](https://github.com/kkAyataka/plusaes)
+- argparse ➜ [repository](https://github.com/p-ranav/argparse)
+- tabulate ➜ [repository](https://github.com/p-ranav/tabulate)
+- clip ➜ [repository](https://github.com/dacap/clip)
+
+All ingredients pack into Git submodule except compiler, CMake, and linuxdeployqt.
+
+### Encryption
+
+Here some pseudo code in python syntax, just give you rough idea how I implement.
+
+```python
+token: str = "ghp_TOKEN"
+password: str = "very_secure_password"
+
+final_token: str = "GAH_FLAG_" + token # add flag to token for later decrypt check
+hash_password: list[int] = sha256(password) # convert password to array of number (0 - 255)
+
+# ENCRYPT
+
+encrypted_size: list[int] = [len(final_token)] # the aes_decrypt need original string length
+encrypted_token: list[int] = aes_encrypt(final_token, hash_password) # encrypt final_token with hash_password, resulting array of number 0 - 255
+
+final_encrypted_token: str = list_number_to_hex_string(encrypted_token + encrypted_size) # convert array number to hex string and store to database
+
+# DECRYPT
+
+list_number_token: list[int] = hex_string_to_list_number(final_encrypted_token)
+
+decrypted_size: int = list_number_token.pop()
+decrypted_token: str = aes_decrypt(list_number_token, hash_password, decrypted_size)
+
+if string_start_with(decrypted_token, "GAH_FLAG_"):
+    print(string_replace(decrypted_token, "GAH_FLAG_", ""))
+else:
+    print("password wrong")
+
+```
+
+Token format in database.
+
+```text
+
+┌────────────────────────┬────┬────┬────┬────┬────┬────┬────┬────┐
+│ Encrypted Token In Hex │ FF │ 00 │ 00 │ 00 │ 00 │ 00 │ 00 │ 00 │
+└────────────────────────┴────┴────┴────┴────┴────┴────┴────┴────┘
+                          ──────────────────────────────────────►
+                            Token length 8 bytes in 8-bit hex
+                                        Big-endian
+```
+
+You can see the C++ version ➜ [gah.cpp:223](https://github.com/anasrar/gah/blob/ee1e0de5975a7fa6cbf84694d47b0c929401a3b7/src/gah.cpp#L223).
+
+### Git Integration
+
+Now we have fully functional what the initial goal is, store the token and copy to clipboard when we need it.
+
+![Terminal Preview](/post_images/0.png "Terminal Preview")
+
+Did you know you can set username and token in Github remote or Github clone but only support for **HTTPS** protocol as far as I know, something like this.
+
+```bash
+# git clone
+git clone https://username:token@github.com/username/repository.git
+
+# git push
+git push https://username:token@github.com/username/repository.git branch
+
+# git pull
+git pull https://username:token@github.com/username/repository.git branch
+```
+
+With that you can create something like this.
+
+```python
+command: str = "git push https://" + username + ":" + token + "@" + remove_http(remote) + " " + branch;
+exec(command);
+```
+
+And the result when implemented.
+
+![Terminal Preview Push Command](/post_images/1.png "Terminal Preview Push Command")
+
+### Binary File
+
+In Windows is pretty easy to build and distribute the binary file into single exe since all library is a static library, Linux in another hand is hard, like Linus Torvalds say in **DebConf 14_ QA with Linus Torvalds talk** [[video](https://youtu.be/5PmHRSeA2c8?t=333) 05:33]
+
+> We basically don't make binaries for Linux. Why? Because binaries for Linux desktop applications is a major f*ing pain in the ass.
+
+Basically most Linux applications using shared library (you can call it dependency), and the library it self should be installed and compatible with the binary (the library version when the binary it's build).
+
+And I found that AppImage is the solution (Flatpak and Snap is also good, but I prefer using AppImage because it easy to understand), AppImage is a Linux format file allow to pack all shared library that you need into execute binary that self extract and container when it execute, more information on [https://appimage.org/](https://appimage.org/).
+
+linuxdeployqt allow to automatically pack all shared library that we need on binary file into single AppImage file, although linuxdeployqt mainly to generate AppImage for Qt application but it can use for general application, more information on [https://github.com/probonopd/linuxdeployqt](https://github.com/probonopd/linuxdeployqt).
+
+### Github Actions
+
+Now the final thing is Github Actions, let the Github Actions compile both for Linux and Windows and automatically create release and upload the binary file, here's how I do it ➜ [build_release.yml](https://github.com/anasrar/gah/blob/main/.github/workflows/build_release.yml), and also others automation for CI and PR test.
+
+**AND IT'S FREE** for public repository as far as I know.
+
+![It's Free Real Estate](https://c.tenor.com/sP4SQzZ4I1AAAAAM/minecraft-free-real-estate.gif "It's Free Real Estate")
+
+#### Action Flow
+
+```text
+┌───────────────┐
+│  Build Linux  ├───┐
+└───────────────┘   │   ┌────────────┐   ┌──────────────┐   ┌─────────┐
+                    ├──►│ Test Linux ├──►│ Test Windows ├──►│ Release │
+┌───────────────┐   │   └────────────┘   └──────────────┘   └─────────┘
+│ Build Windows ├───┘
+└───────────────┘
+```
+
+### Roadmap
+
+- Add more git command flags
+- Create bash auto completion
+
+### What I Learn
+
+- Use fixed width integer types for better portability and serialization ➜ [https://en.cppreference.com/w/c/types/integer](https://en.cppreference.com/w/c/types/integer).
+- Shared and static library.
+- CMake configuration.
+- AppImage structure ➜ [https://docs.appimage.org/packaging-guide/manual.html](https://docs.appimage.org/packaging-guide/manual.html).
+- Github actions.
+- Many more.
+
+### Conclusion
+
+It was fun learning C++, CMake, and AppImage in this project, the thing that bothering me is I'm too lazy to write any validation command before execute, resulting security concern when user input malicious string.
+
+But as long the initial goal is achieve, it's ok for me.
+
+Thank you so much for reading this post, feel free to contribute to this project  
+Project repository ➜ [https://github.com/anasrar/gah](https://github.com/anasrar/gah), have a nice day.
+
