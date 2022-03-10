@@ -193,6 +193,17 @@ const pre: React.FC = ({ children }) => {
 	);
 };
 
+const BlockQuote = styled.blockquote`
+	margin: 0 0 0.75rem 0;
+	padding: 1rem;
+	border-left: 0.5rem solid #fff;
+	border-radius: 0.4rem;
+	background: rgba(255, 255, 255, 0.1);
+`;
+const blockquote: React.FC = ({ children }) => (
+	<BlockQuote>{children}</BlockQuote>
+);
+
 const PostMDXComponent = {
 	h1,
 	h2,
@@ -209,6 +220,7 @@ const PostMDXComponent = {
 	li,
 
 	pre,
+	blockquote,
 };
 
 export default PostMDXComponent;
