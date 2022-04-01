@@ -1,0 +1,73 @@
+---
+title: electron-store with TypeScript Example
+date: 2022-04-01 00:00:00
+---
+
+> Simple data persistence for your Electron app or module - Save and load user preferences, app state, cache, etc.
+>
+> [electron-store](https://www.npmjs.com/package/electron-store)
+
+Below some example how to use [electron-store](https://www.npmjs.com/package/electron-store) in TypeScript and using Schema for validation.
+
+```ts
+import Store, { Schema } from 'electron-store';
+
+interface Dummy {
+  someObject: {
+    someString: string;
+  };
+  someNumber: number;
+  someEnumString: 'one' | 'two' | 'three';
+}
+
+const schema: Schema<Dummy> = {
+  someObject: {
+    type: 'object',
+    properties: {
+      someString: {
+        type: 'string',
+        default: 'string inside object',
+      },
+    },
+    default: {}, // electron-store need this for object type
+    required: ['someString'],
+  },
+  someNumber: {
+    type: 'number',
+    minimum: 1,
+    maximum: 100,
+    default: 50,
+  },
+  someEnumString: {
+    type: 'string',
+    enum: ['one', 'two', 'three'],
+    default: 'two',
+  },
+};
+
+const store = new Store<Dummy>({ schema });
+
+console.table(store.get('someObject'));
+// ┌────────────┬────────────────────────┐
+// │  (index)   │         Values         │
+// ├────────────┼────────────────────────┤
+// │ someString │ 'string inside object' │
+// └────────────┴────────────────────────┘
+console.log(store.get('someNumber'));
+// 50
+console.log(store.get('someEnumString'));
+// two
+try {
+  store.set('someNumber', 200);
+} catch (err) {
+  console.error(err);
+  // Error: Config schema violation: `someNumber` must be <= 100
+}
+
+try {
+  store.set('someEnumString', 'four');
+} catch (err) {
+  console.error(err);
+  // Error: Config schema violation: `someEnumString` must be equal to one of the allowed values
+}
+```
