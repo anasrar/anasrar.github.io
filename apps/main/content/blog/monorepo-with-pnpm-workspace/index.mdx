@@ -1,0 +1,437 @@
+---
+title: Monorepo with PNPM workspace
+date: 2022-12-23
+tags:
+  - Monorepo
+  - PNPM
+  - JavaScript
+  - Node.js
+authors: 
+  - Anas Rin
+ogImage:
+  svg:
+    width: 306
+    height: 144
+  annotations:
+    - type: path
+      d: "m 0 0 v 7.5 h 7.5 v -7.5 z m 8.25 0 v 7.5 h 7.498 v -7.5 z m 8.25 0 v 7.5 h 7.5 v -7.5 z m 0 8.25 v 7.5 h 7.5 v -7.5 z"
+      scale: 6
+      options:
+        stroke: "#f7a13f"
+        strokeWidth: 2
+        fill: "#f69220"
+        fillWeight: 4
+        hachureGap: 5
+
+    - type: path
+      d: "m 8.25 8.25 v 7.5 h 7.498 v -7.5 z m -8.25 8.25 v 7.5 h 7.5 v -7.5 z m 8.25 0 v 7.5 h 7.498 v -7.5 z m 8.25 0 v 7.5 h 7.5 v -7.5 z"
+      scale: 6
+      options:
+        stroke: "#dee2e6"
+        strokeWidth: 2
+        fill: "#adb5bd"
+        fillWeight: 4
+        hachureGap: 5
+
+    - type: path
+      x: 27
+      y: 0
+      d: "m 7 16.5 l -5 -3 l 5 -3 l 5 3 v 5.5 l -5 3 z m -5 -3 v 5.5 l 5 3 m 0 -5.455 l 5 -3.03 m 5 2.985 l -5 -3 l 5 -3 l 5 3 v 5.5 l -5 3 z m -5 2.5 l 5 3 m 0 -5.5 l 5 -3 m -10 0 v -5.5 l -5 -3 l 5 -3 l 5 3 v 5.5 m -10 -5.47 v 5.455 m 5 -2.485 l 5 -3"
+      scale: 6
+      options:
+        stroke: "#dee2e6"
+        strokeWidth: 3
+---
+
+## Monorepo ?
+
+Monorepo is single repository with many project or packages (library or modules), you can reuse code as package.
+
+<A href="//en.wikipedia.org/wiki/Monorepo" newTab>en.wikipedia.org/wiki/Monorepo</A> has good explaination for Monorepo including advantages and disadvantages.
+
+```yaml flowchart
+svg:
+  width: 10
+  height: 10
+  layoutCoord: "center"
+  nodeWidth: 90
+  nodeHeight: 40
+  nodeRadius: 12
+  nodeGap: 40
+  nodeOptions:
+    stroke: "#ffd43b"
+    strokeWidth: 3
+    fill: "#e67700"
+    fillStyle: "solid"
+  lineOptions:
+    strokeWidth: 4
+    stroke: "#4c6ef5"
+  fonts:
+    - url: "https://fonts.googleapis.com/css2?family=Architects+Daughter"
+  labelTextFill: "#fff"
+  labelTextFontSize: "22"
+  labelTextFontFamily: "Architects Daughter"
+data:
+  - id: "repo"
+  - id: "pkgs"
+    parent:
+      - "repo"
+  - id: "apps"
+    parent:
+      - "repo"
+  - id: "lib 3"
+    parent:
+      - "pkgs"
+    options:
+      stroke: "#da77f2"
+      fill: "#862e9c"
+  - id: "lib 2"
+    parent:
+      - "pkgs"
+    options:
+      stroke: "#da77f2"
+      fill: "#862e9c"
+  - id: "lib 1"
+    parent:
+      - "pkgs"
+    options:
+      stroke: "#da77f2"
+      fill: "#862e9c"
+  - id: "app 2"
+    parent:
+      - "apps"
+    options:
+      stroke: "#38d9a9"
+      fill: "#087f5b"
+  - id: "app 1"
+    parent:
+      - "apps"
+    options:
+      stroke: "#38d9a9"
+      fill: "#087f5b"
+```
+
+## Monorepo with PNPM workspace
+
+PNPM only need `pnpm-workspace.yaml` on your root repository alongside `packages.json`, with **array path** to directory in `packages` property.
+
+export const CodePNPMWorkspace = () => {
+  const code = `packages:
+    - "apps/*" # support glob pattern
+    - "packages/*"`
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            pnpm-workspace.yaml
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel withLineNumbers language="yaml" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodePNPMWorkspace />
+
+export const CodeDirectoryStrucutre = () => {
+  const code = `monorepo-example/
+├─ apps/
+├─ packages/
+├─ package.json
+└─ pnpm-workspace.yaml`
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Directory Structure
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeDirectoryStrucutre />
+
+**NOTE**: `apps/*` and `packages/*` is very popular monorepo structure, where `apps/*` is projects directory and `packages/*` is reusable code.
+
+All you need just create directory inside `packages` list, change directory to it, and do `pnpm init`.
+
+export const CodeCreatePackage  = () => {
+  const code = `mkdir -p packages/math-lib
+cd packages/math-lib
+pnpm init
+cd ../..
+mkdir -p apps/calculator
+cd apps/calculator
+pnpm init
+cd ../..`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeCreatePackage />
+
+### List all workspaces
+
+List all workspaces in JSON format.
+
+export const CodeListAllWorkspaces = () => {
+  const code = `pnpm m ls --depth -1 --json`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeListAllWorkspaces />
+
+### Command specific workspace
+
+Run command on specific workspace using flag `--filter` following with `name` in `package.json`.
+
+export const CodeRunCommandWorkspace = () => {
+  const code = `# Format
+pnpm --filter <workspace> <command>
+pnpm -F <workspace> <command> # short alias
+# Example
+pnpm --filter math-lib add lodash
+pnpm --filter math-lib add -D typescript @types/lodash
+pnpm --filter calculator run test
+# Support glob pattern
+pnpm --filter pkg* run test`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeRunCommandWorkspace />
+
+**NOTE**: PNPM use `name` property in `package.json` to filter workspace, so make sure ever `name` in `package.json` is unique.
+
+### Add local dependency
+
+Add local dependency using flag `--workspace` to <A href="//pnpm.io/cli/add#--workspaces" newTab>only adds the new dependency if it is found in the workspace</A>.
+
+export const CodeLocalDependency = () => {
+  const code = `# Example
+pnpm --filter calculator add math-lib --workspace`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeLocalDependency />
+
+## Project example
+
+export const CodeExampleProject0 = () => {
+  const code = `mkdir -p monorepo-example
+cd monorepo-example
+pnpm init
+mkdir -p packages/math-lib
+cd packages/math-lib
+pnpm init
+cd ../..
+mkdir -p apps/calculator
+cd apps/calculator
+pnpm init
+cd ../..
+touch packages/math-lib/index.js
+touch apps/calculator/index.js`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeExampleProject0 />
+
+export const CodeExampleProject1 = () => {
+  const code0 = `const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+
+module.exports = {
+  add,
+  subtract,
+};`;
+  const code1 = `const { add, subtract } = require("math-lib");
+
+console.log(\`9 + 10 = \${add(9, 10)}\`);
+console.log(\`26 - 9 = \${subtract(26, 9)}\`);`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0">
+            packages/math-lib/index.js
+          </Prism.Tab>
+          <Prism.Tab position="left" value="1">
+            apps/calculator/index.js
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="javascript" withLineNumbers value="0">
+          {code0}
+        </Prism.Panel>
+        <Prism.Panel language="javascript" withLineNumbers value="1">
+          {code1}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeExampleProject1 />
+
+export const CodeExampleProject2 = () => {
+  const code = `pnpm --filter calculator add math-lib --workspace`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeExampleProject2 />
+
+export const CodeExampleProject3 = () => {
+  const code0 = `{
+  "scripts": {
+    "start": "node index.js"
+  }
+}`;
+  const code1 = `{
+  "scripts": {
+    "calculator:start": "pnpm -F calculator run start"
+  }
+}`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0">
+            apps/calculator/package.json
+          </Prism.Tab>
+          <Prism.Tab position="left" value="1">
+            package.json
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="json" withLineNumbers value="0">
+          {code0}
+        </Prism.Panel>
+        <Prism.Panel language="json" withLineNumbers value="1">
+          {code1}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeExampleProject3 />
+
+export const CodeExampleProject4 = () => {
+  const code = `pnpm run calculator:start`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeExampleProject4 />
+
+![output calculator run start](/assets/blog/monorepo-with-pnpm-workspace/output.png)
+
+import { Prism } from "@mantine/prism";
+import { A } from "markdown";
