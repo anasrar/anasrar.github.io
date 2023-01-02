@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[441],{6441:function(n,t,e){e.r(t),e.d(t,{LinkedDataJSON:function(){return l}});var r=e(7458);let l=n=>{let{data:t}=n;return(0,r.jsx)("script",{type:"application/ld+json",dangerouslySetInnerHTML:{__html:JSON.stringify(t,null,2)}})}}}]);

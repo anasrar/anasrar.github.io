@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title><![CDATA[Anas Rin]]></title>
+        <description><![CDATA[Blog]]></description>
+        <link>https://anasrar.github.io/blog/</link>
+        <image>
+            <url>https://avatars.githubusercontent.com/u/38805204</url>
+            <title>Anas Rin</title>
+            <link>https://anasrar.github.io/blog/</link>
+        </image>
+        <generator>RSS for Node</generator>
+        <lastBuildDate>Mon, 02 Jan 2023 04:15:37 GMT</lastBuildDate>
+        <atom:link href="https://anasrar.github.io/rss/blog.xml" rel="self" type="application/rss+xml"/>
+        <copyright><![CDATA[CC BY 4.0]]></copyright>
+        <language><![CDATA[en-US]]></language>
+        <ttl>1440</ttl>
+        <item>
+            <title><![CDATA[Monorepo with PNPM workspace]]></title>
+            <description><![CDATA[ Monorepo ? Monorepo is single repository with many project or packages (library or modules), you can reuse code as package. en.wikipedia.org/wiki/Monorepo h...]]></description>
+            <link>https://anasrar.github.io/blog/monorepo-with-pnpm-workspace/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/monorepo-with-pnpm-workspace/</guid>
+            <category><![CDATA[Monorepo]]></category>
+            <category><![CDATA[PNPM]]></category>
+            <category><![CDATA[JavaScript]]></category>
+            <category><![CDATA[Node.js]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Fri, 23 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Monorepo dengan PNPM workspace]]></title>
+            <description><![CDATA[ Monorepo ? Monorepo adalah satu repository dengan banyak projek atau package (library atau module), anda bisa memakai kembali kode sabagai package. en.wikip...]]></description>
+            <link>https://anasrar.github.io/blog/monorepo-with-pnpm-workspace/id-ID/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/monorepo-with-pnpm-workspace/id-ID/</guid>
+            <category><![CDATA[Monorepo]]></category>
+            <category><![CDATA[PNPM]]></category>
+            <category><![CDATA[JavaScript]]></category>
+            <category><![CDATA[Node.js]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Fri, 23 Dec 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[How I create GitHub token manager]]></title>
+            <description><![CDATA[ TL;DR It's just some simple CRUD using SQLite and AES-CBC 128-bit with Git integration. GitHub token Back in December 2020, GitHub announce that start in Au...]]></description>
+            <link>https://anasrar.github.io/blog/how-i-create-github-token-manager/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/how-i-create-github-token-manager/</guid>
+            <category><![CDATA[GitHub]]></category>
+            <category><![CDATA[C++]]></category>
+            <category><![CDATA[Project]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Thu, 10 Mar 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[MDX components]]></title>
+            <description><![CDATA[ Testing out MDX components. Components Custom List export const DemoList = () => {   return (         }       >         Lorem ipsum dolor sit amet         L...]]></description>
+            <link>https://anasrar.github.io/blog/mdx-components/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/mdx-components/</guid>
+            <category><![CDATA[Next.js]]></category>
+            <category><![CDATA[TypeScript]]></category>
+            <category><![CDATA[Markdown]]></category>
+            <category><![CDATA[Blog]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Sun, 23 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Hello world and markdown test]]></title>
+            <description><![CDATA[ Hello world. Heading 2 Heading 3 Heading 4 Heading 5 Components Paragraphs Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neq...]]></description>
+            <link>https://anasrar.github.io/blog/hello-world-and-markdown-test/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/hello-world-and-markdown-test/</guid>
+            <category><![CDATA[Next.js]]></category>
+            <category><![CDATA[TypeScript]]></category>
+            <category><![CDATA[Markdown]]></category>
+            <category><![CDATA[Blog]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Sat, 22 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[こんにちは世界とマークダウンテスト]]></title>
+            <description><![CDATA[ こんにちは世界。 見出し 2 見出し 3 見出し 4 見出し 5 コンポーネント 段落 寿限無、寿限無。グーリンダイのポンポコピーのポンポコナーの、シューリンガンのグーリンダイ、寿限無、寿限無。五劫の擦り切れ。やぶら小路の藪柑子、食う寝る処に住む処。長久命の長助。海砂利水魚の。五劫の擦り切れ、グーリンダイのポン...]]></description>
+            <link>https://anasrar.github.io/blog/hello-world-and-markdown-test/ja-JP/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/hello-world-and-markdown-test/ja-JP/</guid>
+            <category><![CDATA[Next.js]]></category>
+            <category><![CDATA[TypeScript]]></category>
+            <category><![CDATA[Markdown]]></category>
+            <category><![CDATA[Blog]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Sat, 22 Jan 2022 00:00:00 GMT</pubDate>
+        </item>
+    </channel>
+</rss>

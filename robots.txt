@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://anasrar.github.io
+
+# Sitemaps
+Sitemap: https://anasrar.github.io/sitemap.xml
