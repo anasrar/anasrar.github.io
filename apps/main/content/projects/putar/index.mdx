@@ -1,0 +1,52 @@
+---
+title: "Putar - 360° Video/Image viewer"
+date: 2021-01-02
+stack:
+  - TypeScript
+  - React
+  - Three.js
+  - react-three-fiber
+  - Zustand
+  - Mantine
+  - Vite
+  - Electron
+repository: "//github.com/anasrar/putar"
+links:
+  - label: "Website"
+    link: "//anasrar.github.io/putar/"
+
+  - label: "Repository"
+    link: "//github.com/anasrar/putar"
+---
+
+Simple web app to play 360° video/image.
+
+## Information
+
+### Background
+
+Back then Facebook has support for 360 image and you can view it direcly, because of that I really like render 360 image (mostly just meme) from Blender and upload it on Facebook, and then YouTube also support 360 video, but I don't like to upload just to view 360 video/image, 360 viewer aplication was limited out there.
+
+### Stack
+
+#### react-three-fiber
+
+<A href="//github.com/pmndrs/react-three-fiber" newTab>react-three-fiber</A> is <A href="//github.com/mrdoob/three.js/" newTab={true}>Three.js</A> wrapper for <A href="https://github.com/facebook/react">React</A>, component based for scene and fit nice for multiple projections.
+
+#### Zustand
+
+<A href="//github.com/pmndrs/zustand" newTab>Zustand</A> is a easy and straight forward state manager, really like it.
+
+#### Mantine
+
+<A href="//github.com/mantinedev/mantine/" newTab>Mantine</A> is a beautiful <A href="https://github.com/facebook/react">React</A> components library.
+
+#### Vite
+
+<A href="//github.com/vitejs/vite" newTab>Vite</A> is fast code bundler with hot reload, make it easy to develop front-end stuff.
+
+#### Electron
+
+Open file larger than 600MB it might make time to load, this is why using <A href="https://github.com/electron/electron" newTab={true}>Electron</A> to load local file using `file://` protocol was the right choice.
+
+import { A } from "markdown";

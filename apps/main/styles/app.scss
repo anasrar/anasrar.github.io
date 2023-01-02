@@ -1,0 +1,16 @@
+@import "../fonts//KaTeX/katex.min";
+@import "../fonts/OpenSauceTwo/font";
+@import "../fonts/ArchitectsDaughter/font";
+@import "../fonts/JetBrainsMono/font";
+
+#__next {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: stretch;
+	align-items: stretch;
+	min-height: 100vh;
+
+	> footer {
+		margin-top: auto;
+	}
+}

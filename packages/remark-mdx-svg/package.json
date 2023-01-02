@@ -1,0 +1,41 @@
+{
+	"name": "remark-mdx-svg",
+	"version": "0.1.0",
+	"description": "",
+	"type": "module",
+	"types": "./dist/main.d.ts",
+	"main": "dist/main.js",
+	"scripts": {
+		"build": "tsc"
+	},
+	"keywords": [],
+	"author": "Anas Rin <mynameanasrar@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/d3": "^7.4.0",
+		"@types/js-yaml": "^4.0.5",
+		"@types/jsdom": "^20.0.1",
+		"@types/seedrandom": "^3.0.4",
+		"@typescript-eslint/eslint-plugin": "^5.47.1",
+		"@typescript-eslint/parser": "^5.47.1",
+		"eslint": "^8.31.0",
+		"typescript": "4.8.4"
+	},
+	"dependencies": {
+		"d3": "^7.8.0",
+		"d3-dag": "^0.11.5",
+		"html-react-parser": "^3.0.6",
+		"html-to-jsx-transform": "^1.0.2",
+		"js-yaml": "^4.1.0",
+		"jsdom": "^20.0.3",
+		"mdast-util-from-markdown": "^1.2.0",
+		"mdast-util-mdx": "^2.0.0",
+		"mdast-util-to-markdown": "^1.4.0",
+		"micromark-extension-mdxjs": "^1.0.0",
+		"roughjs": "^4.5.2",
+		"seedrandom": "^3.0.5",
+		"svgpath": "^2.6.0",
+		"unist-util-visit": "^4.1.1",
+		"zod": "^3.20.2"
+	}
+}

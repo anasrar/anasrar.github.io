@@ -1,0 +1,260 @@
+---
+title: MDX components
+date: 2022-1-23
+lastmod: 2022-1-26
+tags: 
+  - Next.js
+  - TypeScript
+  - Markdown
+  - Blog
+authors: 
+  - Anas Rin
+ogImage:
+  svg:
+    width: 144
+    height: 144
+  annotations:
+    - type: path
+      d: "M.79 7.12h22.42c.436 0 .79.355.79.792v8.176c0 .436-.354.79-.79.79H.79a.79.79 0 0 1-.79-.79V7.912a.79.79 0 0 1 .79-.791V7.12Zm2.507 7.605v-3.122l1.89 1.89L7.12 11.56v3.122h1.055v-5.67l-2.99 2.99L2.24 9.056v5.67h1.055v-.001Zm8.44-1.845-1.474-1.473-.746.746 2.747 2.747 2.745-2.747-.746-.746-1.473 1.473v-4h-1.054v4Zm10.041.987-2.175-2.175 2.22-2.22-.746-.746-2.22 2.22-2.22-2.22-.747.746 2.22 2.22-2.176 2.177.746.746 2.177-2.177 2.176 2.175.745-.746Z"
+      scale: 6
+      options:
+        stroke: "#dee2e6"
+        strokeWidth: 2
+        fill: "#adb5bd"
+        fillWeight: 4
+        hachureGap: 5
+---
+
+Testing out MDX components.
+
+## Components
+
+### Custom List
+
+export const DemoList = () => {
+  return (
+    <>
+      <List mb="md"
+        withPadding
+        spacing="xs"
+        center
+        icon={
+          <ThemeIcon color="teal" size={24} radius="xl">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-check" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M5 12l5 5l10 -10"></path>
+            </svg>
+          </ThemeIcon>
+        }
+      >
+        <List.Item>Lorem ipsum dolor sit amet</List.Item>
+        <List.Item>Lorem ipsum dolor sit amet</List.Item>
+        <List.Item>Lorem ipsum dolor sit amet</List.Item>
+        <List.Item>Lorem ipsum dolor sit amet</List.Item>
+        <List.Item>Lorem ipsum dolor sit amet</List.Item>
+      </List>
+    </>
+  );
+}
+
+<DemoList />
+
+### Embed Video
+
+export const DemoEmbed = () => {
+  return (
+    <AspectRatio ratio={16 / 9} mb="md">
+      <iframe
+        src="//www.youtube.com/embed/HgzGwKwLmgM"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        loading="lazy"
+      />
+    </AspectRatio>
+  );
+}
+
+<DemoEmbed />
+
+### KaTeX Math
+
+Dot product $\bold{a}$ and $\bold{b}$.
+
+$$
+\bold{a}\cdot\bold{b} = \displaystyle\sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \cdot\cdot\cdot + a_n b_n
+$$
+
+Rotate 2D vector.
+
+$$
+\begin{aligned}
+R\bold{v} & = \begin{bmatrix}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix} \\
+& = \begin{bmatrix}
+x \cos \theta - y \sin \theta \\
+x \sin \theta + y \cos \theta
+\end{bmatrix}
+\end{aligned}
+$$
+
+Derivative.
+
+$$
+\begin{aligned}
+\frac{df}{dx} & = \lim_{\Delta x \to 0}\frac{f(x+\Delta x)-f(x)}{\Delta x} \\
+& = \lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \\
+& = \lim_{\Delta x \to 0}\frac{\Delta y}{\Delta x}
+\end{aligned}
+$$
+
+### SVG
+
+#### Pie
+
+```yaml pie
+svg:
+  fonts:
+    - url: "https://fonts.googleapis.com/css2?family=Architects+Daughter"
+  pieStartAngle: 2.3
+  pieLabelGap: 30
+  labelGap: 20
+  labelBoxSize: 16
+  labelBoxOptions:
+    strokeWidth: 2.5
+  labelTextFontWeight: "700"
+  labelTextFontSize: "20"
+  labelTextFontFamily: "Architects Daughter, sans-serif"
+data:
+  - label: "Sky"
+    value: 75
+    options: 
+      strokeWidth: 4
+      fill: "#4c6ef5"
+      fillStyle: "solid"
+
+  - label: "Shady side of pyramid"
+    value: 5
+    options: 
+      strokeWidth: 4
+      fill: "#f76707"
+      fillStyle: "solid"
+
+  - label: "Sunny side of pyramid"
+    value: 20
+    options: 
+      strokeWidth: 4
+      fill: "#ffe066"
+      fillStyle: "solid"
+```
+
+#### Flowchart
+
+```yaml flowchart
+svg:
+  width: 10
+  height: 10
+  layoutCoord: "center"
+  nodeWidth: 90
+  nodeHeight: 40
+  nodeRadius: 12
+  nodeGap: 40
+  nodeOptions:
+    stroke: "#748ffc"
+    strokeWidth: 4
+    fill: "#364fc7"
+    fillStyle: "solid"
+  lineOptions:
+    strokeWidth: 4
+    stroke: "#364fc7"
+  fonts:
+    - url: "https://fonts.googleapis.com/css2?family=Architects+Daughter"
+  labelTextFill: "#fff"
+  labelTextFontSize: "22"
+  labelTextFontFamily: "Architects Daughter"
+data:
+  - id: "start"
+    options:
+      stroke: "#a9e34b"
+      fill: "#5c940d"
+
+  - id: "if"
+    parent:
+      - "start"
+    options:
+      stroke: "#ffd43b"
+      fill: "#e67700"
+
+  - id: "false"
+    parent:
+      - "if"
+
+  - id: "true"
+    parent:
+      - "if"
+
+  - id: "stop"
+    parent:
+      - "true"
+      - "false"
+    options:
+      stroke: "#ff8787"
+      fill: "#c92a2a"
+```
+
+### Syntax Highlighter
+
+export const DemoCodeCSS = `*, *::before, *::after {
+  box-sizing: border-box;
+}`;
+
+export const DemoCodeReact = `import { Button } from "@mantine/core";
+
+function Demo() {
+  return <Button>Hello</Button>
+}`
+
+export const DemoCodePrism = () => {
+  const [lineNumbers, setLineNumber] = useState(true);
+
+  return (
+    <>
+      <Stack spacing="xl" mb="md">
+        <Group spacing="sm">
+          <Switch checked={lineNumbers} onChange={(event) => setLineNumber(event.currentTarget.checked)} label="Line Numbers" color="indigo" />
+        </Group>
+        <Prism withLineNumbers={lineNumbers} language="tsx">{DemoCodeReact}</Prism>
+      </Stack>
+
+      <Prism.Tabs mb="md" defaultValue="styles.css">
+        <Prism.TabsList>
+          <Prism.Tab value="styles.css">
+            styles.css
+          </Prism.Tab>
+          <Prism.Tab value="component.tsx">
+            component.tsx
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel withLineNumbers={lineNumbers} language="css" value="styles.css">
+          {DemoCodeCSS}
+        </Prism.Panel>
+        <Prism.Panel withLineNumbers={lineNumbers} language="tsx" value="component.tsx">
+          {DemoCodeReact}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<DemoCodePrism />
+
+import { useState } from "react";
+import { AspectRatio, Group, List, Stack, Switch, ThemeIcon } from "@mantine/core";
+import { Prism } from "@mantine/prism";

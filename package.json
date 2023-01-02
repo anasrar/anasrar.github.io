@@ -1,0 +1,19 @@
+{
+	"name": "anasrin",
+	"version": "0.1.0",
+	"description": "",
+	"private": true,
+	"scripts": {
+		"main:dev": "pnpm -F main dev",
+		"main:build": "pnpm -F main build",
+		"main:export": "pnpm -F main export",
+		"main:lint": "pnpm -F main lint",
+		"main:scripts:og-image": "pnpm -F main scripts:og-image",
+		"main:scripts:rss:blog": "pnpm -F main scripts:rss:blog",
+		"main:sitemap": "pnpm -F main sitemap",
+		"remark-svg:build": "pnpm -F remark-mdx-svg build"
+	},
+	"keywords": [],
+	"author": "Anas Rin <mynameanasrar@gmail.com>",
+	"license": "MIT"
+}
