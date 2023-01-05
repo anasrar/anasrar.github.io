@@ -9,11 +9,35 @@
             <link>https://anasrar.github.io/blog/</link>
         </image>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Mon, 02 Jan 2023 04:15:37 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 05 Jan 2023 08:49:41 GMT</lastBuildDate>
         <atom:link href="https://anasrar.github.io/rss/blog.xml" rel="self" type="application/rss+xml"/>
         <copyright><![CDATA[CC BY 4.0]]></copyright>
         <language><![CDATA[en-US]]></language>
         <ttl>1440</ttl>
+        <item>
+            <title><![CDATA[Generate Image From HTML Using Satori and Resvg]]></title>
+            <description><![CDATA[ TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and...]]></description>
+            <link>https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/</guid>
+            <category><![CDATA[JavaScript]]></category>
+            <category><![CDATA[Next.js]]></category>
+            <category><![CDATA[Node.js]]></category>
+            <category><![CDATA[Deno]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Thu, 05 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Membuat Gambar Dari HTML Menggunakan Satori dan Resvg]]></title>
+            <description><![CDATA[ TL;DR Membuat gambar dari HTML menggunakan github.com/vercel/satori (untuk convert HTML ke SVG) dan github.com/yisibl/resvg-js (untuk convert SVG ke PNG) di...]]></description>
+            <link>https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/id-ID/</link>
+            <guid isPermaLink="true">https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/id-ID/</guid>
+            <category><![CDATA[JavaScript]]></category>
+            <category><![CDATA[Next.js]]></category>
+            <category><![CDATA[Node.js]]></category>
+            <category><![CDATA[Deno]]></category>
+            <dc:creator><![CDATA[Anas Rin]]></dc:creator>
+            <pubDate>Thu, 05 Jan 2023 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Monorepo with PNPM workspace]]></title>
             <description><![CDATA[ Monorepo ? Monorepo is single repository with many project or packages (library or modules), you can reuse code as package. en.wikipedia.org/wiki/Monorepo h...]]></description>
