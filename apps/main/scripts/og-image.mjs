@@ -90,7 +90,13 @@ for (const post of posts) {
 		],
 	});
 
-	const resvg = new Resvg(svg);
+	const resvg = new Resvg(svg, {
+		fitTo: {
+			mode: "width",
+			value: 1200,
+		},
+		dpi: 2,
+	});
 	const pngData = resvg.render();
 	const pngBuffer = pngData.asPng();
 
