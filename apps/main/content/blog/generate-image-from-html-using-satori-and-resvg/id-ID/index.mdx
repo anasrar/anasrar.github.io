@@ -1,0 +1,443 @@
+---
+title: Membuat Gambar Dari HTML Menggunakan Satori dan Resvg
+date: 2023-01-05
+tags:
+  - JavaScript
+  - Next.js
+  - Node.js
+  - Deno
+authors: 
+  - Anas Rin
+ogImage:
+  svg:
+    width: 306
+    height: 144
+  annotations:
+    - type: path
+      d: "M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"
+      scale: 6
+      options:
+        stroke: "#f8674a"
+        strokeWidth: 2
+        fill: "#e34f26"
+        fillWeight: 4
+        hachureGap: 5
+
+    - type: path
+      x: 27
+      y: 0
+      d: "M12 0c-1.497 0-2.749.965-3.248 2.17a3.45 3.45 0 00-.238 1.416 3.459 3.459 0 00-1.168-.834 3.508 3.508 0 00-1.463-.256 3.513 3.513 0 00-2.367 1.02c-1.06 1.058-1.263 2.625-.764 3.83.179.432.47.82.82 1.154a3.49 3.49 0 00-1.402.252C.965 9.251 0 10.502 0 12c0 1.497.965 2.749 2.17 3.248.437.181.924.25 1.414.236-.357.338-.65.732-.832 1.17-.499 1.205-.295 2.772.764 3.83 1.058 1.06 2.625 1.263 3.83.764.437-.181.83-.476 1.168-.832-.014.49.057.977.238 1.414C9.251 23.035 10.502 24 12 24c1.497 0 2.749-.965 3.248-2.17a3.45 3.45 0 00.238-1.416c.338.356.73.653 1.168.834 1.205.499 2.772.295 3.83-.764 1.06-1.058 1.263-2.625.764-3.83a3.459 3.459 0 00-.834-1.168 3.45 3.45 0 001.416-.238C23.035 14.749 24 13.498 24 12c0-1.497-.965-2.749-2.17-3.248a3.455 3.455 0 00-1.414-.236c.357-.338.65-.732.832-1.17.499-1.205.295-2.772-.764-3.83a3.513 3.513 0 00-2.367-1.02 3.508 3.508 0 00-1.463.256c-.437.181-.83.475-1.168.832a3.45 3.45 0 00-.238-1.414C14.749.965 13.498 0 12 0zm-.041 1.613a1.902 1.902 0 011.387 3.246v3.893L16.098 6A1.902 1.902 0 1118 7.902l-2.752 2.752h3.893a1.902 1.902 0 110 2.692h-3.893L18 16.098A1.902 1.902 0 1116.098 18l-2.752-2.752v3.893a1.902 1.902 0 11-2.692 0v-3.893L7.902 18A1.902 1.902 0 116 16.098l2.752-2.752H4.859a1.902 1.902 0 110-2.692h3.893L6 7.902A1.902 1.902 0 117.902 6l2.752 2.752V4.859a1.902 1.902 0 011.305-3.246z"
+      scale: 6
+      options:
+        stroke: "#d89100"
+        strokeWidth: 2
+        fill: "#FFB13B"
+        fillWeight: 4
+        hachureGap: 5
+---
+
+## TL;DR
+
+Membuat gambar dari HTML menggunakan <A href="//github.com/vercel/satori/" newTab>github.com/vercel/satori</A> (untuk convert HTML ke SVG) dan <A href="//github.com/yisibl/resvg-js" newTab>github.com/yisibl/resvg-js</A> (untuk convert SVG ke PNG) di Node.js dan Deno.
+
+Contoh: <A href="//github.com/anasrar/satori-resvg" newTab>github.com/anasrar/satori-resvg</A>.
+
+## Latar belakang
+
+Saat <A href="https://vercel.com/blog/introducing-vercel-og-image-generation-fast-dynamic-social-card-images" newTab>Vercel Introducing OG Image Generation: Fast, dynamic social card images at the Edge</A>, dan sedikit bermain dengan <A href="//www.npmjs.com/package/@vercel/og" newTab>@vercel/og</A> dan menyadari bahwa hanya berkerja dengan <A href="https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation#limits" newTab>Edge Runtime</A> dan Saya ingin membuat script yang membuat gambar sepenuhnya statik.
+
+Vercel menjelaskan <A href="//vercel.com/docs/concepts/functions/edge-functions/og-image-generation#technical-details">teknikal detail</A> dibelakang <A href="//www.npmjs.com/package/@vercel/og" newTab>@vercel/og</A>, yang mana menggunakan <A href="//github.com/vercel/satori/" newTab>github.com/vercel/satori</A> dan <A href="//github.com/RazrFalcon/resvg" newTab>github.com/RazrFalcon/resvg</A>.
+
+Sekarang mari buat dari awal menggunakan Node.js and Deno.
+
+## Dependencies
+
+### Satori
+<A href="//github.com/vercel/satori/" newTab>Satori</A> convert HTML ke SVG, automatically wrap teks dan menggunakan <A href="//yogalayout.com/" newTab>Yoga Layout</A> sebagai layout engine.
+
+#### Kelebihan
+
+export const SatoriPros = () => {
+  return (
+    <>
+      <List mb="md"
+        withPadding
+        spacing="xs"
+        center
+        icon={
+          <ThemeIcon variant="light" color="teal" size={24} radius="xl">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-thumb-up" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3"></path>
+            </svg>
+          </ThemeIcon>
+        }
+      >
+        <List.Item>Mendukung sintak JSX.</List.Item>
+        <List.Item>Mendukung gamber (URL dan base64).</List.Item>
+        <List.Item>Automatically wrap teks.</List.Item>
+        <List.Item>CSS Flexbox.</List.Item>
+      </List>
+    </>
+  );
+}
+
+<SatoriPros />
+
+#### Kekurangan
+
+export const SatoriCons = () => {
+  return (
+    <>
+      <List mb="md"
+        withPadding
+        spacing="xs"
+        center
+        icon={
+          <ThemeIcon variant="light" color="red" size={24} radius="xl">
+            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-thumb-down" width={16} height={16} viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">
+               <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+               <path d="M7 13v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v7a1 1 0 0 0 1 1h3a4 4 0 0 1 4 4v1a2 2 0 0 0 4 0v-5h3a2 2 0 0 0 2 -2l-1 -5a2 3 0 0 0 -2 -2h-7a3 3 0 0 0 -3 3"></path>
+            </svg>
+          </ThemeIcon>
+        }
+      >
+        <List.Item>Hanya mendukung JSX dan React Node.</List.Item>
+        <List.Item>Explicit inline style.</List.Item>
+        <List.Item>Text menjadi path.</List.Item>
+        <List.Item>Fitur CSS tidak sepenuhnya terimplementasi.</List.Item>
+      </List>
+    </>
+  );
+}
+
+<SatoriCons />
+
+### Satori-html
+
+<A href="//github.com/natemoo-re/satori-html" newTab>Satori-html</A> convert HTML ke React Node, ini karena <A href="//github.com/vercel/satori/" newTab>Satori</A> hanya mendukung React node object setidaknya untuk Node.js.
+
+### Resvg-js
+
+<A href="//github.com/yisibl/resvg-js" newTab>Resvg-js</A> convert SVG ke PNG, Rust-Node binding untuk <A href="//github.com/RazrFalcon/resvg" newTab>github.com/RazrFalcon/resvg</A>.
+
+### Victor Mono
+
+<A href="//github.com/rubjo/victor-mono" newTab>Victor mono</A> adalah font yang akan kita gunakan karena Satori perlu setidaknya 1 font sebagai default font.
+
+## Flow
+
+```yaml flowchart
+svg:
+  width: 10
+  height: 10
+  layoutCoord: "center"
+  nodeWidth: 90
+  nodeHeight: 40
+  nodeRadius: 12
+  nodeGap: 40
+  nodeOptions:
+    stroke: "#748ffc"
+    strokeWidth: 4
+    fill: "#364fc7"
+    fillStyle: "solid"
+  lineOptions:
+    strokeWidth: 4
+    stroke: "#364fc7"
+  fonts:
+    - url: "https://fonts.googleapis.com/css2?family=Architects+Daughter"
+  labelTextFill: "#fff"
+  labelTextFontSize: "22"
+  labelTextFontFamily: "Architects Daughter"
+data:
+  - id: "HTML"
+
+  - id: "Satori"
+    parent:
+      - "HTML"
+
+  - id: "Resvg"
+    parent:
+      - "Satori"
+
+  - id: "PNG"
+    parent:
+      - "Resvg"
+```
+
+## Node.js
+
+Dicoba pada `node v19.0.1`.
+
+export const CodeNodeInstallDependencies= () => {
+  const code = `mkdir node-image
+cd node-image
+pnpm init
+pnpm add satori@0.0.44 satori-html@0.3.2 @resvg/resvg-js@2.2.0
+touch main.mjs`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeNodeInstallDependencies />
+
+export const CodeNodeMain = () => {
+  const code = `import { readFile, writeFile } from "node:fs/promises";
+import { html } from "satori-html";
+import satori from "satori";
+import { Resvg } from "@resvg/resvg-js";
+
+const template = html(\`
+<div style="display: flex; flex-flow: column nowrap; align-items: stretch; width: 600px; height: 400px; backgroundImage: linear-gradient(to right, #0f0c29, #302b63, #24243e); color: #000;">
+  <div style="display: flex; flex: 1 0; flex-flow: row nowrap; justify-content: center; align-items: center;">
+    <img style="border: 8px solid rgba(255, 255, 255, 0.2); border-radius: 50%;" src="https://placeimg.com/240/240/animals" alt="animals" />
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; margin: 6px; padding: 12px; border-radius: 4px; background: rgba(255, 255, 255, 0.2); color: #fff; font-size: 22px;">
+    The quick brown fox jumps over the lazy dog.
+  </div>
+</div>
+\`);
+
+// convert html to svg
+const svg = await satori(template, {
+  width: 600,
+  height: 400,
+  fonts: [
+    {
+      name: "VictorMono",
+      data: await readFile("./VictorMono-Bold.ttf"),
+      weight: 700,
+      style: "normal",
+    },
+  ],
+});
+
+// render png
+const resvg = new Resvg(svg, {
+  background: "rgba(238, 235, 230, .9)",
+});
+const pngData = resvg.render();
+const pngBuffer = pngData.asPng();
+
+await writeFile("./output.png", pngBuffer);`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            main.mjs
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="javascript" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeNodeMain />
+
+export const CodeNodeRun = () => {
+  const code = `node main.mjs`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeNodeRun />
+
+### Output
+
+![node output with cat the middle and caption the quick brown fox jumps over the lazy dog](/assets/blog/generate-image-from-html-using-satori-and-resvg/node_output.png)
+
+## Deno
+
+Dicoba pada `deno 1.29.1`.
+
+export const CodeDenoInstallDependencies= () => {
+  const code = `mkdir deno-image
+cd deno-image
+touch main.tsx`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeDenoInstallDependencies />
+
+export const CodeDenoMain = () => {
+  const code = `import React from "https://esm.sh/react@18.2.0";
+import satori, { init } from "npm:satori@0.0.44/wasm";
+import initYoga from "npm:yoga-wasm-web@0.2.0";
+import { Resvg } from "npm:@resvg/resvg-js@2.2.0";
+import cacheDir from "https://deno.land/x/cache_dir@0.2.0/mod.ts";
+
+const wasm = await Deno.readFile(
+  \`\${cacheDir()}/deno/npm/registry.npmjs.org/yoga-wasm-web/0.2.0/dist/yoga.wasm\`,
+);
+const yoga =
+  await (initYoga as unknown as (wasm: Uint8Array) => Promise<unknown>)(wasm);
+init(yoga);
+
+const template = (
+  <div
+    style={{
+      display: "flex",
+      flexFlow: "column nowrap",
+      alignItems: "stretch",
+      width: "600px",
+      height: "400px",
+      backgroundImage: "linear-gradient(to top, #7028e4 0%, #e5b2ca 100%)",
+      color: "#000",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flex: "1 0",
+        flexFlow: "row nowrap",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <img
+        style={{
+          border: "8px solid rgba(255, 255, 255, 0.2)",
+          borderRadius: "50%",
+        }}
+        src="https://placeimg.com/240/240/animals"
+        alt="animals"
+      />
+    </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "6px",
+        padding: "12px",
+        borderRadius: "4px",
+        background: "rgba(255, 255, 255, 0.2)",
+        color: "#fff",
+        fontSize: "22px",
+      }}
+    >
+      The quick brown fox jumps over the lazy dog.
+    </div>
+  </div>
+);
+
+// convert html to svg
+const svg = await satori(
+  template,
+  {
+    width: 600,
+    height: 400,
+    fonts: [
+      {
+        name: "VictorMono",
+        data: await Deno.readFile("./VictorMono-Bold.ttf"),
+        weight: 700,
+        style: "normal",
+      },
+    ],
+  },
+);
+
+// render png
+const resvg = new Resvg(svg, {
+  background: "rgba(238, 235, 230, .9)",
+});
+const pngData = resvg.render();
+const pngBuffer = pngData.asPng();
+
+await Deno.writeFile("./output.png", pngBuffer);
+
+// ffi block, need to force exit
+Deno.exit(0);`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            main.tsx
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="tsx" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeDenoMain />
+
+export const CodeDenoRun = () => {
+  const code = `deno run --unstable --allow-env --allow-ffi --allow-net --allow-read --allow-write main.tsx`;
+
+  return (
+    <>
+      <Prism.Tabs mb="md" defaultValue="0">
+        <Prism.TabsList grow>
+          <Prism.Tab position="left" value="0" style={{justifyContent: "flex-start"}}>
+            Commands
+          </Prism.Tab>
+        </Prism.TabsList>
+        <Prism.Panel language="bash" value="0">
+          {code}
+        </Prism.Panel>
+      </Prism.Tabs>
+    </>
+  );
+}
+
+<CodeDenoRun />
+
+### Output
+
+![deno output with cat the middle and caption the quick brown fox jumps over the lazy dog](/assets/blog/generate-image-from-html-using-satori-and-resvg/deno_output.png)
+
+import { List, ThemeIcon } from "@mantine/core";
+import { Prism } from "@mantine/prism";
+import { A } from "markdown";
