@@ -16,7 +16,7 @@ import { IconCheck, IconLink } from "@tabler/icons";
 
 export const P: FC<PropsWithChildren> = ({ children }) => {
 	return (
-		<Text component="p" mt={0} mb="md" size="md">
+		<Text component="p" mt={0} mb="lg" size="md">
 			{children}
 		</Text>
 	);
@@ -73,7 +73,7 @@ export const H: FC<PropsWithChildren<{ level?: TitleOrder; id?: string }>> = ({
 	const pathname = usePathname();
 
 	return (
-		<Group position="apart" spacing="md" mb="md">
+		<Group position="apart" spacing="md" mb="lg">
 			<Title order={level} id={id} className={classes.scrollOffset}>
 				{children}
 			</Title>

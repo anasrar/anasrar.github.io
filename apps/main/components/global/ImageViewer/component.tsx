@@ -4,7 +4,7 @@ import { Group, Image } from "@mantine/core";
 export const ImageViewer: FC<HTMLProps<HTMLImageElement>> = ({ src, alt }) => {
 	return (
 		<>
-			<Group position="center" mb="md">
+			<Group position="center" mb="lg">
 				<Image
 					src={src}
 					alt={alt}

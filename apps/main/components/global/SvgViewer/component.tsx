@@ -54,7 +54,7 @@ export const SvgViewer: FC<PropsWithChildren> = ({ children }) => {
 		};
 
 	return (
-		<Group position="center" mb="md" style={{ position: "relative" }}>
+		<Group position="center" mb="lg" style={{ position: "relative" }}>
 			<Group
 				spacing="xs"
 				style={{

@@ -47,14 +47,14 @@ const CustomP: FC<PropsWithChildren> = ({ children }) => {
 				}
 			default:
 				return (
-					<Text component="p" mt={0} mb="md" size="md">
+					<Text component="p" mt={0} mb="lg" size="md">
 						{children}
 					</Text>
 				);
 		}
 	} else {
 		return (
-			<Text component="p" mt={0} mb="md" size="md">
+			<Text component="p" mt={0} mb="lg" size="md">
 				{children}
 			</Text>
 		);
@@ -63,7 +63,7 @@ const CustomP: FC<PropsWithChildren> = ({ children }) => {
 
 const CustomPre: FC<HTMLProps<HTMLPreElement>> = ({ children }) => {
 	return (
-		<Code block mb="md">
+		<Code block mb="lg">
 			{children}
 		</Code>
 	);
@@ -79,7 +79,7 @@ const createHeading = (level: TitleOrder) => {
 		const pathname = usePathname();
 
 		return (
-			<Group position="apart" spacing="md" mb="md">
+			<Group position="apart" spacing="md" mb="lg">
 				<Title order={level} id={id} className={classes.scrollOffset}>
 					{children}
 				</Title>
@@ -121,14 +121,14 @@ const UL: FC<HTMLProps<HTMLUListElement>> = ({
 	...props
 }) => {
 	return className === "contains-task-list" ? (
-		<List type="unordered" listStyleType="none" mt="xs" mb="md" withPadding>
+		<List type="unordered" listStyleType="none" mt="xs" mb="lg" withPadding>
 			{children}
 		</List>
 	) : (
 		<List
 			type="unordered"
 			mt="xs"
-			mb="md"
+			mb="lg"
 			withPadding
 			className={className}
 			{...props}
@@ -140,7 +140,7 @@ const UL: FC<HTMLProps<HTMLUListElement>> = ({
 
 const OL: FC<HTMLProps<HTMLOListElement>> = ({ children }) => {
 	return (
-		<List type="ordered" mt="xs" mb="md" withPadding>
+		<List type="ordered" mt="xs" mb="lg" withPadding>
 			{children}
 		</List>
 	);
@@ -191,7 +191,7 @@ const CustomTable: FC<HTMLProps<HTMLTableElement>> = ({
 			highlightOnHover
 			withBorder
 			withColumnBorders
-			mb="md"
+			mb="lg"
 			{...props}
 		>
 			{children}

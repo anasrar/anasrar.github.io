@@ -34,7 +34,7 @@ Testing out MDX components.
 export const DemoList = () => {
   return (
     <>
-      <List mb="md"
+      <List mb="lg"
         withPadding
         spacing="xs"
         center
@@ -63,7 +63,7 @@ export const DemoList = () => {
 
 export const DemoEmbed = () => {
   return (
-    <AspectRatio ratio={16 / 9} mb="md">
+    <AspectRatio ratio={16 / 9} mb="lg">
       <iframe
         src="//www.youtube.com/embed/HgzGwKwLmgM"
         title="YouTube video player"
@@ -226,14 +226,14 @@ export const DemoCodePrism = () => {
 
   return (
     <>
-      <Stack spacing="xl" mb="md">
+      <Stack spacing="xl" mb="lg">
         <Group spacing="sm">
           <Switch checked={lineNumbers} onChange={(event) => setLineNumber(event.currentTarget.checked)} label="Line Numbers" color="indigo" />
         </Group>
         <Prism withLineNumbers={lineNumbers} language="tsx">{DemoCodeReact}</Prism>
       </Stack>
 
-      <Prism.Tabs mb="md" defaultValue="styles.css">
+      <Prism.Tabs mb="lg" defaultValue="styles.css">
         <Prism.TabsList>
           <Prism.Tab value="styles.css">
             styles.css
