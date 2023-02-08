@@ -1,1 +1,0 @@
-(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[700],{5700:function(e,n,t){"use strict";t.r(n),t.d(n,{Head:function(){return i}});var r=t(7458),s=t(9011),c=t.n(s);let i=e=>{let{title:n,description:t}=e;return(0,r.jsxs)(c(),{children:[(0,r.jsx)("title",{children:n}),(0,r.jsx)("meta",{name:"description",content:t})]})}},9011:function(e,n,t){e.exports=t(1504)}}]);
