@@ -1,0 +1,63 @@
+<script>
+	// https://svelte.dev/repl/c89106671a304631ad069c0c595aaffb?version=3.55.0
+	// very lightly adapted from https://github.com/shuding/react-wrap-balancer/blob/main/src/index.tsx
+	const setBalance = (ratio: number, wrapper: HTMLElement) => {
+		const container = wrapper.parentElement!;
+		const update = (width: number) =>
+			(wrapper.style.maxWidth = `${width}px`);
+
+		// Reset wrapper width
+		wrapper.style.maxWidth = "";
+
+		// Get the intial container size
+		const width = container.clientWidth;
+		const height = container.clientHeight;
+
+		// Synchronously do binary search and calculate the layout
+		let left = width / 2;
+		let right = width;
+		let middle;
+
+		if (width) {
+			while (left + 1 < right) {
+				middle = ~~((left + right) / 2);
+				update(middle);
+				if (container.clientHeight === height) {
+					right = middle;
+				} else {
+					left = middle;
+				}
+			}
+
+			// Update the wrapper width
+			update(right * ratio + width * (1 - ratio));
+		}
+	};
+
+	function rebalance(node: HTMLElement, ratio: number = 1) {
+		const resizer = new ResizeObserver(() => {
+			setBalance(ratio, node);
+		});
+		const mutation = new MutationObserver(() => {
+			setBalance(ratio, node);
+		});
+		mutation.observe(node, {
+			childList: true,
+			subtree: true,
+			characterData: true,
+		});
+		resizer.observe(node.parentElement!);
+		return {
+			destroy() {
+				resizer.unobserve(node.parentElement!);
+				mutation.disconnect();
+			},
+		};
+	}
+
+	document
+		.querySelectorAll<HTMLElement>(".balance-text,blockquote>p")
+		.forEach((node) => {
+			rebalance(node);
+		});
+</script>

@@ -1,0 +1,30 @@
+---
+import "../styles/global.scss";
+import Footer from "../components/global/Footer.astro";
+import Header from "../components/global/Header.astro";
+import PrefersColorScheme from "../components/global/PrefersColorScheme.astro";
+
+interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<slot name="share-card" />
+	</head>
+	<body>
+		<Header />
+		<slot />
+		<Footer />
+		<PrefersColorScheme />
+	</body>
+</html>

@@ -1,0 +1,153 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+	headings: MarkdownHeading[];
+}
+const { headings } = Astro.props;
+---
+
+<section id="toc">
+	<h4>Table of Contents</h4>
+	<ul>
+		{
+			headings.map(({ depth, slug, text }) => (
+				<li>
+					<a
+						id={`toc-${slug}`}
+						href={`#${slug}`}
+						style={`--depth: ${depth - 2}`}
+						title={text}
+					>
+						{text}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<script>
+	const headings = document.querySelectorAll<HTMLHeadingElement>(
+		":is(h2,h3,h4,h5,h6)[id]"
+	);
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			for (const { isIntersecting, target } of entries) {
+				if (isIntersecting) {
+					const active = document.getElementById(`toc-${target.id}`);
+					if (!active) {
+						continue;
+					}
+
+					for (const anchor of document.querySelectorAll<HTMLAnchorElement>(
+						`a[id^="toc-"]`
+					)) {
+						anchor.classList.remove("active");
+					}
+
+					active.classList.add("active");
+				}
+			}
+		},
+		{
+			rootMargin: `-57px 0px -${window.innerHeight - 57 - 32}px 0px`,
+		}
+	);
+
+	for (const heading of headings) {
+		if (heading) {
+			observer.observe(heading);
+		}
+	}
+</script>
+
+<style lang="scss">
+	section {
+		position: fixed;
+		display: flex;
+		flex-flow: column nowrap;
+		align-self: flex-start;
+		gap: 0.5rem;
+		width: 11rem;
+		transform: translateX(calc(-11rem - 1rem));
+
+		@media (max-width: 69.25rem) {
+			display: none;
+		}
+	}
+
+	h4 {
+		margin: 0;
+		color: #a6a7ab;
+		font-weight: 600;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+
+		html.light & {
+			color: #5c5f66;
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 0;
+		max-height: calc(100vh * 0.7);
+		max-height: calc(100dvh * 0.7);
+		overflow: auto;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&::-webkit-scrollbar {
+			background-color: transparent;
+			width: 4px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background-color: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: #babac0;
+			border-radius: 4px;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: #a0a0a5;
+		}
+
+		&::-webkit-scrollbar-button {
+			display: none;
+		}
+
+		li {
+			margin: 0;
+			padding: 0;
+
+			a {
+				margin: 0;
+				padding: 0 0 0 calc(var(--depth, 1) * 0.5rem);
+				display: block;
+				color: #5c5f66 !important;
+				font-weight: 500;
+				font-size: 0.875rem;
+				text-decoration: none !important;
+
+				html.light & {
+					color: #909296 !important;
+				}
+
+				&:is(:hover, .active) {
+					color: #c1c2c5 !important;
+
+					html.light & {
+						color: #373a40 !important;
+					}
+				}
+			}
+		}
+	}
+</style>

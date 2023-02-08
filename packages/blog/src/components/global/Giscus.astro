@@ -1,0 +1,179 @@
+---
+import Button from "./Button.astro";
+
+type Props = {
+	language?: string;
+	hideDirectButton?: boolean;
+	textDirectButton?: string;
+	hideWriteButton?: boolean;
+	textWriteButton?: string;
+};
+const {
+	language = "en",
+	hideDirectButton = false,
+	textDirectButton = "Open GitHub Discussions",
+	hideWriteButton = false,
+	textWriteButton = "Write comment",
+} = Astro.props;
+---
+
+<section>
+	{
+		!hideDirectButton ? (
+			<Button
+				as="anchor"
+				href={`//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q="${Astro.url.pathname}"`}
+				class="open-discussion"
+			>
+				{textDirectButton}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-external-link"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" />
+					<line x1="10" y1="14" x2="20" y2="4" />
+					<polyline points="15 4 20 4 20 9" />
+				</svg>
+			</Button>
+		) : null
+	}
+	<div id="giscus" data-lang={language}></div>
+	{
+		!hideWriteButton ? (
+			<Button class="write-giscus">
+				{textWriteButton}
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-edit"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+					<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+					<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+					<path d="M16 5l3 3" />
+				</svg>
+			</Button>
+		) : null
+	}
+</section>
+
+<script>
+	import Cookies from "js-cookie";
+
+	const html = document.documentElement;
+	const giscus = document.getElementById("giscus");
+
+	// Giscus
+	const script = document.createElement("script");
+	script.setAttribute("src", "https://giscus.app/client.js");
+	script.setAttribute("data-repo", "anasrar/anasrar.github.io");
+	script.setAttribute("data-repo-id", "MDEwOlJlcG9zaXRvcnkxNjc3MzYzNDQ=");
+	script.setAttribute("data-category", "Giscus");
+	script.setAttribute("data-category-id", "DIC_kwDOCf90GM4CS47a");
+	script.setAttribute("data-mapping", "pathname");
+	script.setAttribute("data-strict", "0");
+	script.setAttribute("data-reactions-enabled", "1");
+	script.setAttribute("data-emit-metadata", "0");
+	script.setAttribute("data-input-position", "top");
+	script.setAttribute(
+		"data-theme",
+		Cookies.get("colorscheme") === "light" ? "light" : "dark"
+	);
+	script.setAttribute("data-lang", giscus?.dataset?.lang ?? "en");
+	script.setAttribute("data-loading", "lazy");
+	script.setAttribute("crossorigin", "anonymous");
+	script.setAttribute("async", "");
+	giscus?.appendChild(script);
+
+	// Giscus switch dark/light
+	const mutation = new MutationObserver((mutations) => {
+		const iframe = document.querySelector<HTMLIFrameElement>(
+			"iframe.giscus-frame"
+		);
+		if (!iframe) return;
+
+		for (const mutation of mutations) {
+			if (
+				mutation.type === "attributes" &&
+				mutation.attributeName === "class"
+			) {
+				const light = (mutation.target as Element).classList.contains(
+					"light"
+				);
+				iframe.contentWindow?.postMessage(
+					{
+						giscus: {
+							setConfig: {
+								theme: light ? "light" : "dark",
+							},
+						},
+					},
+					"https://giscus.app"
+				);
+			}
+		}
+	});
+	mutation.observe(html, {
+		attributes: true,
+	});
+
+	// write-giscus
+	const write = document.querySelector<HTMLButtonElement>(".write-giscus");
+	write?.addEventListener("click", (ev) => {
+		ev.preventDefault();
+		giscus?.scrollIntoView({
+			block: "start",
+			behavior: "smooth",
+		});
+	});
+
+	const resize = new ResizeObserver((entries) => {
+		for (const entry of entries) {
+			if (entry.contentRect.height > 333) {
+				write?.classList.add("show");
+			} else {
+				write?.classList.remove("show");
+			}
+		}
+	});
+	if (giscus) resize.observe(giscus);
+</script>
+
+<style lang="scss">
+	section {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 0.75rem;
+		margin: 0.5rem 0 0;
+	}
+
+	.open-discussion,
+	.write-giscus {
+		align-self: center;
+	}
+
+	.write-giscus {
+		display: none !important;
+		position: sticky;
+		bottom: 0.5rem;
+		&.show {
+			display: inline-flex !important;
+		}
+	}
+</style>

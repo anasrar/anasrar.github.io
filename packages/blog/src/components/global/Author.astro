@@ -1,0 +1,71 @@
+---
+type Props = {
+	avatar: string;
+	name: string;
+	social: {
+		url: string;
+		text: string;
+	};
+	responsive?: boolean;
+};
+const {
+	avatar,
+	name,
+	social: { url, text },
+	responsive = false,
+} = Astro.props;
+---
+
+<div class:list={["author", { responsive }]}>
+	<a class="avatar-link" href={url}
+		><img src={avatar} alt={name} title={name} /></a
+	>
+	<div class="detail">
+		<div class="name">{name}</div>
+		<div class="social">
+			<a href={url}>{text}</a>
+		</div>
+	</div>
+
+	<style lang="scss">
+		.author {
+			display: flex;
+			flex-flow: row nowrap;
+			align-items: center;
+			gap: 0.75rem;
+		}
+
+		.avatar-link {
+			display: block;
+		}
+
+		img {
+			display: block;
+			--size: 2.25rem;
+			width: var(--size);
+			height: var(--size);
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		.detail {
+			display: flex;
+			flex-flow: column nowrap;
+			gap: 0.05rem;
+			line-height: 1.25rem;
+
+			@media (max-width: 32.25rem) {
+				display: none;
+			}
+		}
+
+		.name {
+			font-weight: 500;
+			font-size: 0.89rem;
+		}
+
+		.social {
+			font-size: 0.75rem;
+		}
+	</style>
+</div>

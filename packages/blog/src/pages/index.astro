@@ -1,0 +1,167 @@
+---
+import LayoutDefault from "../layouts/Default.astro";
+import Title from "../components/global/Title.astro";
+import Button from "../components/global/Button.astro";
+
+const description =
+	"Create and develop web app using TypeScript, Next.js, Go, SQL database, React, Vue, and Svelte. Contribute to open-source community. Interested in web technology, 3D in technical side, game development, and technology in general.";
+
+const jsonld = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Person",
+	email: "mynameanasrar@gmail.com",
+	image: "https://avatars.githubusercontent.com/u/38805204",
+	jobTitle: "Full-Stack Developer",
+	name: "Anas Rin",
+	gender: "male",
+	url: "https://anasrar.gihub.io/",
+	sameAs: [
+		"http://twitter.com/rrrriiiiiinnnn/",
+		"http://youtube.com/@anasrin/",
+		"http://github.com/anasrar/",
+	],
+});
+---
+
+<LayoutDefault
+	title="Anas Rin"
+	description={`Full-Stack Developer - ${description}`}
+>
+	<Fragment slot="share-card">
+		<meta property="og:title" content="Anas Rin" />
+		<meta property="og:type" content="profile" />
+		<meta
+			property="og:image"
+			content="https://avatars.githubusercontent.com/u/38805204"
+		/>
+		<meta property="og:url" content="https://anasrar.github.io" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:site_name" content="Anas Rin" />
+		<meta
+			property="og:description"
+			content={`Full-Stack Developer - ${description}`}
+		/>
+		<meta property="profile:first_name" content="Anas" />
+		<meta property="profile:last_name" content="Rin" />
+		<meta property="profile:username" content="anasrar" />
+		<meta property="profile:gender" content="male" />
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:site" content="@rrrriiiiiinnnn" />
+		<meta name="twitter:title" content="Anas Rin" />
+		<meta
+			name="twitter:description"
+			content={`Full-Stack Developer - ${description}`}
+		/>
+		<meta
+			name="twitter:image"
+			content="https://avatars.githubusercontent.com/u/38805204"
+		/>
+		<script type="application/ld+json" set:html={jsonld}></script>
+	</Fragment>
+	<main class="container">
+		<div class="profile">
+			<div class="profile-responsive">
+				<div>
+					<img
+						class="avatar"
+						src="//avatars.githubusercontent.com/u/38805204"
+						alt="Anas Rin"
+						title="Anas Rin"
+					/>
+				</div>
+				<section class="profile-detail">
+					<Title as="h1">Anas Rin</Title>
+					<Title as="h2" size="h5">Full-Stack Developer</Title>
+					<p class="description">{description}</p>
+				</section>
+			</div>
+			<div class="links">
+				<Button as="anchor" href="mailto:mynameanasrar@gmail.com">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="icon icon-tabler icon-tabler-mail-forward"
+						width="20"
+						height="20"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none"
+						></path>
+						<path
+							d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5"
+						></path>
+						<path d="M3 6l9 6l9 -6"></path>
+						<path d="M15 18h6"></path>
+						<path d="M18 15l3 3l-3 3"></path>
+					</svg>
+					Contact Me
+				</Button>
+			</div>
+		</div>
+	</main>
+</LayoutDefault>
+<style lang="scss">
+	.container {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 1.5rem;
+		width: 100%;
+		max-width: var(--container-sm);
+		margin: 1rem auto 0;
+		padding: 1.5rem 0.75rem 0.75rem;
+	}
+
+	.profile {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 1rem;
+	}
+
+	.profile-responsive {
+		display: flex;
+		flex-flow: row-reverse nowrap;
+		gap: 1rem;
+
+		@media (max-width: 33.75rem) {
+			& {
+				flex-flow: column nowrap;
+			}
+		}
+	}
+
+	.profile-detail {
+		display: flex;
+		flex-grow: 1;
+		flex-flow: column nowrap;
+		gap: 0.5rem;
+	}
+
+	.avatar {
+		--dimension: 8.75rem;
+		width: var(--dimension);
+		height: var(--dimension);
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.description {
+		margin: 0.5rem 0 0 0;
+		padding: 0;
+		color: #a6a7ab;
+		font-size: 0.95rem;
+
+		html.light & {
+			color: #5c5f66;
+		}
+	}
+
+	.links {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 0.5rem;
+	}
+</style>

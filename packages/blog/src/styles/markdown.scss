@@ -1,0 +1,22 @@
+$scroll-margin: 4rem;
+
+@for $i from 1 through 6 {
+	h#{$i} {
+		scroll-margin-top: $scroll-margin;
+	}
+}
+
+a[data-footnote-ref] {
+	scroll-margin-top: $scroll-margin;
+
+	&::before {
+		content: "[";
+	}
+	&::after {
+		content: "]";
+	}
+}
+
+li[id^="user-content-fn"] {
+	scroll-margin-top: $scroll-margin;
+}

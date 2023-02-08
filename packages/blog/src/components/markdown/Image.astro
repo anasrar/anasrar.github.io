@@ -1,0 +1,21 @@
+---
+interface Props extends astroHTML.JSX.ImgHTMLAttributes {}
+const props = Astro.props;
+---
+
+<div><img {...props} /></div>
+
+<style lang="scss">
+	div {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		align-items: center;
+		margin: 0.5rem 0 1.25rem;
+	}
+
+	img {
+		border-radius: 0.2rem;
+		max-width: 100%;
+	}
+</style>

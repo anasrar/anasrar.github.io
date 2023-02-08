@@ -1,0 +1,11 @@
+---
+---
+
+<script>
+	import Cookies from "js-cookie";
+
+	const light = Cookies.get("colorscheme") === "light";
+	if (light) {
+		document.documentElement.classList.add("light");
+	}
+</script>

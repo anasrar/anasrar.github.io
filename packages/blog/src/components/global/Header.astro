@@ -1,0 +1,369 @@
+---
+import Button from "./Button.astro";
+---
+
+<header class="sticky-header">
+	<div class="container">
+		<nav class="group md">
+			<Button
+				as="anchor"
+				href={import.meta.env.DEV
+					? "http://" + Astro.url.host + "/"
+					: Astro.site}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-home-heart"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6"></path>
+					<path
+						d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304"
+					></path>
+					<path
+						d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z"
+					></path>
+				</svg> Home
+			</Button>
+			<Button
+				as="anchor"
+				href={`${
+					import.meta.env.DEV
+						? "http://" + Astro.url.host + "/"
+						: Astro.site
+				}guestbook/`}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-messages"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path
+						d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10"
+					></path>
+					<path
+						d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2"
+					></path>
+				</svg>
+				Guestbook
+			</Button>
+			<Button
+				as="anchor"
+				href={`${
+					import.meta.env.DEV
+						? "http://" + Astro.url.host + "/"
+						: Astro.site
+				}projects/`}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-layout-grid-add"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<rect x="4" y="4" width="6" height="6" rx="1"></rect>
+					<rect x="14" y="4" width="6" height="6" rx="1"></rect>
+					<rect x="4" y="14" width="6" height="6" rx="1"></rect>
+					<path d="M14 17h6m-3 -3v6"></path>
+				</svg>
+				Projects
+			</Button>
+			<Button
+				as="anchor"
+				href={`${
+					import.meta.env.DEV
+						? "http://" + Astro.url.host + "/"
+						: Astro.site
+				}blog/`}
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-news"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path
+						d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"
+					></path>
+					<line x1="8" y1="8" x2="12" y2="8"></line>
+					<line x1="8" y1="12" x2="12" y2="12"></line>
+					<line x1="8" y1="16" x2="12" y2="16"></line>
+				</svg> Blog
+			</Button>
+		</nav>
+		<nav class="group xs">
+			<Button
+				class="btn-square"
+				as="anchor"
+				href={import.meta.env.DEV
+					? "http://" + Astro.url.host + "/"
+					: Astro.site}
+				title="Home"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-home-heart"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6"></path>
+					<path
+						d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304"
+					></path>
+					<path
+						d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z"
+					></path>
+				</svg>
+			</Button>
+			<Button
+				class="btn-square"
+				as="anchor"
+				href={`${
+					import.meta.env.DEV
+						? "http://" + Astro.url.host + "/"
+						: Astro.site
+				}guestbook/`}
+				title="Guestbook"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-messages"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path
+						d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10"
+					></path>
+					<path
+						d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2"
+					></path>
+				</svg>
+			</Button>
+			<Button
+				class="btn-square"
+				as="anchor"
+				href={`${
+					import.meta.env.DEV
+						? "http://" + Astro.url.host + "/"
+						: Astro.site
+				}projects/`}
+				title="Projects"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-layout-grid-add"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<rect x="4" y="4" width="6" height="6" rx="1"></rect>
+					<rect x="14" y="4" width="6" height="6" rx="1"></rect>
+					<rect x="4" y="14" width="6" height="6" rx="1"></rect>
+					<path d="M14 17h6m-3 -3v6"></path>
+				</svg>
+			</Button>
+			<Button
+				class="btn-square"
+				as="anchor"
+				href={`${
+					import.meta.env.DEV
+						? "http://" + Astro.url.host + "/"
+						: Astro.site
+				}blog/`}
+				title="Blog"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="icon icon-tabler icon-tabler-news"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path
+						d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11"
+					></path>
+					<line x1="8" y1="8" x2="12" y2="8"></line>
+					<line x1="8" y1="12" x2="12" y2="12"></line>
+					<line x1="8" y1="16" x2="12" y2="16"></line>
+				</svg>
+			</Button>
+		</nav>
+		<nav
+			class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center"
+		>
+			<Button
+				class="btn-square"
+				title="Toggle Dark/Light Mode"
+				toggle-colorscheme
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="only-dark icon icon-tabler icon-tabler-sun"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<circle cx="12" cy="12" r="4"></circle>
+					<path
+						d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"
+					></path>
+				</svg>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="only-light icon icon-tabler icon-tabler-moon-stars"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					stroke-width="2"
+					stroke="currentColor"
+					fill="none"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+					<path
+						d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"
+					></path>
+					<path
+						d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2"
+					></path>
+					<path d="M19 11h2m-1 -1v2"></path>
+				</svg>
+			</Button>
+		</nav>
+	</div>
+</header>
+
+<script>
+	import Cookies from "js-cookie";
+
+	const buttons = document.querySelectorAll<HTMLButtonElement>(
+		"[toggle-colorscheme]"
+	);
+	for (const button of buttons) {
+		button.addEventListener("click", () => {
+			const light = document.documentElement.classList.contains("light");
+			document.documentElement.classList.toggle("light");
+			Cookies.set("colorscheme", light ? "dark" : "light", {
+				expires: 365,
+			});
+		});
+	}
+</script>
+
+<style lang="scss">
+	.sticky-header {
+		position: sticky;
+		top: 0;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+		background: rgba($color: #141517, $alpha: 0.75);
+		box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.75);
+		backdrop-filter: blur(8px);
+		transition: background 0.1s linear, border-bottom 0.1s linear,
+			box-shadow 0.1s linear;
+		z-index: 1;
+
+		html.light & {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+			background: rgba($color: #f8f9fa, $alpha: 0.75);
+			box-shadow: 0 5px 5px -2px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	.container {
+		display: flex;
+		flex: 1 1 auto;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		max-width: var(--container-sm);
+		padding: 0.75rem;
+	}
+
+	.group {
+		display: flex;
+		flex-flow: row_wrap;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.md {
+		@media (max-width: 30rem) {
+			display: none;
+		}
+	}
+
+	.xs {
+		@media (min-width: 29.99rem) {
+			display: none;
+		}
+	}
+</style>

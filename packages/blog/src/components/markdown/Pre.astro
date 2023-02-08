@@ -1,0 +1,89 @@
+---
+import Button from "../global/Button.astro";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+const props = Astro.props;
+---
+
+<script>
+	const buttons = document.querySelectorAll<HTMLButtonElement>("[copy-code]");
+	for (const button of buttons) {
+		button.addEventListener("click", (ev) => {
+			navigator.clipboard.writeText(
+				(ev.currentTarget as Element).parentElement?.querySelector(
+					"code"
+				)?.textContent ?? ":("
+			);
+		});
+	}
+</script>
+
+<div>
+	<div class="wrapper"><pre {...props}><slot /></pre></div>
+	<Button class="btn-square" title="Copy code" copy-code>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="icon icon-tabler icon-tabler-copy"
+			width="18"
+			height="18"
+			viewBox="0 0 24 24"
+			stroke-width="2"
+			stroke="currentColor"
+			fill="none"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2"></rect>
+			<path
+				d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2"
+			></path>
+		</svg>
+	</Button>
+</div>
+
+<style lang="scss">
+	pre {
+		display: block;
+		margin: 0;
+		background: transparent;
+		--md-code-display: inline-grid;
+		--md-code-min-width: calc(100% - 2.75rem);
+		--md-code-padding: 0;
+		--md-code-margin: 0 2.75rem 0 0;
+		--md-code-border: 0;
+		--md-code-border-radius: 0;
+		--md-code-background: transparent;
+		--md-code-font-size: 0.85rem;
+		--md-code-line-height: 1.65rem;
+		line-height: var(--md-code-line-height);
+	}
+
+	.wrapper {
+		margin: 0.5rem 0 1.25rem;
+		padding: 0.5rem 0.75rem;
+		border: 1px solid var(--md-pre-border-color, #495057);
+		border-radius: 0.25rem;
+		background: var(--md-pre-background, #212529);
+		transition: border 0.1s linear, background 0.1s linear;
+		overflow: auto;
+
+		html.light & {
+			border: 1px solid var(--md-pre-border-color, #ced4da);
+			background: var(--md-pre-background, #dee2e6);
+		}
+	}
+
+	div {
+		position: relative;
+	}
+
+	button {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		width: 1.75rem !important;
+		height: 1.75rem !important;
+		transition: opacity 0.1s linear;
+	}
+</style>

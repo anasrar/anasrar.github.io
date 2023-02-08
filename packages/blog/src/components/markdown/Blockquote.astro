@@ -1,0 +1,19 @@
+---
+interface Props extends astroHTML.JSX.BlockquoteHTMLAttributes {}
+const props = Astro.props;
+---
+
+<blockquote {...props}><slot /></blockquote>
+
+<style lang="scss">
+	blockquote {
+		margin: 0.5rem 0 1.25rem;
+		padding-left: 1.25rem;
+		border-left: 0.5rem solid #25262b;
+		transition: border-left 0.1s linear;
+
+		html.light & {
+			border-left: 0.5rem solid #dee2e6;
+		}
+	}
+</style>

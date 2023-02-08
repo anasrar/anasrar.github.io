@@ -1,0 +1,46 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+	as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+	size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}
+const { as, size, class: className } = Astro.props;
+const As = as ?? size ?? "h1";
+---
+
+<As class:list={["title", `size-${size ?? As}`, className]}><slot /></As>
+<style lang="scss">
+	.title {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	h1,
+	.size-h1 {
+		font-size: 1.802rem;
+	}
+
+	h2,
+	.size-h2 {
+		font-size: 1.602rem;
+	}
+
+	h3,
+	.size-h3 {
+		font-size: 1.424rem;
+	}
+
+	h4,
+	.size-h4 {
+		font-size: 1.266rem;
+	}
+
+	h5,
+	.size-h5 {
+		font-size: 1.125rem;
+	}
+
+	h6,
+	.size-h6 {
+		font-size: 1rem;
+	}
+</style>

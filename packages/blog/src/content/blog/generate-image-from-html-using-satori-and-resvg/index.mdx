@@ -1,0 +1,233 @@
+---
+title: Generate image from HTML using Satori and Resvg
+date: 2023-01-05
+---
+
+## TL;DR
+
+Generate image from HTML using [github.com/vercel/satori](//github.com/vercel/satori/) (to convert HTML to SVG) and [github.com/yisibl/resvg-js](//github.com/yisibl/resvg-js) (to convert SVG to PNG) on Node.js and Deno.
+
+Example: [github.com/anasrar/satori-resvg](//github.com/anasrar/satori-resvg).
+
+## Background
+
+When [Vercel Introducing OG Image Generation: Fast, dynamic social card images at the Edge](https://vercel.com/blog/introducing-vercel-og-image-generation-fast-dynamic-social-card-images), and play around with [@vercel/og](//www.npmjs.com/package/@vercel/og) and realize it only work with [Edge Runtime](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation#limits) and I want to create script that generate fully static image.
+
+Vercel explain [technical details](//vercel.com/docs/concepts/functions/edge-functions/og-image-generation#technical-details) behind [@vercel/og](//www.npmjs.com/package/@vercel/og), that it using [github.com/vercel/satori](//github.com/vercel/satori/) and [github.com/RazrFalcon/resvg](//github.com/RazrFalcon/resvg).
+
+Now let’s create from scratch using Node.js and Deno.
+
+## Dependencies
+
+### Satori
+
+[Satori](//github.com/vercel/satori/) convert HTML to SVG, automatically wrap text and using [Yoga Layout](//yogalayout.com/) under the hood.
+
+#### Pros
+
+*   Support JSX syntax.
+*   Support image (URL and base64).
+*   Automatically wrap text.
+*   CSS Flexbox.
+
+#### Cons
+
+*   Only support JSX and React Node.
+*   Explicit inline style.
+*   Text baked to path.
+*   CSS features not fully implemented.
+
+### Satori-html
+
+[Satori-html](//github.com/natemoo-re/satori-html) convert HTML to React Node, this is because [Satori](//github.com/vercel/satori/) only support React node object at least on Node.js.
+
+### Resvg-js
+
+[Resvg-js](//github.com/yisibl/resvg-js) convert SVG to PNG, Rust-Node binding for [github.com/RazrFalcon/resvg](//github.com/RazrFalcon/resvg).
+
+### Victor Mono
+
+[Victor mono](//github.com/rubjo/victor-mono) is font that we will use because Satori need at least 1 font as default font.
+
+## Flow
+
+```diagram-graphviz layout="dot"
+digraph FLow {
+  rankdir=LR
+  bgcolor="transparent"
+  node [shape=rect, color="#364fc7", fontname="Sans-Serif", fontsize="10"]
+
+  HTML -> Satori -> Resvg -> PNG
+}
+```
+
+## Node.js
+
+Tested on `node v19.0.1`.
+
+```bash title="Commands"
+mkdir node-image
+cd node-image
+pnpm init
+pnpm add satori@0.0.44 satori-html@0.3.2 @resvg/resvg-js@2.2.0
+touch main.mjs
+```
+
+```js title="main.mjs" showLineNumbers
+import { readFile, writeFile } from "node:fs/promises";
+import { html } from "satori-html";
+import satori from "satori";
+import { Resvg } from "@resvg/resvg-js";
+
+const template = html(`
+<div style="display: flex; flex-flow: column nowrap; align-items: stretch; width: 600px; height: 400px; backgroundImage: linear-gradient(to right, #0f0c29, #302b63, #24243e); color: #000;">
+  <div style="display: flex; flex: 1 0; flex-flow: row nowrap; justify-content: center; align-items: center;">
+    <img style="border: 8px solid rgba(255, 255, 255, 0.2); border-radius: 50%;" src="https://placeimg.com/240/240/animals" alt="animals" />
+  </div>
+  <div style="display: flex; justify-content: center; align-items: center; margin: 6px; padding: 12px; border-radius: 4px; background: rgba(255, 255, 255, 0.2); color: #fff; font-size: 22px;">
+    The quick brown fox jumps over the lazy dog.
+  </div>
+</div>
+`);
+
+// convert html to svg
+const svg = await satori(template, {
+  width: 600,
+  height: 400,
+  fonts: [
+    {
+      name: "VictorMono",
+      data: await readFile("./VictorMono-Bold.ttf"),
+      weight: 700,
+      style: "normal",
+    },
+  ],
+});
+
+// render png
+const resvg = new Resvg(svg, {
+  background: "rgba(238, 235, 230, .9)",
+});
+const pngData = resvg.render();
+const pngBuffer = pngData.asPng();
+
+await writeFile("./output.png", pngBuffer);
+```
+
+```bash title="Commands"
+node main.mjs
+```
+
+### Output
+
+![node output with cat the middle and caption the quick brown fox jumps over the lazy dog](/assets/blog/generate-image-from-html-using-satori-and-resvg/node_output.png)
+
+## Deno
+
+Tested on `deno 1.29.1`.
+
+```bash title="Commands"
+mkdir deno-image
+cd deno-image
+touch main.tsx
+```
+
+```tsx title="main.tsx" showLineNumbers
+import React from "https://esm.sh/react@18.2.0";
+import satori, { init } from "npm:satori@0.0.44/wasm";
+import initYoga from "npm:yoga-wasm-web@0.2.0";
+import { Resvg } from "npm:@resvg/resvg-js@2.2.0";
+import cacheDir from "https://deno.land/x/cache_dir@0.2.0/mod.ts";
+
+const wasm = await Deno.readFile(
+  `${cacheDir()}/deno/npm/registry.npmjs.org/yoga-wasm-web/0.2.0/dist/yoga.wasm`,
+);
+const yoga =
+  await (initYoga as unknown as (wasm: Uint8Array) => Promise<unknown>)(wasm);
+init(yoga);
+
+const template = (
+  <div
+    style={{
+      display: "flex",
+      flexFlow: "column nowrap",
+      alignItems: "stretch",
+      width: "600px",
+      height: "400px",
+      backgroundImage: "linear-gradient(to top, #7028e4 0%, #e5b2ca 100%)",
+      color: "#000",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        flex: "1 0",
+        flexFlow: "row nowrap",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <img
+        style={{
+          border: "8px solid rgba(255, 255, 255, 0.2)",
+          borderRadius: "50%",
+        }}
+        src="https://placeimg.com/240/240/animals"
+        alt="animals"
+      />
+    </div>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "6px",
+        padding: "12px",
+        borderRadius: "4px",
+        background: "rgba(255, 255, 255, 0.2)",
+        color: "#fff",
+        fontSize: "22px",
+      }}
+    >
+      The quick brown fox jumps over the lazy dog.
+    </div>
+  </div>
+);
+
+// convert html to svg
+const svg = await satori(
+  template,
+  {
+    width: 600,
+    height: 400,
+    fonts: [
+      {
+        name: "VictorMono",
+        data: await Deno.readFile("./VictorMono-Bold.ttf"),
+        weight: 700,
+        style: "normal",
+      },
+    ],
+  },
+);
+
+// render png
+const resvg = new Resvg(svg, {
+  background: "rgba(238, 235, 230, .9)",
+});
+const pngData = resvg.render();
+const pngBuffer = pngData.asPng();
+
+await Deno.writeFile("./output.png", pngBuffer);
+
+// ffi block, need to force exit
+Deno.exit(0);
+```
+
+```bash title="Commands"
+deno run --unstable --allow-env --allow-ffi --allow-net --allow-read --allow-write main.tsx
+```
+
+### Output
+
+![deno output with cat the middle and caption the quick brown fox jumps over the lazy dog](/assets/blog/generate-image-from-html-using-satori-and-resvg/deno_output.png)

@@ -1,0 +1,204 @@
+---
+import ISO6391 from "iso-639-1";
+import Button from "./Button.astro";
+
+interface Props {
+	language: {
+		current: string;
+		list: string[];
+	};
+}
+
+const { current, list } = Astro.props.language;
+---
+
+<section class="medium">
+	<ul>
+		{
+			list.map((lang) => {
+				const native = ISO6391.getNativeName(lang);
+				return (
+					<li>
+						<a
+							class:list={[{ active: current === lang }]}
+							href={
+								lang === current
+									? "./"
+									: (current === "en" ? "./" : "../") +
+									  (lang === "en" ? "" : lang + "/")
+							}
+							title={native}
+						>
+							{native}
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</section>
+<section class="small">
+	<section class="small-wrapper">
+		<Button id="language" class="btn-square" aria-label="Language">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="icon icon-tabler icon-tabler-language"
+				width="20"
+				height="20"
+				viewBox="0 0 24 24"
+				stroke-width="2"
+				stroke="currentColor"
+				fill="none"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			>
+				<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+				<path d="M4 5h7"></path>
+				<path d="M9 3v2c0 4.418 -2.239 8 -5 8"></path>
+				<path d="M5 9c0 2.144 2.952 3.908 6.7 4"></path>
+				<path d="M12 20l4 -9l4 9"></path>
+				<path d="M19.1 18h-6.2"></path>
+			</svg>
+		</Button>
+		<ul>
+			{
+				list.map((lang) => {
+					const native = ISO6391.getNativeName(lang);
+					return (
+						<li>
+							<a
+								class:list={[{ active: current === lang }]}
+								href={
+									lang === current
+										? "./"
+										: (current === "en" ? "./" : "../") +
+										  (lang === "en" ? "" : lang + "/")
+								}
+								title={native}
+							>
+								{native}
+							</a>
+						</li>
+					);
+				})
+			}
+		</ul>
+	</section>
+</section>
+
+<style lang="scss">
+	.medium {
+		position: fixed;
+		display: flex;
+		flex-flow: column nowrap;
+		align-self: flex-end;
+		gap: 0.5rem;
+		width: 11rem;
+		transform: translateX(calc(11rem + 1rem));
+
+		@media (max-width: 69.25rem) {
+			display: none;
+		}
+	}
+
+	.small {
+		position: fixed;
+		bottom: 1rem;
+		display: flex;
+		flex-flow: column nowrap;
+		align-self: flex-start;
+		gap: 0.5rem;
+		width: 11rem;
+		margin-left: 1rem;
+		z-index: 1;
+
+		@media (min-width: 69.24rem) {
+			display: none;
+		}
+	}
+
+	.small-wrapper {
+		position: relative;
+
+		& > ul {
+			display: none;
+			position: absolute;
+			bottom: calc(100% + 1rem);
+			padding: 0.5rem;
+			border: 1px solid #373a40;
+			border-radius: 0.25rem;
+			background: rgba($color: #141517, $alpha: 0.75);
+			backdrop-filter: blur(8px);
+
+			html.light & {
+				border-color: #ced4da;
+				background: rgba($color: #f8f9fa, $alpha: 0.75);
+			}
+		}
+
+		&:focus-within > ul {
+			display: flex;
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 0;
+		max-height: calc(100vh * 0.7);
+		max-height: calc(100dvh * 0.7);
+		overflow: auto;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+
+		&::-webkit-scrollbar {
+			background-color: transparent;
+			width: 4px;
+		}
+
+		&::-webkit-scrollbar-track {
+			background-color: transparent;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background-color: #babac0;
+			border-radius: 4px;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background-color: #a0a0a5;
+		}
+
+		&::-webkit-scrollbar-button {
+			display: none;
+		}
+
+		li {
+			margin: 0;
+			padding: 0;
+
+			a {
+				margin: 0;
+				padding: 0;
+				display: block;
+				color: #5c5f66 !important;
+				font-weight: 500;
+				font-size: 0.875rem;
+				text-decoration: none !important;
+
+				html.light & {
+					color: #909296 !important;
+				}
+
+				&:is(:hover, .active) {
+					color: #c1c2c5 !important;
+
+					html.light & {
+						color: #373a40 !important;
+					}
+				}
+			}
+		}
+	}
+</style>

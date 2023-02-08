@@ -1,0 +1,57 @@
+---
+interface Props extends astroHTML.JSX.TableHTMLAttributes {}
+const props = Astro.props;
+---
+
+<table {...props}><slot /></table>
+
+<style lang="scss">
+	table {
+		width: 100%;
+		margin: 0.5rem 0 1.25rem;
+		border-collapse: collapse;
+
+		& :global(thead) {
+			text-align: left;
+		}
+		& :global(th) {
+			font-weight: 600;
+		}
+		& :global(th),
+		:global(td) {
+			padding: 0.4rem 0.8rem;
+			border: 1px solid #373a40;
+			transition: border-color 0.1s linear;
+
+			html.light & {
+				border-color: #ced4da;
+			}
+		}
+		& :global(tbody tr) {
+			&:hover {
+				background: #25262b;
+			}
+			html.light & {
+				&:hover {
+					background: #e9ecef;
+				}
+			}
+		}
+		& :global(tbody tr:nth-child(odd)) {
+			background: #1a1b1e;
+			transition: background 0.1s linear;
+
+			&:hover {
+				background: #25262b;
+			}
+
+			html.light & {
+				background: #f1f3f5;
+
+				&:hover {
+					background: #dee2e6;
+				}
+			}
+		}
+	}
+</style>

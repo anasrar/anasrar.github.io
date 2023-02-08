@@ -1,0 +1,197 @@
+---
+import fs from "node:fs/promises";
+import LayoutProject from "../../layouts/Project.astro";
+import Button from "../../components/global/Button.astro";
+import TableOfContents from "../../components/global/TableOfContents.astro";
+import Languages from "../../components/global/Languages.astro";
+import Title from "../../components/global/Title.astro";
+import Paragraph from "../../components/markdown/Paragraph.astro";
+import Image from "../../components/markdown/Image.astro";
+import Pre from "../../components/markdown/Pre.astro";
+import Code from "../../components/markdown/Code.astro";
+import Heading2 from "../../components/markdown/Heading2.astro";
+import Heading3 from "../../components/markdown/Heading3.astro";
+import Heading4 from "../../components/markdown/Heading4.astro";
+import Heading5 from "../../components/markdown/Heading5.astro";
+import UnorderedList from "../../components/markdown/UnorderedList.astro";
+import OrderedList from "../../components/markdown/OrderedList.astro";
+import Blockquote from "../../components/markdown/Blockquote.astro";
+import Table from "../../components/markdown/Table.astro";
+import { CollectionEntry, getCollection } from "astro:content";
+import { format } from "date-fns";
+
+interface Props {
+	project: CollectionEntry<"projects">;
+	language: {
+		current: string;
+		list: string[];
+	};
+}
+
+export const getStaticPaths = async () => {
+	const projects = await getCollection("projects");
+	const paths: { params: { slug: string }; props: Props }[] = [];
+	const langSlugs: Map<string, string[]> = new Map();
+
+	for (const project of projects) {
+		const slugSegments = project.slug.split("/");
+		const language = slugSegments.length === 1 ? "en" : slugSegments[1]!;
+		const languages: string[] = [];
+		const l = langSlugs.get(slugSegments[0] ?? "");
+
+		if (l) {
+			languages.push("en", ...l);
+		} else {
+			const r = (
+				await fs.readdir(`src/content/projects/${slugSegments[0]}`, {
+					withFileTypes: true,
+				})
+			)
+				.filter((s) => s.isDirectory())
+				.map((s) => s.name);
+			langSlugs.set(slugSegments[0] ?? "", r);
+			languages.push("en", ...r);
+		}
+
+		paths.push({
+			params: { slug: project.slug },
+			props: {
+				project,
+				language: {
+					current: language,
+					list: languages,
+				},
+			},
+		});
+	}
+
+	return paths;
+};
+
+const { project, language } = Astro.props;
+const { Content, headings } = await project.render();
+---
+
+<LayoutProject project={project}>
+	<article class="container">
+		<TableOfContents headings={headings} />
+		{language.list.length !== 1 ? <Languages language={language} /> : null}
+		<Button
+			as="anchor"
+			href={language.current === "en" ? "../" : "../../"}
+			class="back"
+		>
+			&lt;-- &nbsp; Back
+		</Button>
+		<header>
+			<div class="information">
+				<time
+					title={project.data.date.toISOString()}
+					datetime={project.data.date.toISOString()}
+					>{format(project.data.date, "LLLL dd, yyyy")}</time
+				>
+			</div>
+			<Title class="balance-text">{project.data.title}</Title>
+			<div class="links">
+				{
+					project.data.links.map(({ link, label }) => (
+						<Button class="btn-xs" as="anchor" href={link}>
+							{label}
+						</Button>
+					))
+				}
+			</div>
+		</header>
+		<hr />
+		<main>
+			<Content
+				components={{
+					p: Paragraph,
+					img: Image,
+					pre: Pre,
+					code: Code,
+					h2: Heading2,
+					h3: Heading3,
+					h4: Heading4,
+					h5: Heading5,
+					ul: UnorderedList,
+					ol: OrderedList,
+					blockquote: Blockquote,
+					table: Table,
+				}}
+			/>
+		</main>
+	</article>
+</LayoutProject>
+<style lang="scss">
+	.container {
+		width: 100%;
+		max-width: var(--container-sm);
+		margin: 1rem auto 0;
+		padding: 1.5rem 0.75rem 0.75rem;
+	}
+
+	article {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 1.5rem;
+	}
+
+	.back {
+		align-self: flex-start;
+	}
+
+	header {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 0.5rem;
+	}
+
+	.title {
+		line-height: 2.25rem;
+	}
+
+	.authors,
+	.links {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 1.25rem;
+		margin-top: 0.75rem;
+
+		@media (max-width: 32.25rem) {
+			gap: 0.5rem;
+		}
+	}
+
+	.links {
+		gap: 0.5rem;
+	}
+
+	.information {
+		align-self: flex-start;
+		color: #a6a7ab;
+		font-size: 0.875rem;
+		font-variant-numeric: tabular-nums;
+		cursor: help;
+
+		html.light & {
+			color: #5c5f66;
+		}
+	}
+
+	hr {
+		height: 1px;
+		margin: 0;
+		border: 0;
+		border-top: 1px solid #343a40;
+		transition: border-top 0.1s linear;
+
+		html.light & {
+			border-top: 1px solid #ced4da;
+		}
+	}
+
+	main > :global(:first-child) {
+		margin-top: 0;
+	}
+</style>

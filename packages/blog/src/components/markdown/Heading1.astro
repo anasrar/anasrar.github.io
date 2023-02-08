@@ -1,0 +1,10 @@
+---
+import Heading from "./Heading.astro";
+
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+const { slot, ...props } = Astro.props;
+---
+
+<Heading as="h1" {...props}>
+	<slot />
+</Heading>

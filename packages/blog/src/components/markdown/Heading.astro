@@ -1,0 +1,101 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {
+	as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+}
+const { as: As = "h1", id, class: className, slot, ...props } = Astro.props;
+---
+
+<section>
+	<As id={id} class:list={["heading", className]} {...props}>
+		<slot />
+	</As>
+	<a href={`#${id}`} title="Copy URL" copy-heading-url>
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="icon icon-tabler icon-tabler-link"
+			width="16"
+			height="16"
+			viewBox="0 0 24 24"
+			stroke-width="2"
+			stroke="currentColor"
+			fill="none"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		>
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5"
+			></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5"
+			></path>
+		</svg>
+	</a>
+</section>
+
+<script>
+	const buttons =
+		document.querySelectorAll<HTMLButtonElement>("[copy-heading-url]");
+	for (const button of buttons) {
+		button.addEventListener("click", (ev) => {
+			const { protocol, host, pathname } = window.location;
+			const slug =
+				(ev.currentTarget as Element).parentElement?.querySelector(
+					"[id]"
+				)?.id ?? ":(";
+			navigator.clipboard.writeText(
+				`${protocol}//${host}${pathname}#${slug}`
+			);
+		});
+	}
+</script>
+
+<style lang="scss">
+	section {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+		margin: 0.5rem 0 1.25rem;
+	}
+
+	.heading {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	h1 {
+		font-size: 1.802rem;
+	}
+
+	h2 {
+		font-size: 1.602rem;
+	}
+
+	h3 {
+		font-size: 1.424rem;
+	}
+
+	h4 {
+		font-size: 1.266rem;
+	}
+
+	h5 {
+		font-size: 1.125rem;
+	}
+
+	h6 {
+		font-size: 1rem;
+	}
+
+	a {
+		display: inline-block;
+		padding: 0;
+		border: 0;
+		color: inherit !important;
+		background: transparent;
+		cursor: pointer;
+
+		&:active {
+			transform: translate(0, 0.1rem);
+		}
+	}
+</style>

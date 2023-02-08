@@ -1,0 +1,26 @@
+---
+interface Props extends astroHTML.JSX.OlHTMLAttributes {
+	className?: string;
+}
+const { className, ...props } = Astro.props;
+---
+
+<ol {...props}><slot /></ol>
+
+<style lang="scss">
+	ol {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 0.25rem;
+		margin: 0.5rem 0 1.25rem 0;
+		padding: 0 0 0 2.25rem;
+
+		& :global(> li[id^="user-content-fn"]) {
+			font-size: 0.85rem;
+
+			& :global(> p) {
+				margin: 0;
+			}
+		}
+	}
+</style>

@@ -1,0 +1,52 @@
+[data-rehype-pretty-code-fragment] {
+	--md-pre-background: #161821;
+	--md-pre-border-color: #495057;
+
+	html.light & {
+		--md-pre-border-color: #101113;
+	}
+
+	& > [data-rehype-pretty-code-title] {
+		margin: 0.5rem 0 0 0;
+		padding: 0.4rem 0.75rem;
+		border: 1px solid var(--md-pre-border-color, #495057);
+		border-bottom: 0;
+		border-radius: 0.25rem 0.25rem 0 0;
+		color: #dee2e6;
+		background: var(--md-pre-background);
+		font-size: 0.9rem;
+		transition: border 0.1s linear;
+
+		html.light & {
+			border: 1px solid var(--md-pre-border-color, #ced4da);
+			border-bottom: 0;
+		}
+
+		& + div > .wrapper {
+			margin-top: 0;
+			border-top-right-radius: 0;
+			border-top-left-radius: 0;
+		}
+	}
+
+	& .line {
+		&.highlighted {
+			position: relative;
+
+			&::after {
+				content: "";
+				position: absolute;
+				inset: 0.1rem -3.5rem 0.1rem -0.75rem;
+				border-left: 2px solid rgba($color: #7aa2f7, $alpha: 1);
+				background: rgba($color: #7aa2f7, $alpha: 0.1);
+				pointer-events: none;
+			}
+		}
+
+		& .word {
+			padding: 0 0.25rem;
+			border-radius: 0.25rem;
+			background: rgba($color: #7aa2f7, $alpha: 0.1);
+		}
+	}
+}

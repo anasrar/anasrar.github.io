@@ -1,0 +1,180 @@
+---
+title: Monorepo dengan PNPM workspace
+date: 2022-12-23
+---
+
+## Monorepo ?
+
+Monorepo adalah satu repository dengan banyak projek atau package (library atau module), anda bisa memakai kembali kode sabagai package.
+
+[en.wikipedia.org/wiki/Monorepo](//en.wikipedia.org/wiki/Monorepo) punya penjelasan bagus untuk Monorepo termasuk keuntungan dan kerugian.
+
+```diagram-graphviz layout="dot"
+digraph FLow {
+  rankdir=TB
+  bgcolor="transparent"
+  pad=0.1
+  node [penwidth=2.0, shape=folder, fontname="Sans-Serif", fontsize="10"]
+
+  repo [
+    color="#f59f00"
+  ]
+
+  apps [
+    color="#f59f00"
+  ]
+
+  pkgs [
+    color="#f59f00"
+  ]
+
+  app1 [
+    color="#087f5b"
+  ]
+
+  app2 [
+    color="#087f5b"
+  ]
+
+  lib1 [
+    color="#862e9c"
+  ]
+
+  lib2 [
+    color="#862e9c"
+  ]
+
+  repo -> apps
+  repo -> pkgs
+  apps -> app1
+  apps -> app2
+  pkgs -> lib1
+  pkgs -> lib2
+}
+```
+
+## Monorepo dengan PNPM workspace
+
+PNPM hanya perlu `pnpm-workspace.yaml` pada repository root disamping `package.json`, dengan **array path** ke directory dalam properti `packages`.
+
+```yaml title="pnpm-workspace.yaml" showLineNumbers
+packages:
+    - "apps/*" # mendukung pola glob
+    - "packages/*"
+```
+
+```text title="Directory Structure"
+monorepo-example/
+├─ apps/
+├─ packages/
+├─ package.json
+└─ pnpm-workspace.yaml
+```
+
+**CATATAN**: `apps/*` dan `packages/*` adalah struktur monorepo yang sangat populer, dimana`apps/*` adalah proyek directory dan `packages/*` adalah kode yang dapat digunakan kembali.
+
+Yang anda butuhkan hanya membuat directory didalam daftar `packages`, ganti directory, dan lakukan `pnpm init`.
+
+```bash title="Commands"
+mkdir -p packages/math-lib
+cd packages/math-lib
+pnpm init
+cd ../..
+mkdir -p apps/calculator
+cd apps/calculator
+pnpm init
+cd ../..
+```
+
+### Daftar semua workspaces
+
+Daftar semua workspaces dalam format JSON.
+
+```bash title="Commands"
+pnpm m ls --depth -1 --json
+```
+
+### Perintah spesifik workspace
+
+Menjalankan perintah pada spesifik workspace menggunakan `--filter` dilanjutkan dengan `name` pada `package.json`.
+
+```bash title="Commands"
+# Format
+pnpm --filter <workspace> <command>
+pnpm -F <workspace> <command> # alias pendek
+# Contoh
+pnpm --filter math-lib add lodash
+pnpm --filter math-lib add -D typescript @types/lodash
+pnpm --filter calculator run test
+# Mendukung pola glob
+pnpm --filter pkg* run test
+```
+
+**CATATAN**: PNPM menggunakan properti `name` pada `package.json` untuk menyaring workspace, jadi pastikan semua `name` pada `package.json` itu unik.
+
+### Menambah lokal dependency
+
+Menambah lokal dependency menggunakan flag `--workspace` untuk [hanya tambahkan dependency baru jika ditemukan di workspace](//pnpm.io/cli/add#--workspaces).
+
+```bash title="Commands"
+# Contoh
+pnpm --filter calculator add math-lib --workspace
+```
+
+## Contoh Projek
+
+```bash title="Commands"
+mkdir -p monorepo-example
+cd monorepo-example
+pnpm init
+mkdir -p packages/math-lib
+cd packages/math-lib
+pnpm init
+cd ../..
+mkdir -p apps/calculator
+cd apps/calculator
+pnpm init
+cd ../..
+touch packages/math-lib/index.js
+touch apps/calculator/index.js
+```
+
+```js title="packages/math-lib/index.js" showLineNumbers
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+
+module.exports = {
+  add,
+  subtract,
+};
+```
+```js title="apps/calculator/index.js" showLineNumbers
+const { add, subtract } = require("math-lib");
+
+console.log(`9 + 10 = ${add(9, 10)}`);
+console.log(`26 - 9 = ${subtract(26, 9)}`);
+```
+```bash title="Commands"
+pnpm --filter calculator add math-lib --workspace
+```
+
+```json title="apps/calculator/package.json" showLineNumbers
+{
+  "scripts": {
+    "start": "node index.js"
+  }
+}
+```
+```json title="package.json" showLineNumbers
+{
+  "scripts": {
+    "calculator:start": "pnpm -F calculator run start"
+  }
+}
+```
+
+```bash title="Commands"
+pnpm run calculator:start
+```
+
+![output calculator run start](/assets/blog/monorepo-with-pnpm-workspace/output.png)

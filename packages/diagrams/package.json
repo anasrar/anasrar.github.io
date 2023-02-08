@@ -1,0 +1,53 @@
+{
+	"name": "diagrams",
+	"version": "0.0.1",
+	"description": "",
+	"main": "./dist/main.cjs",
+	"module": "./dist/main.js",
+	"types": "./dist/main.d.ts",
+	"type": "module",
+	"exports": {
+		"import": "./dist/main.js",
+		"require": "./dist/main.cjs"
+	},
+	"scripts": {
+		"build": "tsup src/main.ts --format cjs,esm --dts --treeshake smallest --env.INSPECT_FILE false",
+		"lint": "tsc",
+		"test": "vitest run --reporter=verbose",
+		"test:watch": "vitest watch --reporter=verbose"
+	},
+	"keywords": [],
+	"author": "Anas Rin <mynameanasrar@gmail.com>",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/d3": "^7.4.0",
+		"@types/hast": "^2.3.4",
+		"@types/jsdom": "^20.0.1",
+		"@types/node": "^18.11.18",
+		"@types/prettier": "^2.7.2",
+		"@types/unist": "^2.0.6",
+		"@typescript-eslint/eslint-plugin": "^5.50.0",
+		"@typescript-eslint/parser": "^5.50.0",
+		"eslint": "^8.33.0",
+		"hast-util-from-html": "^1.0.1",
+		"hast-util-to-html": "^8.0.4",
+		"hast-util-to-string": "^2.0.0",
+		"mdast-util-from-markdown": "^1.3.0",
+		"mdast-util-to-hast": "^12.2.6",
+		"node-graphviz": "^0.1.1",
+		"prettier": "^2.8.3",
+		"tsup": "^6.5.0",
+		"typescript": "^4.9.5",
+		"unist-util-visit": "^4.1.2",
+		"vitest": "^0.28.3"
+	},
+	"peerDependencies": {
+		"node-graphviz": "^0.1.1"
+	},
+	"dependencies": {
+		"d3": "^7.8.2",
+		"expr-eval": "^2.0.2",
+		"jsdom": "^21.1.0",
+		"ts-graphviz": "^1.5.2"
+	}
+}

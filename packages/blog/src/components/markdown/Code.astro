@@ -1,0 +1,53 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+const props = Astro.props;
+---
+
+<code {...props} data-is-shiki={"data-theme" in props ? "true" : "false"}
+	><slot /></code
+>
+<style lang="scss">
+	code {
+		display: var(--md-code-display, inline-block);
+		min-width: var(--md-code-min-width, none);
+		margin: var(--md-code-margin, 0);
+		padding: var(--md-code-padding, 0 0.3rem);
+		border: var(--md-code-border, 1px solid #495057);
+		border-radius: var(--md-code-border-radius, 0.2rem);
+		background: var(--md-code-background, #1a1b26);
+		font-family: var(--font-family-mono);
+		font-size: var(--md-code-font-size, 0.85em);
+		line-height: var(--md-code-line-height, 1.25rem);
+		transition: border 0.1s linear, background 0.1s linear,
+			color 0.1s linear;
+
+		&[data-is-shiki="false"] {
+			background: var(--md-code-background, #212529);
+		}
+
+		html.light &[data-is-shiki="false"] {
+			border: var(--md-code-border, 1px solid #ced4da);
+			background: var(--md-code-background, #dee2e6);
+		}
+
+		counter-reset: line;
+		&[data-line-numbers] > :global(.line::before) {
+			counter-increment: line;
+			content: counter(line);
+
+			display: inline-block;
+			width: 1ch;
+			margin-right: 0.75rem;
+			text-align: right;
+			color: #737aa2;
+		}
+		&[data-line-numbers][data-line-numbers-max-digits="2"]
+			> :global(.line::before) {
+			width: 2ch;
+		}
+		&[data-line-numbers][data-line-numbers-max-digits="3"]
+			> :global(.line::before) {
+			width: 3ch;
+		}
+	}
+</style>

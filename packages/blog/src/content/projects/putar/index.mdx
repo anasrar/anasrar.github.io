@@ -1,0 +1,40 @@
+---
+title: "Putar - 360° Video/Image viewer"
+date: 2022-10-18
+links:
+  - label: "Website"
+    link: "//anasrar.github.io/putar/"
+
+  - label: "Repository"
+    link: "//github.com/anasrar/putar"
+---
+
+Simple web app to play 360° video/image.
+
+## Information
+
+### Background
+
+Back then Facebook has support for 360 image and you can view it direcly, because of that I really like render 360 image (mostly just meme) from Blender and upload it on Facebook, and then YouTube also support 360 video, but I don't like to upload just to view 360 video/image, 360 viewer aplication was limited out there.
+
+### Stack
+
+#### react-three-fiber
+
+[react-three-fiber](//github.com/pmndrs/react-three-fiber) is [Three.js](//github.com/mrdoob/three.js/) wrapper for [React](https://github.com/facebook/react), component based for scene and fit nice for multiple projections.
+
+#### Zustand
+
+[Zustand](//github.com/pmndrs/zustand) is a easy and straight forward state manager, really like it.
+
+#### Mantine
+
+[Mantine](//github.com/mantinedev/mantine/) is a beautiful [React](https://github.com/facebook/react) components library.
+
+#### Vite
+
+[Vite](//github.com/vitejs/vite) is fast code bundler with hot reload, make it easy to develop front-end stuff.
+
+#### Electron
+
+Open file larger than 600MB it might make time to load, this is why using [Electron](https://github.com/electron/electron) to load local file using `file://` protocol was the right choice.

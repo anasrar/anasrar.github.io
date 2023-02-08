@@ -1,0 +1,15 @@
+{
+	"name": "rin",
+	"private": true,
+	"version": "0.0.1",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"blog:dev": "pnpm -F blog dev",
+		"blog:build": "pnpm -F blog build",
+		"diagrams:build": "pnpm -F diagrams build"
+	},
+	"keywords": [],
+	"author": "Anas Rin <mynameanasrar@gmail.com>",
+	"license": "MIT"
+}

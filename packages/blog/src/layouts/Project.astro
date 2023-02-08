@@ -1,0 +1,84 @@
+---
+import "../styles/global.scss";
+import "../styles/markdown.scss";
+import "../styles/code-highlighting.scss";
+import "../styles/diagrams.scss";
+import "../fonts/KaTeX/katex.min.css";
+import Header from "../components/global/Header.astro";
+import Footer from "../components/global/Footer.astro";
+import PrefersColorScheme from "../components/global/PrefersColorScheme.astro";
+import BalanceText from "../components/global/BalanceText.astro";
+import type { CollectionEntry } from "astro:content";
+import RemoveMarkdown from "remove-markdown";
+
+interface Props {
+	project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+
+const shareImage =
+	(import.meta.env.DEV ? "http://" + Astro.url.host + "/" : Astro.site) +
+	`og-images/projects/${project.slug}/image.png`;
+
+const words = RemoveMarkdown(project.body).replace(/(\r\n|\r|\n\n|\n)/gm, " ");
+const summary = words.length > 160 ? `${words.slice(0, 157)}...` : words;
+
+const jsonld = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "Article",
+	headline: project.data.title,
+	image: shareImage,
+	author: [
+		{
+			"@type": "Person",
+			name: "Anas Rin",
+			url: "https://anasrar.github.io/",
+		},
+	],
+	url: Astro.url,
+	mainEntityOfPage: {
+		"@type": "WebPage",
+		"@id": "https://google.com/article",
+	},
+	datePublished: project.data.date.toISOString(),
+	description: summary,
+});
+---
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>{project.data.title} - Anas Rin</title>
+		<meta name="description" content={summary} />
+		<meta property="og:site_name" content="Anas Rin" />
+		<meta
+			property="og:title"
+			content={`${project.data.title} - Anas Rin`}
+		/>
+		<meta property="og:type" content="article" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:image" content={shareImage} />
+		<meta property="og:description" content={summary} />
+		<meta
+			property="article:published_time"
+			content={project.data.date.toISOString()}
+		/>
+		<meta property="article:author" content="https://anasrar.github.io" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@rrrriiiiiinnnn" />
+		<meta name="twitter:title" content={project.data.title} />
+		<meta name="twitter:description" content={summary} />
+		<meta name="twitter:image" content={shareImage} />
+		<script type="application/ld+json" set:html={jsonld}></script>
+	</head>
+	<body>
+		<Header />
+		<slot />
+		<Footer />
+		<PrefersColorScheme />
+		<BalanceText />
+	</body>
+</html>

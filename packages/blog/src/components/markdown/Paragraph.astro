@@ -1,0 +1,13 @@
+---
+interface Props extends astroHTML.JSX.HTMLAttributes {}
+const { slot, children, ...props } = Astro.props;
+---
+
+<p {...props}><slot /></p>
+
+<style lang="scss">
+	p {
+		display: block;
+		margin: 0.5rem 0 1.25rem;
+	}
+</style>

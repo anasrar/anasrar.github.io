@@ -1,0 +1,42 @@
+[class^="language-diagram-"] {
+	display: flex;
+	direction: row nowrap;
+	justify-content: center;
+	align-items: center;
+}
+
+.language-diagram-pie {
+	--diagram-pie-stroke: #000;
+}
+
+.language-diagram-graphviz {
+	--diagram-graphviz-font-family: inherit;
+
+	& text {
+		fill: currentColor;
+	}
+
+	& [stroke="black"] {
+		stroke: currentColor;
+	}
+	& [fill="black"] {
+		fill: currentColor;
+	}
+}
+
+.language-diagram-plot {
+	--diagram-plot-grid-stroke: #343a40;
+	--diagram-plot-origin-x-stroke: #fa5252;
+	--diagram-plot-origin-y-stroke: #40c057;
+
+	html.light & {
+		--diagram-plot-grid-stroke: #ced4da;
+	}
+
+	& .axis {
+		color: #868e96;
+		html.light & {
+			color: currentColor;
+		}
+	}
+}

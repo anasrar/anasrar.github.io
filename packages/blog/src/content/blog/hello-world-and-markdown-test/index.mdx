@@ -1,0 +1,332 @@
+---
+title: "Hello world and Markdown test"
+date: 2022-01-22
+---
+
+Hello world.
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+
+##### Heading 5
+
+## Components
+
+### Paragraphs
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. N
+ullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+
+Aenean ornare neque sed facilisis lobortis. Sed posuere mattis condimentum. Vestibulum condimentum velit metus, sed pulvinar neque dictum quis. Class aptent taciti
+ sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Donec convallis volutpat ipsum, eu placerat magna vestibulum sed. M
+aecenas gravida nibh quam, id ornare orci auctor eget. Etiam posuere ante ac nisl porta convallis. Proin viverra, metus sed auctor vestibulum, tellus ipsum gravida
+ velit, vel consectetur augue ligula nec sapien. Morbi tristique dignissim tempus.
+
+### Emphasis
+
+#### Bold
+
+**Lorem ipsum dolor sit amet, consectetur adipiscing elit.** Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornareac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+
+#### Italic
+
+*Lorem ipsum dolor sit amet, consectetur adipiscing elit.* Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+
+### List
+
+#### Ordered
+
+1. Lorem ipsum dolor sit amet.
+1. Lorem ipsum dolor sit amet.
+1. Lorem ipsum dolor sit amet.
+1. Lorem ipsum dolor sit amet.
+1. Lorem ipsum dolor sit amet.
+
+#### Unordered
+
+- Lorem ipsum dolor sit amet.
+- Lorem ipsum dolor sit amet.
+- Lorem ipsum dolor sit amet.
+- Lorem ipsum dolor sit amet.
+- Lorem ipsum dolor sit amet.
+
+#### Nested
+
+- Lorem ipsum dolor sit amet.
+  1. Lorem ipsum dolor sit amet.
+  1. Lorem ipsum dolor sit amet.
+- Lorem ipsum dolor sit amet.
+- Lorem ipsum dolor sit amet.
+
+### Links
+
+[Lorem ipsum dolor sit amet, consectetur adipiscing elit](/). Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+
+### Image
+
+![Random image](//placeimg.com/300/300/tech)
+
+### Blockquote
+
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+>
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+>> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+>
+> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+>
+> - Lorem ipsum dolor sit amet.
+>   1. Lorem ipsum dolor sit amet.
+>   1. Lorem ipsum dolor sit amet.
+> - Lorem ipsum dolor sit amet.
+> - Lorem ipsum dolor sit amet.
+
+## Code
+
+Code highlighting using https://github.com/atomiks/rehype-pretty-code.
+
+### Inline
+
+#### Default
+
+Wrap text inside backtick like `` `function(num: number){ return (num & 0x1) === 0 }` `` will render `function(num: number){ return (num & 0x1) === 0 }`.
+
+#### Highlighting
+
+Set language using `` `...{:lang}` `` at the end will highlight the output, something like this `function(num: number){ return (num & 0x1) === 0 }{:ts}`.
+
+### Block
+
+#### Default
+
+No language after `` ``` ``.
+
+```
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum ipsum nibh, ac bibendum turpis consectetur eu. Ut cursus dapibus ante, eget dignissim libero tristique vel. Suspendisse potenti. Phasellus a dui eget nulla varius dapibus. Mauris et convallis quam. Sed convallis sodales est. Cras et accumsan justo. Morbi venenatis accumsan sem, ac imperdiet felis vestibulum non. Maecenas volutpat sapien metus.
+ ```
+
+#### Highlighting
+
+
+Set language after `` ``` ``, like `` ```python ``.
+
+```python
+def magnitude(a: Vec2D) -> float:
+  """
+    Get vector magnitude.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum ipsum nibh, ac bibendum turpis consectetur eu. Ut cursus dapibus ante, eget dignissim libero tristique vel. Suspendisse potenti. Phasellus a dui eget nulla varius dapibus. Mauris et convallis quam. Sed convallis sodales est. Cras et accumsan justo. Morbi venenatis accumsan sem, ac imperdiet felis vestibulum non. Maecenas volutpat sapien metus.
+  """
+  return math.sqrt(pow(a.x, 2) + pow(a.y, 2)) # inline comment
+```
+
+#### Title and Line Numbers
+
+`title="something"` to add title and `showLineNumbers` to add line numbers, set number start with `showLineNumbers{n}`.
+
+```rust title="even.rs" showLineNumbers
+fn even(num: i32) -> bool {
+  return (num & 0x1) == 0;
+}
+```
+
+### Word and Line Highlighting
+
+`/word/` to highlight words and `{n,n-n}` to highlight lines.
+
+```java showLineNumbers /fizz/ /buzz/ {4,13}
+class FizzBuzz {
+  public static void main(String[] args) {
+    for (int i = 1; i <= 100; i++) {
+      String r = "";
+      Boolean fizz = i % 3 == 0;
+      Boolean buzz = i % 5 == 0;
+      if(fizz){
+        r += "fizz";
+      }
+      if(buzz){
+        r += "buzz";
+      }
+      System.out.println((r == "") ? i : r);
+    }
+  }
+}
+```
+
+## GitHub Markdown
+
+GitHub flavour markdown support by default in `@astro/mdx`.
+
+### Autolink
+
+https://wikipedia.org, Wikipedia is a free online encyclopedia, created and edited by volunteers around the world and hosted by the Wikimedia Foundation.
+
+### Strikethrough
+
+~~Lorem ipsum dolor sit amet, consectetur adipiscing elit.~~ Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+
+### Tasks
+
+- [x] foo
+- [x] bar
+  - [x] nested 0
+  - [x] nested 1
+  - [x] nested 2
+  - [x] nested 3
+- [ ] fizz
+  - [x] nested 0
+  - [ ] nested 1
+  - [x] nested 2
+- [ ] buzz
+
+### Footnotes
+
+Here is a simple footnote[^1]. With some additional text after it.
+
+[^1]: My reference.\
+breakline and other `content`.
+
+Here is a simple footnote[^2]. With some additional text after it.
+
+[^2]: My reference.
+
+Here is a simple footnote[^key]. With some additional text after it.
+
+[^key]: My reference.
+
+### Table
+
+| Header 1  | Header 2  | Header 3  |
+| --------- | --------- | --------- |
+| Text      | Text      | Text      |
+| Text      | Text      | Text      |
+| Text      | Text      | Text      |
+| Text      | Text      | Text      |
+
+### KaTeX Math
+
+Dot product $\bold{a}$ and $\bold{b}$.
+
+$$
+\bold{a}\cdot\bold{b} = \displaystyle\sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \cdot\cdot\cdot + a_n b_n
+$$
+
+
+Rotate 2D vector.
+
+$$
+\begin{aligned}
+R\bold{v} & = \begin{bmatrix}
+\cos \theta & -\sin \theta \\
+\sin \theta & \cos \theta
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix} \\
+& = \begin{bmatrix}
+x \cos \theta - y \sin \theta \\
+x \sin \theta + y \cos \theta
+\end{bmatrix}
+\end{aligned}
+$$
+
+Derivative.
+
+$$
+\begin{aligned}
+\frac{df}{dx} & = \lim_{\Delta x \to 0}\frac{f(x+\Delta x)-f(x)}{\Delta x} \\
+& = \lim_{h\to 0}\frac{f(x+h)-f(x)}{h} \\
+& = \lim_{\Delta x \to 0}\frac{\Delta y}{\Delta x}
+\end{aligned}
+$$
+
+## Diagrams
+
+### Pie
+
+```diagram-pie
+digraph Pyramid {
+  startAngle="-135"
+
+  sky [
+    label="Sky"
+    value=75
+    bgcolor="#4c6ef5"
+  ]
+
+  sunny [
+    label="Sunny side of pyramid"
+    value=5
+    bgcolor="#f76707"
+  ]
+
+  shady [
+    label="Shady side of pyramid"
+    value=20
+    bgcolor="#ffe066"
+  ]
+}
+```
+
+### Graphviz
+
+```diagram-graphviz layout="dot"
+digraph FLow {
+  bgcolor="transparent"
+  rankdir=LR
+  fontname="Sans-Serif"
+  fontsize="12px"
+  node [shape=rect, fontname="sans-Serif", fontsize="10px"]
+  edge [fontname="Sans-Serif", fontsize="8px", labeldistance=4.5, labelangle=270 ]
+
+  subgraph cluster_remark {
+    mdast
+    label="Remark"
+    penwidth=2
+  }
+
+  subgraph cluster_rehype {
+    hast
+    label="Rehype"
+    penwidth=2
+  }
+
+  Markdown -> mdast [
+    minlen=1
+    taillabel="mdast-util-from-markdown"
+  ]
+  mdast -> hast [
+    minlen=1
+    taillabel="mdast-util-to-hast"
+  ]
+  hast -> HTML [
+    minlen=1
+    taillabel="hast-util-to-html"
+  ]
+}
+```
+
+### Plot Function
+
+```diagram-plot
+graph Linear {
+  width="520"
+  height="320"
+  xDomainStart="-1"
+  xDomainEnd="6"
+  xTicks="6"
+  yDomainStart="-2"
+  yDomainEnd="2"
+  yTicks="4"
+
+  sine [
+    fn="sin(x)"
+    step="0.2"
+    curve="monotone"
+    color="#be4bdb"
+  ]
+}
+```
