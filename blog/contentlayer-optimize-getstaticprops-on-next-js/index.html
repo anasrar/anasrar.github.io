@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Contentlayer: Optimize getStaticProps on Next.js - Anas Rin</title>
+		<meta name="description" content=" TL:DR Remove unnecessary data that doesn't render on getStaticProps. Why? When you pass Contentlayer data to getStaticProps on Next.js, by default will incl...">
+		<meta property="og:site_name" content="Anas Rin">
+		<meta property="og:title" content="Contentlayer: Optimize getStaticProps on Next.js - Anas Rin">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="https://anasrar.github.io/blog/contentlayer-optimize-getstaticprops-on-next-js/">
+		<meta property="og:image" content="https://anasrar.github.io/og-images/blog/contentlayer-optimize-getstaticprops-on-next-js/image.png">
+		<meta property="og:description" content=" TL:DR Remove unnecessary data that doesn't render on getStaticProps. Why? When you pass Contentlayer data to getStaticProps on Next.js, by default will incl...">
+		<meta property="article:published_time" content="2023-02-09T00:00:00.000Z">
+		<meta property="article:author" content="https://anasrar.github.io">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@rrrriiiiiinnnn">
+		<meta name="twitter:title" content="Contentlayer: Optimize getStaticProps on Next.js">
+		<meta name="twitter:description" content=" TL:DR Remove unnecessary data that doesn't render on getStaticProps. Why? When you pass Contentlayer data to getStaticProps on Next.js, by default will incl...">
+		<meta name="twitter:image" content="https://anasrar.github.io/og-images/blog/contentlayer-optimize-getstaticprops-on-next-js/image.png">
+		<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Contentlayer: Optimize getStaticProps on Next.js","image":"https://anasrar.github.io/og-images/blog/contentlayer-optimize-getstaticprops-on-next-js/image.png","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrar.github.io/"}],"url":"https://anasrar.github.io/blog/contentlayer-optimize-getstaticprops-on-next-js/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-02-09T00:00:00.000Z","description":" TL:DR Remove unnecessary data that doesn't render on getStaticProps. Why? When you pass Contentlayer data to getStaticProps on Next.js, by default will incl..."}</script>
+	<link rel="stylesheet" href="/_astro/_...slug_.b362b080.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.888ff4eb.css" />
+<link rel="stylesheet" href="/_astro/blog.b47b8a65.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.ebb87e2d.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.a4e5fa84.css" /><script type="module" src="/_astro/hoisted.524c6511.js"></script></head>
+	<body>
+		<header class="sticky-header astro-EIYD7VOQ">
+	<div class="container astro-EIYD7VOQ">
+		<nav class="group md astro-EIYD7VOQ">
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
+					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
+					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
+				</svg> Home
+			
+		</a>
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
+					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
+				</svg>
+				Guestbook
+			
+		</a>
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
+				</svg>
+				Projects
+			
+		</a>
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
+					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
+				</svg> Blog
+			
+		</a>
+		</nav>
+		<nav class="group xs astro-EIYD7VOQ">
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/" title="Home">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
+					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
+					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/" title="Guestbook">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
+					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/" title="Projects">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/" title="Blog">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
+					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
+				</svg>
+		</a>
+		</nav>
+		<nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center astro-EIYD7VOQ">
+			<button class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" title="Toggle Dark/Light Mode" toggle-colorscheme="true">
+			<svg xmlns="http://www.w3.org/2000/svg" class="only-dark icon icon-tabler icon-tabler-sun astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<circle cx="12" cy="12" r="4" class="astro-EIYD7VOQ"></circle>
+					<path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" class="astro-EIYD7VOQ"></path>
+				</svg><svg xmlns="http://www.w3.org/2000/svg" class="only-light icon icon-tabler icon-tabler-moon-stars astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" class="astro-EIYD7VOQ"></path>
+					<path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" class="astro-EIYD7VOQ"></path>
+					<path d="M19 11h2m-1 -1v2" class="astro-EIYD7VOQ"></path>
+				</svg>
+		</button>
+		</nav>
+	</div>
+</header>
+
+
+		<article class="container astro-7JJQPTXK">
+		<section id="toc" class="astro-USK3TZSR">
+	<h4 class="astro-USK3TZSR">Table of Contents</h4>
+	<ul class="astro-USK3TZSR">
+		<li class="astro-USK3TZSR">
+					<a id="toc-tldr" href="#tldr" style="--depth: 0" title="TL:DR" class="astro-USK3TZSR">
+						TL:DR
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-why" href="#why" style="--depth: 0" title="Why?" class="astro-USK3TZSR">
+						Why?
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-optimizing" href="#optimizing" style="--depth: 0" title="Optimizing" class="astro-USK3TZSR">
+						Optimizing
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-why-clone" href="#why-clone" style="--depth: 1" title="Why Clone?" class="astro-USK3TZSR">
+						Why Clone?
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-footnote-label" href="#footnote-label" style="--depth: 0" title="Footnotes" class="astro-USK3TZSR">
+						Footnotes
+					</a>
+				</li>
+	</ul>
+</section>
+
+
+		<section class="medium astro-54VG6WIR">
+	<ul class="astro-54VG6WIR">
+		<li class="astro-54VG6WIR">
+						<a class="active astro-54VG6WIR" href="./" title="English">
+							English
+						</a>
+					</li><li class="astro-54VG6WIR">
+						<a class="astro-54VG6WIR" href="./id/" title="Bahasa Indonesia">
+							Bahasa Indonesia
+						</a>
+					</li>
+	</ul>
+</section>
+<section class="small astro-54VG6WIR">
+	<section class="small-wrapper astro-54VG6WIR">
+		<button class="btn btn-square astro-54VG6WIR astro-7AB5KPLB" id="language" aria-label="Language">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language astro-54VG6WIR" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+				<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-54VG6WIR"></path>
+				<path d="M4 5h7" class="astro-54VG6WIR"></path>
+				<path d="M9 3v2c0 4.418 -2.239 8 -5 8" class="astro-54VG6WIR"></path>
+				<path d="M5 9c0 2.144 2.952 3.908 6.7 4" class="astro-54VG6WIR"></path>
+				<path d="M12 20l4 -9l4 9" class="astro-54VG6WIR"></path>
+				<path d="M19.1 18h-6.2" class="astro-54VG6WIR"></path>
+			</svg>
+		</button>
+		<ul class="astro-54VG6WIR">
+			<li class="astro-54VG6WIR">
+							<a class="active astro-54VG6WIR" href="./" title="English">
+								English
+							</a>
+						</li><li class="astro-54VG6WIR">
+							<a class="astro-54VG6WIR" href="./id/" title="Bahasa Indonesia">
+								Bahasa Indonesia
+							</a>
+						</li>
+		</ul>
+	</section>
+</section>
+		<a class="btn back astro-7JJQPTXK astro-7AB5KPLB" href="../">
+			
+			&lt;-- &nbsp; Back
+		
+		</a>
+		<header class="astro-7JJQPTXK">
+			<div class="information astro-7JJQPTXK">
+				<time title="2023-02-09T00:00:00.000Z" datetime="2023-02-09T00:00:00.000Z" class="astro-7JJQPTXK">February 09, 2023</time>
+			</div>
+			<h1 class="title size-h1 balance-text astro-7JJQPTXK astro-6IDPVE2O">Contentlayer: Optimize getStaticProps on Next.js</h1>
+		</header>
+		<hr class="astro-7JJQPTXK">
+		<main class="astro-7JJQPTXK">
+			<section class="astro-WCJWFPCE">
+	<h2 id="tldr" class="heading astro-WCJWFPCE">TL:DR</h2>
+	<a href="#tldr" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+
+
+<p class="astro-6R4UOCDA">Remove unnecessary data that doesn’t render on <code class="astro-ONSIZIAZ" data-is-shiki="false">getStaticProps</code>.</p>
+<section class="astro-WCJWFPCE">
+	<h2 id="why" class="heading astro-WCJWFPCE">Why?</h2>
+	<a href="#why" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+
+
+<p class="astro-6R4UOCDA">When you pass Contentlayer data to <code class="astro-ONSIZIAZ" data-is-shiki="false">getStaticProps</code> on Next.js, by default will include the raw markdown, which is redundant and bad for load speed.</p>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-language="typescript" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">allPosts</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">Post</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&#39;</span><span style="color:#9ECE6A">contentlayer/generated</span><span style="color:#89DDFF">&#39;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#7DCFFF">export</span><span style="color:#A9B1D6"> </span><span style="color:#9D7CD8;font-style:italic">async</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">function</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">getStaticProps</span><span style="color:#9ABDF5">()</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">posts</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">Post</span><span style="color:#9ABDF5">[] </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">allPosts</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#BB9AF7;font-style:italic">return</span><span style="color:#9ABDF5"> {</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#73DACA">props</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> {</span></span>
+<span class="line"><span style="color:#9ABDF5">      </span><span style="color:#C0CAF5">posts</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">    }</span></span>
+<span class="line"><span style="color:#9ABDF5">  }</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">}</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+		</button>
+</div></div>
+<p class="astro-6R4UOCDA">HTML result.</p>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="html" data-theme="default" class="astro-JIMS2NUM"><code data-language="html" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#BA3C97">&lt;</span><span style="color:#F7768E">script</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">id</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">__NEXT_DATA__</span><span style="color:#89DDFF">&quot;</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">application/json</span><span style="color:#89DDFF">&quot;</span><span style="color:#BA3C97">&gt;</span></span>
+<span class="line"><span style="color:#C0CAF5">  {</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;props&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">      &quot;pageProps&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">        &quot;posts&quot;: [</span></span>
+<span class="line"><span style="color:#C0CAF5">          {</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Change me!&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-03-11T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;\nWhen you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.\n&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;change-me&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/change-me&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">          },</span></span>
+<span class="line"><span style="color:#C0CAF5">          {</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Click me!&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-28T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;\nBlog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.\n&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;click-me&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/click-me&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">          },</span></span>
+<span class="line"><span style="color:#C0CAF5">          {</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;What is Contentlayer?&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-22T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;\n**Contentlayer makes working with content easy.** It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.\n&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Contentlayer makes working with content easy.&lt;/strong&gt; It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;what-is-contentlayer&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/what-is-contentlayer&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">          }</span></span>
+<span class="line"><span style="color:#C0CAF5">        ]</span></span>
+<span class="line"><span style="color:#C0CAF5">      },</span></span>
+<span class="line"><span style="color:#C0CAF5">      &quot;__N_SSG&quot;: true</span></span>
+<span class="line"><span style="color:#C0CAF5">    },</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;page&quot;: &quot;/&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;query&quot;: {},</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;buildId&quot;: &quot;lJqgQzHmHoKqCJDQ-Nldm&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;isFallback&quot;: false,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;gsp&quot;: true,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;scriptLoader&quot;: []</span></span>
+<span class="line"><span style="color:#C0CAF5">  }</span></span>
+<span class="line"><span style="color:#BA3C97">&lt;/</span><span style="color:#F7768E">script</span><span style="color:#BA3C97">&gt;</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h2 id="optimizing" class="heading astro-WCJWFPCE">Optimizing</h2>
+	<a href="#optimizing" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+
+
+<p class="astro-6R4UOCDA">Clone data<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup> and remove unnecessary things.</p>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-language="typescript" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">allPosts</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">Post</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&#39;</span><span style="color:#9ECE6A">contentlayer/generated</span><span style="color:#89DDFF">&#39;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#7DCFFF">export</span><span style="color:#A9B1D6"> </span><span style="color:#9D7CD8;font-style:italic">async</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">function</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">getStaticProps</span><span style="color:#9ABDF5">()</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">posts</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">Post</span><span style="color:#9ABDF5">[] </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">allPosts</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">map</span><span style="color:#9ABDF5">((</span><span style="color:#E0AF68">post</span><span style="color:#9ABDF5">) </span><span style="color:#BB9AF7">=&gt;</span><span style="color:#9ABDF5"> {</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">copy</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#7AA2F7">structuredClone</span><span style="color:#9ABDF5">(</span><span style="color:#C0CAF5">post</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">body</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">raw</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">sourceFilePath</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">sourceFileName</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">sourceFileDir</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">flattenedPath</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#BB9AF7;font-style:italic">return</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">  })</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#BB9AF7;font-style:italic">return</span><span style="color:#9ABDF5"> {</span></span>
+<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#73DACA">props</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> {</span></span>
+<span class="line"><span style="color:#9ABDF5">      </span><span style="color:#C0CAF5">posts</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">    }</span></span>
+<span class="line"><span style="color:#9ABDF5">  }</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">}</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h3 id="why-clone" class="heading astro-WCJWFPCE">Why Clone?</h3>
+	<a href="#why-clone" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+
+
+<p class="astro-6R4UOCDA">Contentlayer use single source of truth JSON, modifying data might causing race condition when you need one data on two place or more.</p>
+<div class="language-diagram-graphviz">
+
+
+
+<svg width="143pt" height="122pt" viewBox="0.00 0.00 142.57 122.40" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 115.2)">
+<title>SSOT</title>
+
+<g id="node1" class="node">
+<title>all</title>
+<polygon fill="none" stroke="#7950f2" points="90.59,-108 36.59,-108 36.59,-72 90.59,-72 90.59,-108" style="stroke-width:var(--diagram-graphviz-stroke-width, 2)"></polygon>
+<text x="63.59" y="-87" style="text-anchor:var(--diagram-graphviz-text-anchor, middle);font-family:var(--diagram-graphviz-font-family, Sans-Serif);font-size:var(--diagram-graphviz-font-size, 10.00px)">allPosts</text>
+</g>
+
+<g id="node2" class="node">
+<title>list</title>
+<polygon fill="none" stroke="#f59f00" points="55.26,-36 -0.09,-36 -0.09,0 55.26,0 55.26,-36" style="stroke-width:var(--diagram-graphviz-stroke-width, 2)"></polygon>
+<text x="27.59" y="-15" style="text-anchor:var(--diagram-graphviz-text-anchor, middle);font-family:var(--diagram-graphviz-font-family, Sans-Serif);font-size:var(--diagram-graphviz-font-size, 10.00px)">List Posts</text>
+</g>
+
+<g id="edge1" class="edge">
+<title>all-&gt;list</title>
+<path fill="none" stroke="black" d="M48.77,-71.7C43.85,-63.73 38.68,-54.1 34.53,-45.26"></path>
+<polygon fill="black" stroke="black" points="37.73,-43.84 30.49,-36.1 31.33,-46.67 37.73,-43.84"></polygon>
+</g>
+
+<g id="node3" class="node">
+<title>page</title>
+<polygon fill="none" stroke="#f59f00" points="128.25,-36 72.92,-36 72.92,0 128.25,0 128.25,-36" style="stroke-width:var(--diagram-graphviz-stroke-width, 2)"></polygon>
+<text x="100.59" y="-15" style="text-anchor:var(--diagram-graphviz-text-anchor, middle);font-family:var(--diagram-graphviz-font-family, Sans-Serif);font-size:var(--diagram-graphviz-font-size, 10.00px)">Post Page</text>
+</g>
+
+<g id="edge3" class="edge">
+<title>all-&gt;page</title>
+<path fill="none" stroke="black" d="M66.82,-71.7C70.28,-63.56 75.29,-53.69 80.47,-44.7"></path>
+<polygon fill="black" stroke="black" points="83.48,-46.48 85.65,-36.1 77.49,-42.86 83.48,-46.48"></polygon>
+</g>
+
+<g id="edge2" class="edge">
+<title>list-&gt;all</title>
+<path fill="none" stroke="black" d="M42.28,-36.1C47.19,-44.04 52.37,-53.67 56.53,-62.51"></path>
+<polygon fill="black" stroke="black" points="53.35,-63.97 60.6,-71.7 59.75,-61.14 53.35,-63.97"></polygon>
+</g>
+
+<g id="edge4" class="edge">
+<title>page-&gt;all</title>
+<path fill="none" stroke="black" d="M97.44,-36.1C94,-44.21 89.01,-54.08 83.83,-63.08"></path>
+<polygon fill="black" stroke="black" points="80.8,-61.32 78.65,-71.7 86.8,-64.93 80.8,-61.32"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p class="astro-6R4UOCDA">HTML result.</p>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="html" data-theme="default" class="astro-JIMS2NUM"><code data-language="html" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#BA3C97">&lt;</span><span style="color:#F7768E">script</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">id</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">__NEXT_DATA__</span><span style="color:#89DDFF">&quot;</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">application/json</span><span style="color:#89DDFF">&quot;</span><span style="color:#BA3C97">&gt;</span></span>
+<span class="line"><span style="color:#C0CAF5">  {</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;props&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">      &quot;pageProps&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">        &quot;posts&quot;: [</span></span>
+<span class="line"><span style="color:#C0CAF5">          {</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Change me!&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-03-11T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/change-me&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">          },</span></span>
+<span class="line"><span style="color:#C0CAF5">          {</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Click me!&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-28T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/click-me&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">          },</span></span>
+<span class="line"><span style="color:#C0CAF5">          {</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;What is Contentlayer?&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-22T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Contentlayer makes working with content easy.&lt;/strong&gt; It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">            },</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/what-is-contentlayer&quot;</span></span>
+<span class="line"><span style="color:#C0CAF5">          }</span></span>
+<span class="line"><span style="color:#C0CAF5">        ]</span></span>
+<span class="line"><span style="color:#C0CAF5">      },</span></span>
+<span class="line"><span style="color:#C0CAF5">      &quot;__N_SSG&quot;: true</span></span>
+<span class="line"><span style="color:#C0CAF5">    },</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;page&quot;: &quot;/&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;query&quot;: {},</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;buildId&quot;: &quot;toHJpUjQDJpnE6IPRFO4s&quot;,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;isFallback&quot;: false,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;gsp&quot;: true,</span></span>
+<span class="line"><span style="color:#C0CAF5">    &quot;scriptLoader&quot;: []</span></span>
+<span class="line"><span style="color:#C0CAF5">  }</span></span>
+<span class="line"><span style="color:#BA3C97">&lt;/</span><span style="color:#F7768E">script</span><span style="color:#BA3C97">&gt;</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+		</button>
+</div></div>
+<section data-footnotes="" class="footnotes"><section class="astro-WCJWFPCE">
+	<h2 id="footnote-label" class="heading astro-WCJWFPCE" class="sr-only">Footnotes</h2>
+	<a href="#footnote-label" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+
+
+<ol class="astro-KIKK77L4">
+<li id="user-content-fn-1">
+<p class="astro-6R4UOCDA"><a href="https://developer.mozilla.org/en-US/docs/Web/API/structuredClone">structuredClone() - Web APIs | MDN</a>. <a href="#user-content-fnref-1" data-footnote-backref="" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
+</li>
+</ol>
+</section>
+		</main>
+		<hr class="astro-7JJQPTXK">
+		<section class="astro-V6WDQMFP">
+	<a class="btn open-discussion astro-V6WDQMFP astro-7AB5KPLB" href="//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q=&#34;/blog/contentlayer-optimize-getstaticprops-on-next-js/&#34;">
+			Open GitHub Discussions<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
+					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" class="astro-V6WDQMFP"></path>
+					<line x1="10" y1="14" x2="20" y2="4" class="astro-V6WDQMFP"></line>
+					<polyline points="15 4 20 4 20 9" class="astro-V6WDQMFP"></polyline>
+				</svg>
+		</a>
+	<div id="giscus" data-lang="en" class="astro-V6WDQMFP"></div>
+	<button class="btn write-giscus astro-V6WDQMFP astro-7AB5KPLB">
+			Write comment<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
+					<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" class="astro-V6WDQMFP"></path>
+					<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" class="astro-V6WDQMFP"></path>
+					<path d="M16 5l3 3" class="astro-V6WDQMFP"></path>
+				</svg>
+		</button>
+</section>
+
+
+	</article>
+		<footer class="astro-TGC5TWW7">
+	<div class="container astro-TGC5TWW7">
+		<nav class="group-btn astro-TGC5TWW7">
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="mailto:mynameanasrar@gmail.com" title="Send Email">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<circle cx="12" cy="12" r="4" class="astro-TGC5TWW7"></circle>
+					<path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" class="astro-TGC5TWW7"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" class="astro-TGC5TWW7"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//youtube.com/@anasrin" target="_blank" title="My YouTube Channel">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<rect x="3" y="5" width="18" height="14" rx="4" class="astro-TGC5TWW7"></rect>
+					<path d="M10 9l5 3l-5 3z" class="astro-TGC5TWW7"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//github.com/anasrar" target="_blank" title="My GitHub Account">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" class="astro-TGC5TWW7"></path>
+				</svg>
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="https://anasrar.github.io/rss/blog.xml" title="RSS Blog">
+			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<circle cx="5" cy="19" r="1" class="astro-TGC5TWW7"></circle>
+					<path d="M4 4a16 16 0 0 1 16 16" class="astro-TGC5TWW7"></path>
+					<path d="M4 11a9 9 0 0 1 9 9" class="astro-TGC5TWW7"></path>
+				</svg>
+		</a>
+		</nav>
+		<div class="text astro-TGC5TWW7">
+			Made with <span class="heart astro-TGC5TWW7">❤</span> by Anas Rin — Powered by Astro
+			& GitHub Page
+		</div>
+	</div>
+</footer>
+		
+		
+	</body></html>
