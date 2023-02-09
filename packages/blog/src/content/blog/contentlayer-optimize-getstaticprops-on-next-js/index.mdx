@@ -1,0 +1,235 @@
+---
+title: "Contentlayer: Optimize getStaticProps on Next.js"
+date: 2023-02-09
+---
+
+## TL:DR
+
+Remove unnecessary data that doesn't render on `getStaticProps`.
+
+## Why?
+
+When you pass Contentlayer data to `getStaticProps` on Next.js, by default will include the raw markdown, which is redundant and bad for load speed.
+
+```typescript
+import { allPosts, Post } from 'contentlayer/generated';
+
+export async function getStaticProps() {
+  const posts: Post[] = allPosts;
+  return {
+    props: {
+      posts,
+    }
+  };
+}
+```
+
+HTML result.
+
+```html
+<script id="__NEXT_DATA__" type="application/json">
+  {
+    "props": {
+      "pageProps": {
+        "posts": [
+          {
+            "title": "Change me!",
+            "date": "2022-03-11T00:00:00.000Z",
+            "body": {
+              "raw": "\nWhen you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.\n",
+              "html": "<p>When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.</p>"
+            },
+            "_id": "change-me.md",
+            "_raw": {
+              "sourceFilePath": "change-me.md",
+              "sourceFileName": "change-me.md",
+              "sourceFileDir": ".",
+              "contentType": "markdown",
+              "flattenedPath": "change-me"
+            },
+            "type": "Post",
+            "url": "/posts/change-me"
+          },
+          {
+            "title": "Click me!",
+            "date": "2022-02-28T00:00:00.000Z",
+            "body": {
+              "raw": "\nBlog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.\n",
+              "html": "<p>Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.</p>"
+            },
+            "_id": "click-me.md",
+            "_raw": {
+              "sourceFilePath": "click-me.md",
+              "sourceFileName": "click-me.md",
+              "sourceFileDir": ".",
+              "contentType": "markdown",
+              "flattenedPath": "click-me"
+            },
+            "type": "Post",
+            "url": "/posts/click-me"
+          },
+          {
+            "title": "What is Contentlayer?",
+            "date": "2022-02-22T00:00:00.000Z",
+            "body": {
+              "raw": "\n**Contentlayer makes working with content easy.** It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.\n",
+              "html": "<p><strong>Contentlayer makes working with content easy.</strong> It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.</p>"
+            },
+            "_id": "what-is-contentlayer.md",
+            "_raw": {
+              "sourceFilePath": "what-is-contentlayer.md",
+              "sourceFileName": "what-is-contentlayer.md",
+              "sourceFileDir": ".",
+              "contentType": "markdown",
+              "flattenedPath": "what-is-contentlayer"
+            },
+            "type": "Post",
+            "url": "/posts/what-is-contentlayer"
+          }
+        ]
+      },
+      "__N_SSG": true
+    },
+    "page": "/",
+    "query": {},
+    "buildId": "lJqgQzHmHoKqCJDQ-Nldm",
+    "isFallback": false,
+    "gsp": true,
+    "scriptLoader": []
+  }
+</script>
+```
+
+## Optimizing
+
+Clone data[^1] and remove unnecessary things.
+
+[^1]: [structuredClone() - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone).
+
+```typescript
+import { allPosts, Post } from 'contentlayer/generated';
+
+export async function getStaticProps() {
+  const posts: Post[] = allPosts.map((post) => {
+    const copy = structuredClone(post);
+    copy.body.raw = "";
+    copy._raw.sourceFilePath = "";
+    copy._raw.sourceFileName = "";
+    copy._raw.sourceFileDir = "";
+    copy._raw.flattenedPath = "";
+    return copy;
+  });
+  return {
+    props: {
+      posts,
+    }
+  };
+}
+```
+
+### Why Clone?
+
+Contentlayer use single source of truth JSON, modifying data might causing race condition when you need one data on two place or more.
+
+```diagram-graphviz layout="dot"
+digraph SSOT {
+  rankdir=TB
+  bgcolor="transparent"
+  pad=0.1
+  node [penwidth=2.0, shape=rect, fontname="Sans-Serif", fontsize="10"]
+
+  all [
+    color="#7950f2"
+    label="allPosts"
+  ]
+
+  list [
+    color="#f59f00"
+    label="List Posts"
+  ]
+
+  page [
+    color="#f59f00"
+    label="Post Page"
+  ]
+
+  all -> list -> all
+  all -> page -> all
+}
+```
+
+HTML result.
+
+```html
+<script id="__NEXT_DATA__" type="application/json">
+  {
+    "props": {
+      "pageProps": {
+        "posts": [
+          {
+            "title": "Change me!",
+            "date": "2022-03-11T00:00:00.000Z",
+            "body": {
+              "raw": "",
+              "html": "<p>When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.</p>"
+            },
+            "_id": "change-me.md",
+            "_raw": {
+              "sourceFilePath": "",
+              "sourceFileName": "",
+              "sourceFileDir": "",
+              "contentType": "markdown",
+              "flattenedPath": ""
+            },
+            "type": "Post",
+            "url": "/posts/change-me"
+          },
+          {
+            "title": "Click me!",
+            "date": "2022-02-28T00:00:00.000Z",
+            "body": {
+              "raw": "",
+              "html": "<p>Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.</p>"
+            },
+            "_id": "click-me.md",
+            "_raw": {
+              "sourceFilePath": "",
+              "sourceFileName": "",
+              "sourceFileDir": "",
+              "contentType": "markdown",
+              "flattenedPath": ""
+            },
+            "type": "Post",
+            "url": "/posts/click-me"
+          },
+          {
+            "title": "What is Contentlayer?",
+            "date": "2022-02-22T00:00:00.000Z",
+            "body": {
+              "raw": "",
+              "html": "<p><strong>Contentlayer makes working with content easy.</strong> It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.</p>"
+            },
+            "_id": "what-is-contentlayer.md",
+            "_raw": {
+              "sourceFilePath": "",
+              "sourceFileName": "",
+              "sourceFileDir": "",
+              "contentType": "markdown",
+              "flattenedPath": ""
+            },
+            "type": "Post",
+            "url": "/posts/what-is-contentlayer"
+          }
+        ]
+      },
+      "__N_SSG": true
+    },
+    "page": "/",
+    "query": {},
+    "buildId": "toHJpUjQDJpnE6IPRFO4s",
+    "isFallback": false,
+    "gsp": true,
+    "scriptLoader": []
+  }
+</script>
+```
