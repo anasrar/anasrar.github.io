@@ -1,0 +1,24 @@
+---
+title: Convert variable font to static font using Python
+date: 2023-02-11
+---
+
+## fonttools
+
+A library to manipulate font files from Python[^1].
+
+[^1]: https://github.com/fonttools/fonttools.
+
+### Install
+
+```bash
+pip install fonttools
+```
+
+### Convert Font
+
+```bash
+fonttools varLib.mutator ./font.ttf wght=400 wdth=85
+```
+
+Documentation: https://fonttools.readthedocs.io/en/latest/varLib/mutator.html#module-fontTools.varLib.mutator
