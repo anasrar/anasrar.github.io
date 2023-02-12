@@ -1,0 +1,63 @@
+---
+title: Simpel 2-joint inverse kinematic dengan segitiga sama kaki
+date: 2023-02-12
+---
+
+## Rumus
+
+Rumus untuk mendapatkan tinggi segitiga sama kaki dari sisi miring $a$ dan alas $b$, anda bisa mengunakannya untuk mencari posisi siku para lengan.
+
+$$
+h(a,b) = \sqrt{a^2-\frac{b^2}{4}}
+$$
+
+Versi TypeScript.
+
+
+```typescript
+function getHeight(a: number, b: number){
+  return Math.sqrt((a ** 2) - ((b ** 2) / 4));
+}
+```
+
+## Penerapan
+
+Katakanlah anda punya pundak $\bold{p_1}$, tangan $\bold{p_2}$, dan $a$ adalah setengah panjang lengan anda. Anda mau mencari dimana posisi siku lengan berada.
+
+$$
+\begin{aligned}
+a &= 10\\
+b &= |(\bold{p_2} - \bold{p_1})|\\
+\bold{\hat{c}} &= \frac{\bold{p_2} - \bold{p_1}}{b}\\
+\bold{d} &= \bold{\hat{c}}h(a,b)\\
+\bold{k} &= \bold{p_1} + \bold{\hat{c}}\frac{b}{2} + \begin{bmatrix}
+   d_1 \cos(90\degree) - d_2 \sin(90\degree) \\
+   d_1 \sin(90\degree) + d_2 \cos(90\degree)
+\end{bmatrix}
+
+\end{aligned}
+$$
+
+Versio TypeScript (vector library mengunakan [vecti](https://www.npmjs.com/package/vecti)).
+
+```typescript
+import { Vector } from "vecti";
+
+const p1 = new Vector(10, 10);
+const p2 = new Vector(150, 150);
+const a = 100;
+const b = p2.subtract(p1).length();
+const c = p2.subtract(p1).normalize();
+const d = c.multiply(getHeight(a, b));
+const k = p1.add(c.multiply(b / 2)).add(d.rotateByDegrees(90)); // because SVG and Canvas using top to bottom you can use -90, you can also use this to switch direction
+```
+
+## Demo
+
+<iframe 
+  src="https://codesandbox.io/embed/simple-ik-httlwf?fontsize=14&hidenavigation=1&theme=dark&view=preview"
+  style="width:100%; height: 400px; border:0; border-radius: 4px; overflow:hidden;"
+  title="simple-ik"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
