@@ -1,0 +1,17 @@
+---
+title: "Inject 360º metadata to video using python"
+date: 2023-02-27
+---
+
+## Notes
+
+Only work on equirectangular[^projection] video.
+
+```bash
+git clone https://github.com/google/spatial-media spatial-media
+cd spatial-media
+python spatialmedia --inject <input file> <output file>
+```
+
+
+[^projection]: https://en.wikipedia.org/wiki/360_video_projection
