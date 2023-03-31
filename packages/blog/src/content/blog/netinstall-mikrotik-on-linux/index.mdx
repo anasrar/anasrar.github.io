@@ -1,0 +1,103 @@
+---
+title: "Netinstall MikroTik on Linux"
+date: 2023-04-01
+---
+
+## Background
+
+I have `RB941-2nD-TC (hAP-Lite2)` and it seem I misconfigured, so I need to reset configuration using netinstall technique.
+
+## Requirements
+
+- RouterOS base on your router architecture (in my case is **SMIPS**).
+- Netinstall (CLI Linux).
+- Plug out router from powerline.
+
+Download all requirements files from https://mikrotik.com/download, and select **RouterOS** version (in my case is **RouterOS v6**).
+
+## Setup
+
+### Files
+
+Extract all files to single folder, so we can work with the files easily.
+
+### Disable Internet Interface
+
+Disable all internet interface such as WiFi, and only leaving with Ethernet.
+
+### IP Static
+
+Using `ip` command.
+
+```bash
+sudo ip addr add 192.168.88.2/24 dev <interface>; sudo ip link set dev <interface> up
+```
+
+Using `ifconfig` command.
+
+```bash
+sudo ifconfig <interface> 192.168.88.2/24 up
+```
+
+Where `<interface>` is your ethernet interface name, you can print list ethernet interface using `netstat -i`, something like `eth*` or `enp0s*` is your interface.
+
+### IP Gateway
+
+Using `route` command.
+
+```bash
+sudo route add default gw 192.168.88.1 <interface>
+```
+
+### Check IP
+
+Using `route` command to check if we success to setup IP.
+
+```bash
+route -n
+```
+
+It will print something like this.
+
+```
+Kernel IP routing table
+Destination     Gateway         Genmask          Flags  Metric  Ref  Use  Iface
+0.0.0.0         192.168.88.1    0.0.0.0          UG     0       0      0  enp0s25
+192.168.88.0    0.0.0.0         255.255.255.0    U      0       0      0  enp0s25
+```
+
+### Netinstall
+
+Run `netinstall` with `sudo`.
+
+```bash
+sudo ./netinstall -r -a 192.168.88.1 <routeros>
+```
+
+- Plug ethernet cable from PC to router.
+- Press reset button on router.
+- Plug router to powerline.
+
+## Result
+
+My netinstall result.
+
+![Netinstall Mikrotik on Linux](/assets/blog/netinstall-mikrotik-on-linux/result.png)
+
+## Known Issues
+
+- ### Only Show PXE client
+
+  Disable all interface except ethernet.
+
+- ### FAILED TO REPLY
+
+  Make sure you set IP gateway.
+
+- ### Using server IP: 0.0.0.0
+
+  Make sure you plug out router from powerline before you run netinstall.
+
+## References
+
+- https://blog.webiptek.com/2021/01/tutorial-netinstall-mikrotik-di-linux.html
