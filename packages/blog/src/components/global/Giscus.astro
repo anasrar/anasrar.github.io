@@ -145,7 +145,7 @@ const {
 
 	const resize = new ResizeObserver((entries) => {
 		for (const entry of entries) {
-			if (entry.contentRect.height > 333) {
+			if (entry.contentRect.height > 360) {
 				write?.classList.add("show");
 			} else {
 				write?.classList.remove("show");
