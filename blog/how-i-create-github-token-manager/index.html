@@ -19,11 +19,11 @@
 		<meta name="twitter:description" content=" TL;DR It's just some simple CRUD using SQLite and AES-CBC 128-bit with Git integration. GitHub token Back in December 2020, GitHub announce that start in Au...">
 		<meta name="twitter:image" content="https://anasrar.github.io/og-images/blog/how-i-create-github-token-manager/image.png">
 		<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How I create GitHub token manager","image":"https://anasrar.github.io/og-images/blog/how-i-create-github-token-manager/image.png","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrar.github.io/"}],"url":"https://anasrar.github.io/blog/how-i-create-github-token-manager/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2022-03-10T00:00:00.000Z","description":" TL;DR It's just some simple CRUD using SQLite and AES-CBC 128-bit with Git integration. GitHub token Back in December 2020, GitHub announce that start in Au..."}</script>
-	<link rel="stylesheet" href="/_astro/_...slug_.b362b080.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.888ff4eb.css" />
-<link rel="stylesheet" href="/_astro/blog.b47b8a65.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.ebb87e2d.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.a4e5fa84.css" /><script type="module" src="/_astro/hoisted.44f5c91c.js"></script></head>
+	<link rel="stylesheet" href="/_astro/_...slug_.ff61d769.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.0b51fcb4.css" />
+<link rel="stylesheet" href="/_astro/blog.24db8cc1.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.95b65d35.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.ff2c03f6.css" /><script type="module" src="/_astro/hoisted.44f5c91c.js"></script></head>
 	<body>
 		<header class="sticky-header astro-EIYD7VOQ">
 	<div class="container astro-EIYD7VOQ">
@@ -119,8 +119,6 @@
 		</nav>
 	</div>
 </header>
-
-
 		<article class="container astro-7JJQPTXK">
 		<section id="toc" class="astro-USK3TZSR">
 	<h4 class="astro-USK3TZSR">Table of Contents</h4>
@@ -180,8 +178,6 @@
 				</li>
 	</ul>
 </section>
-
-
 		
 		<a class="btn back astro-7JJQPTXK astro-7AB5KPLB" href="../">
 			
@@ -206,8 +202,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">It’s just some simple <strong>CR<del>U</del>D</strong> using <strong>SQLite</strong> and <strong>AES-CBC</strong> <strong>128-bit</strong> with <strong>Git</strong> integration.</p>
 <section class="astro-WCJWFPCE">
 	<h2 id="github-token" class="heading astro-WCJWFPCE">GitHub token</h2>
@@ -219,8 +213,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">Back in December 2020, GitHub announce that start in August 13, 2021 token is require for any Git operations <sup><a href="#user-content-fn-blog_post" id="user-content-fnref-blog_post" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup>.</p>
 <p class="astro-6R4UOCDA">Although it’s good and you can set different permission and expire date on each token, I just don’t want to copy token on text file every Git operations like my co-worker, so this is why I create simple token manager.</p>
 <section class="astro-WCJWFPCE">
@@ -233,8 +225,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">The initial goal is just simple CLI CRUD who encrypt GitHub token and decrypt the token when I need without NodeJS and Python installed, just download the binary ➜ add to PATH ➜ done, and being able to move the database file from Linux to Windows and vice versa.</p>
 <p class="astro-6R4UOCDA">I choose C++ for this project, and I think fun and interesting to learn more about C++.</p>
 <section class="astro-WCJWFPCE">
@@ -292,8 +282,6 @@
 
 
 
-
-
 <table class="astro-EHXKPEDY"><thead><tr><th>Ingredient</th><th>Detail</th></tr></thead><tbody><tr><td>C++ compiler</td><td>GCC for Linux and MSVC for Windows</td></tr><tr><td>CMake</td><td><a href="https://cmake.org/">https://cmake.org/</a></td></tr><tr><td>linuxdeployqt</td><td><a href="https://github.com/probonopd/linuxdeployqtbb">https://github.com/probonopd/linuxdeployqtbb</a></td></tr><tr><td>SQLite</td><td><a href="https://www.sqlite.org/index.html">https://www.sqlite.org/index.html</a></td></tr><tr><td>PicoSHA2</td><td><a href="https://github.com/okdshin/PicoSHA2">https://github.com/okdshin/PicoSHA2</a></td></tr><tr><td>plusaes</td><td><a href="https://github.com/kkAyataka/plusaes">https://github.com/kkAyataka/plusaes</a></td></tr><tr><td>argparse</td><td><a href="https://github.com/p-ranav/argparse">https://github.com/p-ranav/argparse</a></td></tr><tr><td>tabulate</td><td><a href="https://github.com/p-ranav/tabulate">https://github.com/p-ranav/tabulate</a></td></tr><tr><td>clip</td><td><a href="https://github.com/dacap/clip">https://github.com/dacap/clip</a></td></tr></tbody></table>
 <p class="astro-6R4UOCDA">All ingredients pack into Git submodule except compiler, CMake, and linuxdeployqt.</p>
 <section class="astro-WCJWFPCE">
@@ -306,8 +294,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">Here some pseudo code in python syntax, just give you rough idea how I implement.</p>
 <div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="python" data-theme="default">pseudo code</div>
 
@@ -355,8 +341,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">Now we have fully functional what the initial goal is, store the token and copy to clipboard when we need it.</p>
 <p class="astro-6R4UOCDA"><div class="astro-LCSUXZ5U"><img src="//anasrar.github.io/assets/blog/how-i-create-github-token-manager/terminal-output-encrypt-decrypt.png" alt="terminal output encrypt and decrypt" class="astro-LCSUXZ5U"></div></p>
 <p class="astro-6R4UOCDA">Did you know you can set username and token in GitHub remote or GitHub clone but only support for HTTPS protocol as far as I know, something like this.</p>
@@ -410,8 +394,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">Basically most Linux applications using shared library (you can call it dependency), and the library it self should be installed and compatible with the binary (the library version when the binary it’s build).</p>
 <p class="astro-6R4UOCDA">And I found that AppImage is the solution (Flatpak and Snap is also good, but I prefer using AppImage because it easy to understand), AppImage is a Linux format file allow to pack all shared library that you need into execute binary that self extract and container when it execute, more information on <a href="https://appimage.org/">https://appimage.org/</a>.</p>
 <p class="astro-6R4UOCDA">linuxdeployqt allow to automatically pack all shared library that we need on binary file into single AppImage file, although linuxdeployqt mainly to generate AppImage for Qt application but it can use for general application, more information on <a href="https://github.com/probonopd/linuxdeployqt">https://github.com/probonopd/linuxdeployqt</a>.</p>
@@ -426,8 +408,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">Now the final thing is GitHub Actions, let the GitHub Actions compile both for Linux and Windows and automatically create release and upload the binary file, here’s how I do it -&gt; <a href="https://github.com/anasrar/gah/blob/main/.github/workflows/build_release.yml">build_release.yml</a>, and also others automation for CI and PR test.</p>
 <p class="astro-6R4UOCDA"><strong>AND IT’S FREE</strong> for public repository as far as I know.</p>
 <p class="astro-6R4UOCDA"><div class="astro-LCSUXZ5U"><img src="//c.tenor.com/sP4SQzZ4I1AAAAAM/minecraft-free-real-estate.gif" alt="free real estate" class="astro-LCSUXZ5U"></div></p>
@@ -441,24 +421,22 @@
 		</svg>
 	</a>
 </section>
-
-
 <div class="language-diagram-graphviz">
 
 
 
-<svg width="348pt" height="166pt" viewBox="0.00 0.00 348.00 166.00" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+<svg width="348pt" height="166pt" viewBox="0.00 0.00 348.00 166.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 162)">
 <title>FLow</title>
-<g id="clust2" class="cluster">
-<title>cluster_test</title>
-<polygon fill="transparent" stroke="#f59f00" points="98,-35 98,-123 258,-123 258,-35 98,-35" style="stroke-width:var(--diagram-graphviz-stroke-width, 2)"></polygon>
-<text x="178" y="-94.2" style="text-anchor:var(--diagram-graphviz-text-anchor, middle);font-family:var(--diagram-graphviz-font-family, Sans-Serif);font-size:var(--diagram-graphviz-font-size, 12.00px)">Test and share config</text>
-</g>
 <g id="clust1" class="cluster">
 <title>cluster_build</title>
 <polygon fill="transparent" stroke="#7048e8" points="8,-8 8,-150 78,-150 78,-8 8,-8" style="stroke-width:var(--diagram-graphviz-stroke-width, 2)"></polygon>
 <text x="43" y="-121.2" style="text-anchor:var(--diagram-graphviz-text-anchor, middle);font-family:var(--diagram-graphviz-font-family, Sans-Serif);font-size:var(--diagram-graphviz-font-size, 12.00px)">Build</text>
+</g>
+<g id="clust2" class="cluster">
+<title>cluster_test</title>
+<polygon fill="transparent" stroke="#f59f00" points="98,-35 98,-123 258,-123 258,-35 98,-35" style="stroke-width:var(--diagram-graphviz-stroke-width, 2)"></polygon>
+<text x="178" y="-94.2" style="text-anchor:var(--diagram-graphviz-text-anchor, middle);font-family:var(--diagram-graphviz-font-family, Sans-Serif);font-size:var(--diagram-graphviz-font-size, 12.00px)">Test and share config</text>
 </g>
 
 <g id="node1" class="node">
@@ -527,9 +505,7 @@
 		</svg>
 	</a>
 </section>
-
-
-<ul class="astro-SDK65A7J">
+<ul class="contains-task-list astro-SDK65A7J">
 <li class="task-list-item"><input type="checkbox" disabled/>  Add more Git command flags.</li>
 <li class="task-list-item"><input type="checkbox" disabled/> BASH auto completion.</li>
 </ul>
@@ -543,8 +519,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <ul class="astro-SDK65A7J">
 <li>Use fixed width integer types for better portability and serialization.</li>
 <li>Shared and static library.</li>
@@ -563,13 +537,11 @@
 		</svg>
 	</a>
 </section>
-
-
 <p class="astro-6R4UOCDA">It was fun learning C++, CMake, and AppImage in this project, the thing that bothering me is I’m too lazy to write any validation command before execute, resulting security concern when user input malicious string.</p>
 <p class="astro-6R4UOCDA">But as long the initial goal is achieve, it’s ok for me. Thank you so much for reading this post, feel free to contribute to this project.</p>
 <p class="astro-6R4UOCDA">Project repository -&gt; <a href="https://github.com/anasrar/gah/">https://github.com/anasrar/gah/</a>, have a nice day.</p>
 <section data-footnotes="" class="footnotes"><section class="astro-WCJWFPCE">
-	<h2 id="footnote-label" class="heading astro-WCJWFPCE" class="sr-only">Footnotes</h2>
+	<h2 id="footnote-label" class="heading sr-only astro-WCJWFPCE">Footnotes</h2>
 	<a href="#footnote-label" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
 		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
 			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
@@ -578,8 +550,6 @@
 		</svg>
 	</a>
 </section>
-
-
 <ol class="astro-KIKK77L4">
 <li id="user-content-fn-blog_post">
 <p class="astro-6R4UOCDA"><a href="//github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">Token authentication requirements for Git operations</a> <a href="#user-content-fnref-blog_post" data-footnote-backref="" class="data-footnote-backref" aria-label="Back to content">↩</a></p>
@@ -607,8 +577,6 @@
 				</svg>
 		</button>
 </section>
-
-
 	</article>
 		<footer class="astro-TGC5TWW7">
 	<div class="container astro-TGC5TWW7">
