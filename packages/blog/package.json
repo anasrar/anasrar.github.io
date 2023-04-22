@@ -14,7 +14,6 @@
 		"@astrojs/mdx": "^0.18.2",
 		"@astrojs/rss": "^2.3.2",
 		"@astrojs/sitemap": "^1.2.2",
-		"@resvg/resvg-js": "^2.4.1",
 		"astro": "2.2.0",
 		"date-fns": "^2.29.3",
 		"diagrams": "workspace:0.0.1",

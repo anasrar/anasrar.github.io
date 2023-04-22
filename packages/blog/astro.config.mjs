@@ -46,9 +46,7 @@ export const config = {
 		syntaxHighlight: false,
 	},
 	vite: {
-		optimizeDeps: {
-			exclude: ["@resvg/resvg-js"],
-		},
+		optimizeDeps: {},
 	},
 };
 
