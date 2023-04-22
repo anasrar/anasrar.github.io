@@ -1,0 +1,16 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"npmClient": "pnpm",
+	"pipeline": {
+		"build": {
+			"dependsOn": ["^build"],
+			"outputs": ["dist/**", ".vercel/**"]
+		},
+		"deploy": {
+			"dependsOn": ["build"]
+		},
+		"dev": {
+			"cache": false
+		}
+	}
+}

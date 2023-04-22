@@ -11,5 +11,12 @@
 	},
 	"keywords": [],
 	"author": "Anas Rin <mynameanasrar@gmail.com>",
-	"license": "MIT"
+	"packageManager": "pnpm@7.18.0",
+	"engines": {
+		"node": ">=16"
+	},
+	"license": "MIT",
+	"dependencies": {
+		"turbo": "^1.9.3"
+	}
 }
