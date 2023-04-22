@@ -1,10 +1,10 @@
 ---
-import LayoutDefault from "../layouts/Default.astro";
-import Title from "../components/global/Title.astro";
+import LayoutDefault from "../../layouts/Default.astro";
+import Title from "../../components/global/Title.astro";
 import { getCollection } from "astro:content";
 import { compareDesc, format } from "date-fns";
 
-const posts = (await getCollection("projects"))
+const posts = (await getCollection("blog"))
 	.filter(({ slug }) => {
 		return !slug.includes("/"); // exclude i18n
 	})
@@ -12,17 +12,15 @@ const posts = (await getCollection("projects"))
 ---
 
 <LayoutDefault
-	title="Projects - Anas Rin"
-	description="Showcase my top projects, you can visit my GitHub repository to see all my projects."
+	title="Blog - Anas Rin"
+	description="Mostly write all about programming, projects, and technology. I also post on DEV Community 👩‍💻👨‍💻."
 >
 	<main class="container">
 		<div class="page-info">
-			<Title as="h1" size="h3">Projects</Title>
+			<Title as="h1" size="h3">Blog</Title>
 			<p class="description">
-				Showcase my top projects, you can visit <a
-					href="//github.com/anasrar?tab=repositories"
-					>my GitHub repository</a
-				> to see all my projects.
+				Mostly write all about programming, projects, and technology. I
+				also post on <a href="//dev.to/anasrin">DEV Community 👩‍💻👨‍💻</a>.
 			</p>
 		</div>
 		<div>

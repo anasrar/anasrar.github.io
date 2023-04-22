@@ -1,11 +1,11 @@
 import { readFile } from "node:fs/promises";
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
-import sitemap from "@astrojs/sitemap";
 import remarkMath from "remark-math";
 import rehypeDiagrams from "diagrams";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeKatex from "rehype-katex";
+import vercel from "@astrojs/vercel/serverless";
 
 /** @type {import("rehype-pretty-code").Options} */
 export const rehypePrettyCodeOptions = {
@@ -29,7 +29,8 @@ export const rehypePrettyCodeOptions = {
 /** @type {import("astro/config").AstroUserConfig} */
 export const config = {
 	site: "https://anasrar.github.io",
-	output: "static",
+	output: "server",
+	adapter: vercel(),
 	trailingSlash: "always",
 	integrations: [
 		mdx({
@@ -40,7 +41,6 @@ export const config = {
 			],
 			remarkPlugins: [[remarkMath, {}]],
 		}),
-		sitemap(),
 	],
 	markdown: {
 		syntaxHighlight: false,
@@ -50,4 +50,5 @@ export const config = {
 	},
 };
 
+// https://astro.build/config
 export default defineConfig(config);

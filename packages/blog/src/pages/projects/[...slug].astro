@@ -17,7 +17,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
 import OrderedList from "../../components/markdown/OrderedList.astro";
 import Blockquote from "../../components/markdown/Blockquote.astro";
 import Table from "../../components/markdown/Table.astro";
-import { CollectionEntry, getCollection } from "astro:content";
+import { CollectionEntry, getEntryBySlug } from "astro:content";
 import { format } from "date-fns";
 
 interface Props {
@@ -28,47 +28,27 @@ interface Props {
 	};
 }
 
-export const getStaticPaths = async () => {
-	const projects = await getCollection("projects");
-	const paths: { params: { slug: string }; props: Props }[] = [];
-	const langSlugs: Map<string, string[]> = new Map();
+const { slug } = Astro.params;
+const project = await getEntryBySlug("projects", slug ?? "");
+if (project === undefined) {
+	return Astro.redirect("/projects/");
+}
 
-	for (const project of projects) {
-		const slugSegments = project.slug.split("/");
-		const language = slugSegments.length === 1 ? "en" : slugSegments[1]!;
-		const languages: string[] = [];
-		const l = langSlugs.get(slugSegments[0] ?? "");
-
-		if (l) {
-			languages.push("en", ...l);
-		} else {
-			const r = (
-				await fs.readdir(`src/content/projects/${slugSegments[0]}`, {
-					withFileTypes: true,
-				})
-			)
-				.filter((s) => s.isDirectory())
-				.map((s) => s.name);
-			langSlugs.set(slugSegments[0] ?? "", r);
-			languages.push("en", ...r);
-		}
-
-		paths.push({
-			params: { slug: project.slug },
-			props: {
-				project,
-				language: {
-					current: language,
-					list: languages,
-				},
-			},
-		});
-	}
-
-	return paths;
+const slugSegments = project.slug.split("/");
+const language: Props["language"] = {
+	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
+	list: ["en"],
 };
+language.list.push(
+	...(
+		await fs.readdir(`src/content/projects/${slugSegments[0]}`, {
+			withFileTypes: true,
+		})
+	)
+		.filter((s) => s.isDirectory())
+		.map((s) => s.name)
+);
 
-const { project, language } = Astro.props;
 const { Content, headings } = await project.render();
 ---
 
