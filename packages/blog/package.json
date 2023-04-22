@@ -4,9 +4,9 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "concurrently -k -n \"og-images,astro\" \"http-server ./src/iridescent/ -p 5678\" \"astro dev\"",
+		"dev": "astro dev",
 		"check": "astro check",
-		"build": "concurrently -k -s \"last\" -n \"og-images,astro\" \"http-server ./src/iridescent/ -p 5678\" \"astro build\"",
+		"build": "astro build",
 		"preview": "astro preview",
 		"astro": "astro"
 	},
@@ -32,10 +32,8 @@
 		"@types/remove-markdown": "^0.3.1",
 		"@typescript-eslint/eslint-plugin": "^5.57.1",
 		"@typescript-eslint/parser": "^5.57.1",
-		"concurrently": "^8.0.1",
 		"eslint": "^8.37.0",
 		"eslint-plugin-astro": "^0.26.1",
-		"http-server": "^14.1.1",
 		"node-graphviz": "^0.1.1",
 		"prettier": "^2.8.7",
 		"prettier-plugin-astro": "^0.8.0",
