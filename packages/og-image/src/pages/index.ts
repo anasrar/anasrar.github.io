@@ -3,12 +3,17 @@ import { html } from "satori-html";
 import satori from "satori";
 import { Resvg } from "@resvg/resvg-js";
 
+const iridescent = 5;
+
 export const get = async (context: APIContext) => {
 	const title = context.url.searchParams.get("title") ?? "?";
-	// const date = Number(context.url.searchParams.get("date")) ?? 0;
+	const date = Number(context.url.searchParams.get("date")) ?? 0;
 
 	const template = html(`
 <div style="position: relative; display: flex; flex-flow: column nowrap; justify-content: center; align-items: flex-start; width: 1200px; height: 630px; color: #dee2e6; background: #101113">
+  <img style="position: absolute; top: 0; left: 672px;" src="https://og-anasrin.vercel.app/iridescent/${
+		(date % iridescent) + 1
+  }.png" />
   <div style="position: absolute; bottom: 40px; left: 40px; color: #868e96; font-weight: 500; font-size: 24px;">
     anasrar.github.io
   </div>
@@ -26,7 +31,7 @@ export const get = async (context: APIContext) => {
 				name: "Inter",
 				data: await (
 					await fetch(
-						"https://anasrar.github.io/_astro/IBMPlexMono-Medium.e61d37ab.ttf"
+						"https://og-anasrin.vercel.app/fonts/Inter/Inter-500.ttf"
 					)
 				).arrayBuffer(),
 				weight: 500,
@@ -36,7 +41,7 @@ export const get = async (context: APIContext) => {
 				name: "Inter",
 				data: await (
 					await fetch(
-						"https://anasrar.github.io/_astro/IBMPlexMono-Bold.d3cfb275.ttf"
+						"https://og-anasrin.vercel.app/fonts/Inter/Inter-600.ttf"
 					)
 				).arrayBuffer(),
 				weight: 600,
