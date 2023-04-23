@@ -1,5 +1,5 @@
 {
-	"origins": ["https://anasrar.github.io"],
+	"origins": ["https://anasrar.github.io", "https://anasrin.vercel.app"],
 	"originsRegex": ["http://localhost:[0-9]+"],
 	"defaultCommentOrder": "newest"
 }

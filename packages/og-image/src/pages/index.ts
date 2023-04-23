@@ -15,7 +15,7 @@ export const get = async (context: APIContext) => {
 		(date % iridescent) + 1
   }.png" />
   <div style="position: absolute; bottom: 40px; left: 40px; color: #868e96; font-weight: 500; font-size: 24px;">
-    anasrar.github.io
+    anasrin.vercel.app
   </div>
   <div style="width: 656px; margin: 0 40px; font-weight: 600; font-size: 72px; line-height: 110%">
   ${title}

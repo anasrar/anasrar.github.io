@@ -28,7 +28,7 @@ export const rehypePrettyCodeOptions = {
 
 /** @type {import("astro/config").AstroUserConfig} */
 export const config = {
-	site: "https://anasrar.github.io",
+	site: "https://anasrin.vercel.app",
 	output: "server",
 	adapter: vercel(),
 	trailingSlash: "always",
