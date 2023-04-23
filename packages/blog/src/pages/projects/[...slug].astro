@@ -1,5 +1,4 @@
 ---
-import fs from "node:fs/promises";
 import LayoutProject from "../../layouts/Project.astro";
 import Button from "../../components/global/Button.astro";
 import TableOfContents from "../../components/global/TableOfContents.astro";
@@ -17,7 +16,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
 import OrderedList from "../../components/markdown/OrderedList.astro";
 import Blockquote from "../../components/markdown/Blockquote.astro";
 import Table from "../../components/markdown/Table.astro";
-import { CollectionEntry, getEntryBySlug } from "astro:content";
+import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
 import { format } from "date-fns";
 
 interface Props {
@@ -41,12 +40,17 @@ const language: Props["language"] = {
 };
 language.list.push(
 	...(
-		await fs.readdir(`src/content/projects/${slugSegments[0]}`, {
-			withFileTypes: true,
+		await getCollection("projects", (e) => {
+			const s = e.slug.split("/");
+			return (
+				s.length > 1 &&
+				slugSegments[0] !== undefined &&
+				e.slug.startsWith(slugSegments[0])
+			);
 		})
-	)
-		.filter((s) => s.isDirectory())
-		.map((s) => s.name)
+	).map((e) => {
+		return e.slug.split("/")[1] as string;
+	})
 );
 
 const { Content, headings } = await project.render();
