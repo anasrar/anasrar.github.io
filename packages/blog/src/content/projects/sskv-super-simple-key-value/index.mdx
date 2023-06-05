@@ -1,0 +1,153 @@
+---
+title: "SSKV - Super Simple Key Value"
+date: 2023-06-01
+links:
+  - label: "Repository"
+    link: "//github.com/anasrar/sskv"
+---
+
+Super simple key value with type safety and implement your own load and save function.
+
+## Why Type safety
+
+Because it's cool.
+
+## Why Implement Load and Save Manually
+
+Cross-platform.
+
+## Example
+
+### In-Memory
+
+No ability to `load` and `save`.
+
+```ts
+type Data = {
+	foo: number;
+	bar: string;
+	lok: boolean;
+};
+
+const defaultData: Data = {
+	foo: 1,
+	bar: "test",
+	lok: true,
+};
+
+const dummy = new SSKV<Data>(defaultData);
+
+dummy.get("foo");
+dummy.get("bar");
+dummy.set("bar", "change");
+dummy.get("bar");
+```
+
+### Node.js
+
+Persistence with JSON file.
+
+```ts
+type Data = {
+	foo: number;
+	bar: string;
+	lok: boolean;
+};
+
+const defaultData: Data = {
+	foo: 1,
+	bar: "test",
+	lok: true,
+};
+
+const dummy = new SSKV<Data>(defaultData, {
+	save: (currentData, defaultData) => {
+		const data = Object.assign({}, defaultData, currentData);
+		fs.writeFileSync("data.json", JSON.stringify(data));
+	},
+	load: () => {
+		return JSON.parse(fs.readFileSync("data.json", "utf8")) as Data;
+	},
+});
+
+// Both of these is equal operation for load and get
+dummy.load().get("foo");
+dummy.get("foo", true);
+
+// Both of these is equal operation for set and save
+dummy.set("bar", "change").save();
+dummy.set("bar", "change", true);
+```
+
+### Deno
+
+Persistence with JSON file.
+
+```ts
+type Data = {
+	foo: number;
+	bar: string;
+	lok: boolean;
+};
+
+const defaultData: Data = {
+	foo: 1,
+	bar: "test",
+	lok: true,
+};
+
+const dummy = new SSKV<Data>(defaultData, {
+	save: (currentData, defaultData) => {
+		const data = Object.assign({}, defaultData, currentData);
+		Deno.writeTextFileSync("data.json", JSON.stringify(data));
+	},
+	load: () => {
+		const data = Deno.readTextFileSync("data.json");
+		return JSON.parse(data) as Data;
+	},
+});
+
+// Both of these is equal operation for load and get
+dummy.load().get("foo");
+dummy.get("foo", true);
+
+// Both of these is equal operation for set and save
+dummy.set("bar", "change").save();
+dummy.set("bar", "change", true);
+```
+
+### Browser localStorage
+
+Persistence with JSON in `localStorage`.
+
+```ts
+type Data = {
+	foo: number;
+	bar: string;
+	lok: boolean;
+};
+
+const defaultData: Data = {
+	foo: 1,
+	bar: "test",
+	lok: true,
+};
+
+const dummy = new SSKV<Data>(defaultData, {
+	save: (currentData, defaultData) => {
+		const data = Object.assign({}, defaultData, currentData);
+		localStorage.setItem("data", JSON.stringify(data));
+	},
+	load: () => {
+		return JSON.parse(localStorage.getItem("data") ?? "{}") as Data;
+	},
+});
+
+// Both of these is equal operation for load and get
+dummy.load().get("foo");
+dummy.get("foo", true);
+
+// Both of these is equal operation for set and save
+dummy.set("bar", "change").save();
+dummy.set("bar", "change", true);
+```
