@@ -1,0 +1,20 @@
+---
+title: "Convert Font Using FontForge"
+date: 2023-06-19
+---
+
+## Requirement
+
+[FontForge](https://fontforge.org/en-US/) was installed and can be access in terminal.
+
+Simple command to convert font or just to regenerate font.
+
+```bash
+fontforge -lang=ff -c 'Open($1); Generate($2); Close();' in.otf out.ttf
+```
+
+Or using absolute path.
+
+```bash
+fontforge -lang=ff -c 'Open($1); Generate($2); Close();' "$PWD/in.otf" "$PWD/out.ttf"
+```
