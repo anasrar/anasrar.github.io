@@ -21,7 +21,9 @@ const { project } = Astro.props;
 
 const shareImage = `https://og-anasrin.vercel.app/?title=${
 	project.data.title
-}&date=${project.data.date.getTime() / 1000 / 60 / 60 / 24}`;
+}&bg=${
+	project.data.date.getTime() / 1000 / 60 / 60 / 24
+}&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app`;
 
 const words = RemoveMarkdown(project.body).replace(/(\r\n|\r|\n\n|\n)/gm, " ");
 const summary = words.length > 160 ? `${words.slice(0, 157)}...` : words;
@@ -74,7 +76,7 @@ const jsonld = JSON.stringify({
 		<meta name="twitter:title" content={project.data.title} />
 		<meta name="twitter:description" content={summary} />
 		<meta name="twitter:image" content={shareImage} />
-		<script type="application/ld+json" set:html={jsonld}></script>
+		<script type="application/ld+json" set:html={jsonld} />
 	</head>
 	<body>
 		<Header />
