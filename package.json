@@ -19,6 +19,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"turbo": "^1.9.3"
+		"turbo": "^1.10.4"
 	}
 }
