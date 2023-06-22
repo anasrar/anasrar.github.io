@@ -30,7 +30,9 @@ export const get = async (context: APIContext) => {
 				BACKGROUND_URL.length
 		];
 	const title = context.url.searchParams.get("title") ?? "title";
-	const authorImg = context.url.searchParams.get("authorImg") ?? "authorImg";
+	const authorImg =
+		context.url.searchParams.get("authorImg") ??
+		"https://avatars.githubusercontent.com/u/38805204";
 	const authorName =
 		context.url.searchParams.get("authorName") ?? "authorName";
 	const website = context.url.searchParams.get("website") ?? "website";
