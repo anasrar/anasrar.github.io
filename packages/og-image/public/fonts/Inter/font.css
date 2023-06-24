@@ -1,0 +1,21 @@
+/*
+
+Variable Font
+
+*/
+
+@font-face {
+	font-family: "Inter Custom";
+	src: url("/fonts/Inter/InterV.var.ttf");
+	font-weight: 400 700;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: "Inter Custom";
+	src: url("/fonts/Inter/InterV-Italic.var.ttf");
+	font-weight: 400 700;
+	font-style: italic;
+	font-display: swap;
+}

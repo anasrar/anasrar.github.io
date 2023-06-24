@@ -1,0 +1,42 @@
+@import "/fonts/Inter/font.css";
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+:root {
+	--container-xs: 33.75rem;
+	--container-sm: 45rem;
+	--container-md: 60rem;
+	--container-lg: 71.25rem;
+	--container-xl: 82.5rem;
+	--font-family-base: Inter Custom, system-ui, -apple-system,
+		BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+		Apple Color Emoji, Segoe UI Emoji;
+}
+
+html {
+	color: #dee2e6;
+	background: #141517;
+	font-family: var(--font-family-base);
+	font-size: 100%;
+	font-variation-settings: "opsz" 22;
+	line-height: 1.75rem;
+}
+
+body {
+	display: flex;
+	flex-flow: column nowrap;
+	min-height: 100vh;
+	min-height: 100dvh;
+	margin: 0;
+	padding: 0;
+}
+
+a:not(.btn) {
+	color: #339af0;
+	text-decoration: none;
+	word-break: break-word;
+}

@@ -1,0 +1,183 @@
+---
+import "../styles/global.css";
+---
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<title>OG Preview</title>
+	</head>
+	<body>
+		<div class="container">
+			<img
+				src="./img.png?title=Lorem ipsum dolor sit amet, consectetur adipisicing elit&authorImg=https://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app&bg=2"
+				alt="Preview"
+			/>
+			<form method="get" action="/img.png">
+				<div class="input">
+					<label for="title">Title</label>
+					<input
+						id="title"
+						name="title"
+						type="text"
+						value="Lorem ipsum dolor sit amet, consectetur adipisicing elit"
+					/>
+				</div>
+				<div class="column2">
+					<div class="input">
+						<label for="authorImg">Author Image</label>
+						<input
+							id="authorImg"
+							name="authorImg"
+							type="text"
+							value="https://avatars.githubusercontent.com/u/38805204"
+						/>
+					</div>
+					<div class="input">
+						<label for="authorName">Author Name</label>
+						<input
+							id="authorName"
+							name="authorName"
+							type="text"
+							value="Anas Rin"
+						/>
+					</div>
+				</div>
+				<div class="column2">
+					<div class="input">
+						<label for="website">Website</label>
+						<input
+							id="website"
+							name="website"
+							type="text"
+							value="anasrin.vercel.app"
+						/>
+					</div>
+					<div class="input">
+						<label for="bg">Background</label>
+						<input
+							id="bg"
+							name="bg"
+							type="number"
+							min="0"
+							value="2"
+						/>
+					</div>
+				</div>
+				<noscript>
+					<button type="submit" formtarget="_blank">Preview</button>
+				</noscript>
+			</form>
+		</div>
+		<script lang="ts">
+			let timeoutID = null;
+			const img = document.querySelector("img");
+			const form = document.querySelector("form");
+			const setImage = () => {
+				img.src = `/img.png?${[...new FormData(form).entries()]
+					.map(
+						(e) =>
+							encodeURIComponent(e[0]) +
+							"=" +
+							encodeURIComponent(e[1])
+					)
+					.join("&")}`;
+			};
+			const handler = () => {
+				if (timeoutID) {
+					clearTimeout(timeoutID);
+				}
+				timeoutID = setTimeout(setImage, 1000);
+			};
+
+			setImage();
+			form.addEventListener("change", handler);
+			form.addEventListener("keydown", handler);
+		</script>
+		<style scoped>
+			body {
+				display: flex;
+				flex-flow: column nowrap;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.container {
+				display: flex;
+				flex-flow: column nowrap;
+				gap: 1.5rem;
+				width: 100%;
+				max-width: 50rem;
+				padding: 2rem 1rem;
+			}
+
+			img {
+				max-width: 100%;
+				aspect-ratio: 120 / 63;
+			}
+
+			form {
+				display: flex;
+				flex-flow: column nowrap;
+				gap: 0.75rem;
+				width: 100%;
+			}
+
+			.column2 {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+				gap: 0.75rem;
+			}
+
+			.input {
+				display: flex;
+				flex-flow: column nowrap;
+				gap: 0.5rem;
+			}
+
+			label {
+				font-weight: 600;
+				text-transform: uppercase;
+			}
+
+			input {
+				all: unset;
+				box-sizing: border-box;
+				padding: 0.5rem 1rem;
+				border: 1px solid #5c5f66;
+				border-radius: 0.25rem;
+				background: #25262b;
+				font-family: inherit;
+				font-size: 0.9rem;
+			}
+
+			:is(input, button):focus {
+				outline: 2px solid #5c7cfa;
+			}
+
+			button {
+				all: unset;
+				box-sizing: border-box;
+				display: flex;
+				flex-flow: row nowrap;
+				justify-content: center;
+				padding: 0.5rem 1rem;
+				width: 100%;
+				border-radius: 0.25rem;
+				color: #101113;
+				background: #dee2e6;
+				font-family: inherit;
+				font-weight: 600;
+				font-size: 0.9rem;
+				text-transform: uppercase;
+				cursor: pointer;
+			}
+
+			button:hover {
+				background: #868e96;
+			}
+		</style>
+	</body>
+</html>
