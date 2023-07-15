@@ -1,0 +1,39 @@
+---
+# vi:ft=markdown
+title: "Go: Using fork module"
+date: 2023-07-15
+---
+
+## Why ?
+
+When you are using a Go module and encounter a bug, you may try to fix it by forking the repository and sending a pull request. However, the merge or release tag might not be immediately available, and you still need to use the module.
+
+Here is how you can use the **forked module**: After forking the repository and committing the bug fix, you can run the following command:
+
+```bash
+go mod edit -replace github.com/someuser/repo=github.com/yourusername/repo@branch
+```
+
+This command will add the following code to your `go.mod` file:
+
+```gomod
+replace github.com/someuser/repo => github.com/yourusername/repo branch
+```
+
+Now, you just need to run the following command to download the module:
+
+```bash
+go mod download
+```
+
+If you take a look at your `go.mod` file, you will see that the branch has been changed to `tag-(time commit)-(hash commit)`.
+
+```gomod
+replace github.com/someuser/repo => github.com/yourusername/repo v0.0.0-(time commit)-(hash commit)
+```
+
+Whenever the pull request has been merged, you can feel free to remove the `replace` statement in the `go.mod` file and update the module.
+
+## References
+
+-   https://www.jvt.me/posts/2022/07/07/go-mod-fork/
