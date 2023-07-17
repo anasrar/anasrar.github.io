@@ -20,3 +20,8 @@ a[data-footnote-ref] {
 li[id^="user-content-fn"] {
 	scroll-margin-top: $scroll-margin;
 }
+
+img,
+video {
+	max-width: 100%;
+}
