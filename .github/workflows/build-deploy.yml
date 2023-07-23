@@ -20,7 +20,7 @@ jobs:
             - name: Setup PNPM
               uses: pnpm/action-setup@v2.2.2
               with:
-                  version: 7.18.0
+                  version: 8.6.9
 
             - name: Build
               run: |
