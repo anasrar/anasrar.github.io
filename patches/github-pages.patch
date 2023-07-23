@@ -1,0 +1,286 @@
+diff --git a/packages/blog/astro.config.mjs b/packages/blog/astro.config.mjs
+index e7d5b97..f42b1b5 100644
+--- a/packages/blog/astro.config.mjs
++++ b/packages/blog/astro.config.mjs
+@@ -5,7 +5,7 @@ import remarkMath from "remark-math";
+ import rehypeDiagrams from "diagrams";
+ import rehypePrettyCode from "rehype-pretty-code";
+ import rehypeKatex from "rehype-katex";
+-import vercel from "@astrojs/vercel/serverless";
++// import vercel from "@astrojs/vercel/serverless";
+ 
+ /** @type {import("rehype-pretty-code").Options} */
+ export const rehypePrettyCodeOptions = {
+@@ -28,9 +28,9 @@ export const rehypePrettyCodeOptions = {
+ 
+ /** @type {import("astro/config").AstroUserConfig} */
+ export const config = {
+-	site: "https://anasrin.vercel.app",
+-	output: "server",
+-	adapter: vercel(),
++	site: "https://anasrar.github.io",
++	output: "static",
++	// adapter: vercel(),
+ 	trailingSlash: "always",
+ 	integrations: [
+ 		mdx({
+diff --git a/packages/blog/src/components/global/Footer.astro b/packages/blog/src/components/global/Footer.astro
+index bc5c5fc..f96933d 100644
+--- a/packages/blog/src/components/global/Footer.astro
++++ b/packages/blog/src/components/global/Footer.astro
+@@ -135,7 +135,7 @@ import Button from "./Button.astro";
+ 		</nav>
+ 		<div class="text">
+ 			Made with <span class="heart">❤</span> by Anas Rin — Powered by Astro
+-			& Vercel
++			& GitHub
+ 		</div>
+ 	</div>
+ </footer>
+diff --git a/packages/blog/src/layouts/Blog.astro b/packages/blog/src/layouts/Blog.astro
+index c48a69d..9765345 100644
+--- a/packages/blog/src/layouts/Blog.astro
++++ b/packages/blog/src/layouts/Blog.astro
+@@ -11,7 +11,7 @@ import BalanceText from "../components/global/BalanceText.astro";
+ import type { CollectionEntry } from "astro:content";
+ import RemoveMarkdown from "remove-markdown";
+ 
+-const lightMode = Astro.cookies.get("colorscheme").value == "light";
++// const lightMode = Astro.cookies.get("colorscheme").value == "light";
+ 
+ interface Props {
+ 	post: CollectionEntry<"blog">;
+@@ -51,7 +51,7 @@ const jsonld = JSON.stringify({
+ ---
+ 
+ <!DOCTYPE html>
+-<html class:list={[{ light: lightMode }]} lang="en">
++<html lang="en">
+ 	<head>
+ 		<meta charset="utf-8" />
+ 		<meta name="viewport" content="width=device-width" />
+diff --git a/packages/blog/src/layouts/Default.astro b/packages/blog/src/layouts/Default.astro
+index decc397..c17d511 100644
+--- a/packages/blog/src/layouts/Default.astro
++++ b/packages/blog/src/layouts/Default.astro
+@@ -4,7 +4,7 @@ import Footer from "../components/global/Footer.astro";
+ import Header from "../components/global/Header.astro";
+ import PrefersColorScheme from "../components/global/PrefersColorScheme.astro";
+ 
+-const lightMode = Astro.cookies.get("colorscheme").value == "light";
++// const lightMode = Astro.cookies.get("colorscheme").value == "light";
+ 
+ interface Props {
+ 	title: string;
+@@ -15,7 +15,7 @@ const { title, description } = Astro.props;
+ ---
+ 
+ <!DOCTYPE html>
+-<html class:list={[{ light: lightMode }]} lang="en">
++<html lang="en">
+ 	<head>
+ 		<meta charset="utf-8" />
+ 		<meta name="viewport" content="width=device-width" />
+diff --git a/packages/blog/src/layouts/Project.astro b/packages/blog/src/layouts/Project.astro
+index b994667..add0a73 100644
+--- a/packages/blog/src/layouts/Project.astro
++++ b/packages/blog/src/layouts/Project.astro
+@@ -11,7 +11,7 @@ import BalanceText from "../components/global/BalanceText.astro";
+ import type { CollectionEntry } from "astro:content";
+ import RemoveMarkdown from "remove-markdown";
+ 
+-const lightMode = Astro.cookies.get("colorscheme").value == "light";
++// const lightMode = Astro.cookies.get("colorscheme").value == "light";
+ 
+ interface Props {
+ 	project: CollectionEntry<"projects">;
+@@ -51,7 +51,7 @@ const jsonld = JSON.stringify({
+ ---
+ 
+ <!DOCTYPE html>
+-<html class:list={[{ light: lightMode }]} lang="en">
++<html lang="en">
+ 	<head>
+ 		<meta charset="utf-8" />
+ 		<meta name="viewport" content="width=device-width" />
+diff --git a/packages/blog/src/pages/blog/[...slug].astro b/packages/blog/src/pages/blog/[...slug].astro
+index 72411eb..363727c 100644
+--- a/packages/blog/src/pages/blog/[...slug].astro
++++ b/packages/blog/src/pages/blog/[...slug].astro
+@@ -1,4 +1,5 @@
+ ---
++import fs from "node:fs/promises";
+ import LayoutBlog from "../../layouts/Blog.astro";
+ import Button from "../../components/global/Button.astro";
+ import TableOfContents from "../../components/global/TableOfContents.astro";
+@@ -17,7 +18,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
+ import OrderedList from "../../components/markdown/OrderedList.astro";
+ import Blockquote from "../../components/markdown/Blockquote.astro";
+ import Table from "../../components/markdown/Table.astro";
+-import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
++import { CollectionEntry, getCollection } from "astro:content";
+ import { format } from "date-fns";
+ 
+ interface Props {
+@@ -28,33 +29,47 @@ interface Props {
+ 	};
+ }
+ 
+-const { slug } = Astro.params;
+-const post = await getEntryBySlug("blog", slug ?? "");
+-if (post === undefined) {
+-	return Astro.redirect("/blog/");
+-}
++export const getStaticPaths = async () => {
++	const posts = await getCollection("blog");
++	const paths: { params: { slug: string }; props: Props }[] = [];
++	const langSlugs: Map<string, string[]> = new Map();
++
++	for (const post of posts) {
++		const slugSegments = post.slug.split("/");
++		const language = slugSegments.length === 1 ? "en" : slugSegments[1]!;
++		const languages: string[] = [];
++		const l = langSlugs.get(slugSegments[0] ?? "");
++
++		if (l) {
++			languages.push("en", ...l);
++		} else {
++			const r = (
++				await fs.readdir(`src/content/blog/${slugSegments[0]}`, {
++					withFileTypes: true,
++				})
++			)
++				.filter((s) => s.isDirectory())
++				.map((s) => s.name);
++			langSlugs.set(slugSegments[0] ?? "", r);
++			languages.push("en", ...r);
++		}
+ 
+-const slugSegments = post.slug.split("/");
+-const language: Props["language"] = {
+-	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
+-	list: ["en"],
+-};
++		paths.push({
++			params: { slug: post.slug },
++			props: {
++				post,
++				language: {
++					current: language,
++					list: languages,
++				},
++			},
++		});
++	}
+ 
+-language.list.push(
+-	...(
+-		await getCollection("blog", (e) => {
+-			const s = e.slug.split("/");
+-			return (
+-				s.length > 1 &&
+-				slugSegments[0] !== undefined &&
+-				e.slug.startsWith(slugSegments[0])
+-			);
+-		})
+-	).map((e) => {
+-		return e.slug.split("/")[1] as string;
+-	})
+-);
++	return paths;
++};
+ 
++const { post, language } = Astro.props;
+ const { Content, headings } = await post.render();
+ ---
+ 
+diff --git a/packages/blog/src/pages/projects/[...slug].astro b/packages/blog/src/pages/projects/[...slug].astro
+index f840893..beac820 100644
+--- a/packages/blog/src/pages/projects/[...slug].astro
++++ b/packages/blog/src/pages/projects/[...slug].astro
+@@ -1,4 +1,5 @@
+ ---
++import fs from "node:fs/promises";
+ import LayoutProject from "../../layouts/Project.astro";
+ import Button from "../../components/global/Button.astro";
+ import TableOfContents from "../../components/global/TableOfContents.astro";
+@@ -16,7 +17,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
+ import OrderedList from "../../components/markdown/OrderedList.astro";
+ import Blockquote from "../../components/markdown/Blockquote.astro";
+ import Table from "../../components/markdown/Table.astro";
+-import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
++import { CollectionEntry, getCollection } from "astro:content";
+ import { format } from "date-fns";
+ 
+ interface Props {
+@@ -27,32 +28,47 @@ interface Props {
+ 	};
+ }
+ 
+-const { slug } = Astro.params;
+-const project = await getEntryBySlug("projects", slug ?? "");
+-if (project === undefined) {
+-	return Astro.redirect("/projects/");
+-}
++export const getStaticPaths = async () => {
++	const projects = await getCollection("projects");
++	const paths: { params: { slug: string }; props: Props }[] = [];
++	const langSlugs: Map<string, string[]> = new Map();
++
++	for (const project of projects) {
++		const slugSegments = project.slug.split("/");
++		const language = slugSegments.length === 1 ? "en" : slugSegments[1]!;
++		const languages: string[] = [];
++		const l = langSlugs.get(slugSegments[0] ?? "");
++
++		if (l) {
++			languages.push("en", ...l);
++		} else {
++			const r = (
++				await fs.readdir(`src/content/projects/${slugSegments[0]}`, {
++					withFileTypes: true,
++				})
++			)
++				.filter((s) => s.isDirectory())
++				.map((s) => s.name);
++			langSlugs.set(slugSegments[0] ?? "", r);
++			languages.push("en", ...r);
++		}
++
++		paths.push({
++			params: { slug: project.slug },
++			props: {
++				project,
++				language: {
++					current: language,
++					list: languages,
++				},
++			},
++		});
++	}
+ 
+-const slugSegments = project.slug.split("/");
+-const language: Props["language"] = {
+-	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
+-	list: ["en"],
++	return paths;
+ };
+-language.list.push(
+-	...(
+-		await getCollection("projects", (e) => {
+-			const s = e.slug.split("/");
+-			return (
+-				s.length > 1 &&
+-				slugSegments[0] !== undefined &&
+-				e.slug.startsWith(slugSegments[0])
+-			);
+-		})
+-	).map((e) => {
+-		return e.slug.split("/")[1] as string;
+-	})
+-);
+ 
++const { project, language } = Astro.props;
+ const { Content, headings } = await project.render();
+ ---
+ 

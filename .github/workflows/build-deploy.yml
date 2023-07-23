@@ -24,6 +24,7 @@ jobs:
 
             - name: Build
               run: |
+                  git apply patches/github-pages.patch
                   pnpm install
                   pnpm diagrams:build
                   pnpm blog:build || true
