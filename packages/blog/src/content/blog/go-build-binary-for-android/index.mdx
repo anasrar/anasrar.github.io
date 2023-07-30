@@ -1,0 +1,26 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Go: Build binary for Android"
+date: 2023-07-31
+---
+
+Go `1.20.6` and Ubuntu `20.04.6` was used in this post.
+
+## Android NDK
+
+Download [Android NDK](https://developer.android.com/ndk/downloads) and unzip. By the time I write this post I use `android-ndk-r25c-linux.zip`.
+
+## Command
+
+Change `CC` and `CXX` to `android-ndk-r25c/toolchains/llvm/prebuilt/linux-x86_64/bin` and you can choose `clang` base on your target architecture and android API, and also add `CGO_ENABLED=1`. Example target `aarch64` and `android28`:
+
+```bash
+CC="/android-ndk-r25c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android28-clang" CXX="/android-ndk-r25c/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android28-clang++" GOOS=android GOARCH=arm64 CGO_ENABLED=1 go build
+```
+
+### Result
+
+Here the result, now we can run using app like [Termux](https://github.com/termux/termux-app):
+
+![result go build for android](/assets/blog/go-build-binary-for-android/result.png)
