@@ -1,0 +1,86 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Android Phone as Microphone on Linux Using Local Network"
+date: 2023-09-03
+---
+
+## TLDR
+
+Using [Mumble](//www.mumble.info/) for simple chat server and change output as input, and bash script from [github.com/siddhpant/broo](//github.com/siddhpant/broo) for automation setup.
+
+Tested on Arch Linux using PipeWire, Firefox, Chromium, and Audacity.
+
+```diagram-graphviz layout="dot"
+strict graph Mumble {
+  bgcolor="transparent"
+  rankdir=LR
+  fontname="Sans-Serif"
+  fontsize="12px"
+  node [shape=rect, fontname="sans-serif", fontsize="10px"]
+  edge [fontname="Sans-Serif", fontsize="8px", labeldistance=4.5, labelangle=270 ]
+
+  subgraph cluster_network {
+    "Server (Linux)" -- "Client (Android)"
+    label="Local Network (WiFi)"
+    penwidth=2
+  }
+}
+```
+
+## Why ?
+
+Android phone nowaday has good microphone built-in.
+
+## Requirements
+
+### Android
+
+-   [gitlab.com/quite/mumla](https://gitlab.com/quite/mumla) ([F-Droid](//f-droid.org/packages/se.lublin.mumla/)) - GUI client.
+
+### Linux
+
+-   `mumble` - GUI client.
+-   `mumble-server` - CLI server.
+-   `avahi` - `avahi-daemon`.
+-   `iproute2`
+
+Arch Linux command:
+
+```bash
+sudo pacman -S mumble mumble-server avahi iproute2
+```
+
+## Installation
+
+Copied from [github.com/siddhpant/broo#installation](//github.com/siddhpant/broo#installation)
+
+```bash
+git clone https://github.com/siddhpant/broo.git
+cd broo
+chmod +x broo setup_broo
+./setup_broo
+```
+
+Then follow the on-screen instructions.
+
+## Run
+
+### Linux
+
+Copied from [github.com/siddhpant/broo#run](//github.com/siddhpant/broo#run)
+
+```bash
+broo
+# Do you want to start Broo, or close it? (s/c):
+```
+
+-   Press `s` to start Broo, or `c` to stop it.
+-   Use the mic by choosing `Monitor of Broo` as your input source / mic in applications.
+-   The script will reside in `~/.local/bin`, so you can run Broo from anywhere.
+-   You can use `-h` or `--help` for help.
+
+### Android
+
+-   Open Mumla
+-   Connect to local IP
