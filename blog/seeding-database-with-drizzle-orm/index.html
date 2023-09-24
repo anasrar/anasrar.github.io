@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Seeding Database With Drizzle ORM - Anas Rin</title>
+		<meta name="description" content=" Database This post assume using PostgreSQL for database, check orm.drizzle.team/docs/overview for more information how to connnect to your database. Setup D...">
+		<meta property="og:site_name" content="Anas Rin">
+		<meta property="og:title" content="Seeding Database With Drizzle ORM - Anas Rin">
+		<meta property="og:type" content="article">
+		<meta property="og:url" content="https://anasrar.github.io/blog/seeding-database-with-drizzle-orm/">
+		<meta property="og:image" content="https://og-anasrin.vercel.app/img.png?title=Seeding Database With Drizzle ORM&#38;bg=19624&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
+		<meta property="og:description" content=" Database This post assume using PostgreSQL for database, check orm.drizzle.team/docs/overview for more information how to connnect to your database. Setup D...">
+		<meta property="article:published_time" content="2023-09-24T00:00:00.000Z">
+		<meta property="article:author" content="https://anasrin.vercel.app">
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:site" content="@rrrriiiiiinnnn">
+		<meta name="twitter:title" content="Seeding Database With Drizzle ORM">
+		<meta name="twitter:description" content=" Database This post assume using PostgreSQL for database, check orm.drizzle.team/docs/overview for more information how to connnect to your database. Setup D...">
+		<meta name="twitter:image" content="https://og-anasrin.vercel.app/img.png?title=Seeding Database With Drizzle ORM&#38;bg=19624&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
+		<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Seeding Database With Drizzle ORM","image":"https://og-anasrin.vercel.app/img.png?title=Seeding Database With Drizzle ORM&bg=19624&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrin.vercel.app/"}],"url":"https://anasrar.github.io/blog/seeding-database-with-drizzle-orm/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-09-24T00:00:00.000Z","description":" Database This post assume using PostgreSQL for database, check orm.drizzle.team/docs/overview for more information how to connnect to your database. Setup D..."}</script>
+	<link rel="stylesheet" href="/_astro/_...slug_.ff61d769.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.7499b7e1.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.24db8cc1.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.95b65d35.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.ff2c03f6.css" /><script type="module" src="/_astro/hoisted.61378737.js"></script></head>
+	<body>
+		<header class="sticky-header astro-EIYD7VOQ">
+	<div class="container astro-EIYD7VOQ">
+		<nav class="group md astro-EIYD7VOQ">
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
+					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
+					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
+				</svg> Home
+			
+		</a>
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
+					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
+				</svg>
+				Guestbook
+			
+		</a>
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
+				</svg>
+				Projects
+			
+		</a>
+			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
+					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
+				</svg> Blog
+			
+		</a>
+		</nav>
+		<nav class="group xs astro-EIYD7VOQ">
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/" title="Home">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
+					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
+					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/" title="Guestbook">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
+					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/" title="Projects">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
+					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/" title="Blog">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
+					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
+					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
+				</svg>
+			
+		</a>
+		</nav>
+		<nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center astro-EIYD7VOQ">
+			<button class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" title="Toggle Dark/Light Mode" toggle-colorscheme="true">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="only-dark icon icon-tabler icon-tabler-sun astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<circle cx="12" cy="12" r="4" class="astro-EIYD7VOQ"></circle>
+					<path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" class="astro-EIYD7VOQ"></path>
+				</svg>
+				<svg xmlns="http://www.w3.org/2000/svg" class="only-light icon icon-tabler icon-tabler-moon-stars astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
+					<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" class="astro-EIYD7VOQ"></path>
+					<path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" class="astro-EIYD7VOQ"></path>
+					<path d="M19 11h2m-1 -1v2" class="astro-EIYD7VOQ"></path>
+				</svg>
+			
+		</button>
+		</nav>
+	</div>
+</header>
+		
+	<article class="container astro-7JJQPTXK">
+		<section id="toc" class="astro-USK3TZSR">
+	<h4 class="astro-USK3TZSR">Table of Contents</h4>
+	<ul class="astro-USK3TZSR">
+		<li class="astro-USK3TZSR">
+					<a id="toc-database" href="#database" style="--depth: 0" title="Database" class="astro-USK3TZSR">
+						Database
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-setup" href="#setup" style="--depth: 0" title="Setup" class="astro-USK3TZSR">
+						Setup
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-dependencies" href="#dependencies" style="--depth: 1" title="Dependencies" class="astro-USK3TZSR">
+						Dependencies
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-environment-variables" href="#environment-variables" style="--depth: 1" title="Environment Variables" class="astro-USK3TZSR">
+						Environment Variables
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-drizzle-config" href="#drizzle-config" style="--depth: 1" title="Drizzle Config" class="astro-USK3TZSR">
+						Drizzle Config
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-schema" href="#schema" style="--depth: 1" title="Schema" class="astro-USK3TZSR">
+						Schema
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-scripts" href="#scripts" style="--depth: 1" title="Scripts" class="astro-USK3TZSR">
+						Scripts
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-migrations--push" href="#migrations--push" style="--depth: 1" title="Migrations &#38; Push" class="astro-USK3TZSR">
+						Migrations &amp; Push
+					</a>
+				</li><li class="astro-USK3TZSR">
+					<a id="toc-seed" href="#seed" style="--depth: 0" title="Seed" class="astro-USK3TZSR">
+						Seed
+					</a>
+				</li>
+	</ul>
+</section>
+		
+		<a class="btn back astro-7JJQPTXK astro-7AB5KPLB" href="../">
+			
+			&lt;-- &nbsp; Back
+		
+		</a>
+		<header class="astro-7JJQPTXK">
+			<div class="information astro-7JJQPTXK">
+				<time title="2023-09-24T00:00:00.000Z" datetime="2023-09-24T00:00:00.000Z" class="astro-7JJQPTXK">September 24, 2023</time>
+			</div>
+			<h1 class="title size-h1 balance-text astro-7JJQPTXK astro-6IDPVE2O">Seeding Database With Drizzle ORM</h1>
+		</header>
+		<hr class="astro-7JJQPTXK">
+		<main class="astro-7JJQPTXK">
+			<section class="astro-WCJWFPCE">
+	<h2 id="database" class="heading astro-WCJWFPCE">
+		
+	Database
+
+	</h2>
+	<a href="#database" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<p class="astro-6R4UOCDA">This post assume using PostgreSQL for database, check <a href="//orm.drizzle.team/docs/overview">orm.drizzle.team/docs/overview</a> for more information how to connnect to your database.</p>
+<section class="astro-WCJWFPCE">
+	<h2 id="setup" class="heading astro-WCJWFPCE">
+		
+	Setup
+
+	</h2>
+	<a href="#setup" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<section class="astro-WCJWFPCE">
+	<h3 id="dependencies" class="heading astro-WCJWFPCE">
+		
+	Dependencies
+
+	</h3>
+	<a href="#dependencies" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#C0CAF5">npm</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">i</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">drizzle-orm</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">pg</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">dotenv</span></span>
+<span class="line"><span style="color:#C0CAF5">npm</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">i</span><span style="color:#A9B1D6"> </span><span style="color:#E0AF68">-D</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">drizzle-kit</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">@types/pg</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">esbuild-register</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">@faker-js/faker</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h3 id="environment-variables" class="heading astro-WCJWFPCE">
+		
+	Environment Variables
+
+	</h3>
+	<a href="#environment-variables" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="sh" data-theme="default">.env.development</div>
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="sh" data-theme="default" class="astro-JIMS2NUM"><code data-language="sh" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#C0CAF5">DATABASE_URL</span><span style="color:#89DDFF">=</span><span style="color:#9ECE6A">postgres://user:pass@127.0.0.1:5432/db</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h3 id="drizzle-config" class="heading astro-WCJWFPCE">
+		
+	Drizzle Config
+
+	</h3>
+	<a href="#drizzle-config" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="typescript" data-theme="default">drizzle.config.ts</div>
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-line-numbers="" data-language="typescript" data-theme="default" data-line-numbers-max-digits="2" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">type</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">Config</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">drizzle-kit</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#FF9E64">*</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">as</span><span style="color:#A9B1D6"> </span><span style="color:#0DB9D7">dotenv</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">dotenv</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#C0CAF5">dotenv</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">config</span><span style="color:#9ABDF5">({</span><span style="color:#A9B1D6"> </span><span style="color:#73DACA">path</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">./.env.development</span><span style="color:#89DDFF">&quot;</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">})</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#BB9AF7">if</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">(</span><span style="color:#BB9AF7">!</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">DATABASE_URL</span><span style="color:#89DDFF">&quot;</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">in</span><span style="color:#A9B1D6"> </span><span style="color:#C0CAF5">process</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">env</span><span style="color:#9ABDF5">))</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#BB9AF7">throw</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">new</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">Error</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">DATABASE_URL not found on .env.development</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#7DCFFF">export</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">default</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">schema</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">./src/db/schema.ts</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">out</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">./src/db/migrations</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">driver</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">pg</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">dbCredentials</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#A9B1D6">		</span><span style="color:#73DACA">connectionString</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#C0CAF5">process</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">env</span><span style="color:#89DDFF">.</span><span style="color:#FF9E64">DATABASE_URL</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#9ABDF5">}</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">strict</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#FF9E64">true</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">}</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">satisfies</span><span style="color:#A9B1D6"> </span><span style="color:#C0CAF5">Config</span><span style="color:#89DDFF">;</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h3 id="schema" class="heading astro-WCJWFPCE">
+		
+	Schema
+
+	</h3>
+	<a href="#schema" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="typescript" data-theme="default">src/db/schema.ts</div>
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-line-numbers="" data-language="typescript" data-theme="default" data-line-numbers-max-digits="1" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">pgTable</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">serial</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">text</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">varchar</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">drizzle-orm/pg-core</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#7DCFFF">export</span><span style="color:#A9B1D6"> </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">users</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">=</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">pgTable</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">users</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">id</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">serial</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">id</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">primaryKey</span><span style="color:#9ABDF5">()</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">username</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">text</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">username</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#73DACA">email</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">varchar</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">email</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span><span style="color:#A9B1D6"> </span><span style="color:#73DACA">length</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#FF9E64">256</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">})</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">})</span><span style="color:#89DDFF">;</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h3 id="scripts" class="heading astro-WCJWFPCE">
+		
+	Scripts
+
+	</h3>
+	<a href="#scripts" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="json" data-theme="default">package.json</div>
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="json" data-theme="default" class="astro-JIMS2NUM"><code data-line-numbers="" data-language="json" data-theme="default" data-line-numbers-max-digits="1" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#89DDFF">&quot;</span><span style="color:#7AA2F7">scripts</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#A9B1D6">		</span><span style="color:#89DDFF">&quot;</span><span style="color:#0DB9D7">drizzle:generate</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">drizzle-kit generate:pg</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">		</span><span style="color:#89DDFF">&quot;</span><span style="color:#0DB9D7">drizzle:push</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">drizzle-kit push:pg</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#A9B1D6">		</span><span style="color:#89DDFF">&quot;</span><span style="color:#0DB9D7">drizzle:seed</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">node --loader esbuild-register/loader -r esbuild-register ./src/db/seed.ts</span><span style="color:#89DDFF">&quot;</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#9ABDF5">}</span></span>
+<span class="line"><span style="color:#9ABDF5">}</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h3 id="migrations--push" class="heading astro-WCJWFPCE">
+		
+	Migrations &amp; Push
+
+	</h3>
+	<a href="#migrations--push" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#C0CAF5">npm</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">run</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">drizzle:generate</span></span>
+<span class="line"><span style="color:#C0CAF5">npm</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">run</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">drizzle:push</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<section class="astro-WCJWFPCE">
+	<h2 id="seed" class="heading astro-WCJWFPCE">
+		
+	Seed
+
+	</h2>
+	<a href="#seed" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
+			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
+			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
+		</svg>
+	</a>
+</section>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="typescript" data-theme="default">src/db/seed.ts</div>
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-line-numbers="" data-language="typescript" data-theme="default" data-line-numbers-max-digits="2" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">drizzle</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">drizzle-orm/node-postgres</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">Pool</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">pg</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">users</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">./schema.ts</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">faker</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">@faker-js/faker</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#FF9E64">*</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">as</span><span style="color:#A9B1D6"> </span><span style="color:#0DB9D7">dotenv</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">dotenv</span><span style="color:#89DDFF">&quot;</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#C0CAF5">dotenv</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">config</span><span style="color:#9ABDF5">({</span><span style="color:#A9B1D6"> </span><span style="color:#73DACA">path</span><span style="color:#89DDFF">:</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">./.env.development</span><span style="color:#89DDFF">&quot;</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">})</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#BB9AF7">if</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">(</span><span style="color:#BB9AF7">!</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">DATABASE_URL</span><span style="color:#89DDFF">&quot;</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">in</span><span style="color:#A9B1D6"> </span><span style="color:#C0CAF5">process</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">env</span><span style="color:#9ABDF5">))</span></span>
+<span class="line"><span style="color:#A9B1D6">	</span><span style="color:#BB9AF7">throw</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">new</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">Error</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">DATABASE_URL not found on .env.development</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">main</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">=</span><span style="color:#A9B1D6"> </span><span style="color:#9D7CD8;font-style:italic">async</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">()</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">=&gt;</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">client</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">new</span><span style="color:#9ABDF5"> </span><span style="color:#7AA2F7">Pool</span><span style="color:#9ABDF5">({</span></span>
+<span class="line"><span style="color:#9ABDF5">		</span><span style="color:#73DACA">connectionString</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">process</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">env</span><span style="color:#89DDFF">.</span><span style="color:#FF9E64">DATABASE_URL</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">	})</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">db</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#7AA2F7">drizzle</span><span style="color:#9ABDF5">(</span><span style="color:#C0CAF5">client</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">data</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> (</span><span style="color:#89DDFF">typeof</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">users</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">$inferInsert</span><span style="color:#9ABDF5">)[] </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> []</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#BB9AF7">for</span><span style="color:#9ABDF5"> (</span><span style="color:#9D7CD8;font-style:italic">let</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">i</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#FF9E64">0</span><span style="color:#89DDFF">;</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">i</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">&lt;</span><span style="color:#9ABDF5"> </span><span style="color:#FF9E64">20</span><span style="color:#89DDFF">;</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">i</span><span style="color:#89DDFF">++</span><span style="color:#9ABDF5">) {</span></span>
+<span class="line"><span style="color:#9ABDF5">		</span><span style="color:#C0CAF5">data</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">push</span><span style="color:#9ABDF5">({</span></span>
+<span class="line"><span style="color:#9ABDF5">			</span><span style="color:#73DACA">username</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">faker</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">internet</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">userName</span><span style="color:#9ABDF5">()</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">			</span><span style="color:#73DACA">email</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">faker</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">internet</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">email</span><span style="color:#9ABDF5">()</span><span style="color:#89DDFF">,</span></span>
+<span class="line"><span style="color:#9ABDF5">		})</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">	}</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#C0CAF5">console</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">log</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">Seed start</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#BB9AF7;font-style:italic">await</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">db</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">insert</span><span style="color:#9ABDF5">(</span><span style="color:#C0CAF5">users</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">values</span><span style="color:#9ABDF5">(</span><span style="color:#C0CAF5">data</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">	</span><span style="color:#C0CAF5">console</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">log</span><span style="color:#9ABDF5">(</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">Seed done</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
+<span class="line"><span style="color:#9ABDF5">}</span><span style="color:#89DDFF">;</span></span>
+<span class="line"> </span>
+<span class="line"><span style="color:#7AA2F7">main</span><span style="color:#9ABDF5">()</span><span style="color:#89DDFF">;</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+<div data-rehype-pretty-code-fragment="">
+
+<div class="astro-JIMS2NUM">
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#C0CAF5">npm</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">run</span><span style="color:#A9B1D6"> </span><span style="color:#9ECE6A">drizzle:seed</span></span></code></pre></div>
+	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
+			
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
+			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
+			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
+		</svg>
+	
+		</button>
+</div></div>
+		</main>
+		<hr class="astro-7JJQPTXK">
+		<section class="astro-V6WDQMFP">
+	<a class="btn open-discussion astro-V6WDQMFP astro-7AB5KPLB" href="//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q=&#34;/blog/seeding-database-with-drizzle-orm/&#34;">
+			Open GitHub Discussions<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
+					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" class="astro-V6WDQMFP"></path>
+					<line x1="10" y1="14" x2="20" y2="4" class="astro-V6WDQMFP"></line>
+					<polyline points="15 4 20 4 20 9" class="astro-V6WDQMFP"></polyline>
+				</svg>
+			
+		</a>
+	<div id="giscus" data-lang="en" class="astro-V6WDQMFP"></div>
+	<button class="btn write-giscus astro-V6WDQMFP astro-7AB5KPLB">
+			Write comment<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
+					<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" class="astro-V6WDQMFP"></path>
+					<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" class="astro-V6WDQMFP"></path>
+					<path d="M16 5l3 3" class="astro-V6WDQMFP"></path>
+				</svg>
+			
+		</button>
+</section>
+	</article>
+
+		<footer class="astro-TGC5TWW7">
+	<div class="container astro-TGC5TWW7">
+		<nav class="group-btn astro-TGC5TWW7">
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="mailto:mynameanasrar@gmail.com" title="Send Email">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<circle cx="12" cy="12" r="4" class="astro-TGC5TWW7"></circle>
+					<path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" class="astro-TGC5TWW7"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" class="astro-TGC5TWW7"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//youtube.com/@anasrin" target="_blank" title="My YouTube Channel">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<rect x="3" y="5" width="18" height="14" rx="4" class="astro-TGC5TWW7"></rect>
+					<path d="M10 9l5 3l-5 3z" class="astro-TGC5TWW7"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//github.com/anasrar" target="_blank" title="My GitHub Account">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" class="astro-TGC5TWW7"></path>
+				</svg>
+			
+		</a>
+			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="https://anasrar.github.io/rss/blog.xml" title="RSS Blog">
+			
+				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
+					<circle cx="5" cy="19" r="1" class="astro-TGC5TWW7"></circle>
+					<path d="M4 4a16 16 0 0 1 16 16" class="astro-TGC5TWW7"></path>
+					<path d="M4 11a9 9 0 0 1 9 9" class="astro-TGC5TWW7"></path>
+				</svg>
+			
+		</a>
+		</nav>
+		<div class="text astro-TGC5TWW7">
+			Made with <span class="heart astro-TGC5TWW7">❤</span> by Anas Rin — Powered by Astro
+			& GitHub
+		</div>
+	</div>
+</footer>
+		
+		
+	</body></html>
