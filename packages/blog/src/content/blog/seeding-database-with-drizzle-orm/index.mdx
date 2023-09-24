@@ -1,0 +1,116 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Seeding Database With Drizzle ORM"
+date: 2023-09-24
+---
+
+## Database
+
+This post assume using PostgreSQL for database, check [orm.drizzle.team/docs/overview](//orm.drizzle.team/docs/overview) for more information how to connnect to your database.
+
+## Setup
+
+### Dependencies
+
+```bash
+npm i drizzle-orm pg dotenv
+npm i -D drizzle-kit @types/pg esbuild-register @faker-js/faker
+```
+
+### Environment Variables
+
+```sh title=".env.development"
+DATABASE_URL=postgres://user:pass@127.0.0.1:5432/db
+```
+
+### Drizzle Config
+
+```typescript title="drizzle.config.ts" showLineNumbers
+import type { Config } from "drizzle-kit";
+import * as dotenv from "dotenv";
+dotenv.config({ path: "./.env.development" });
+
+if (!("DATABASE_URL" in process.env))
+	throw new Error("DATABASE_URL not found on .env.development");
+
+export default {
+	schema: "./src/db/schema.ts",
+	out: "./src/db/migrations",
+	driver: "pg",
+	dbCredentials: {
+		connectionString: process.env.DATABASE_URL,
+	},
+	strict: true,
+} satisfies Config;
+```
+
+### Schema
+
+```typescript title="src/db/schema.ts" showLineNumbers
+import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+
+export const users = pgTable("users", {
+	id: serial("id").primaryKey(),
+	username: text("username"),
+	email: varchar("email", { length: 256 }),
+});
+```
+
+### Scripts
+
+```json title="package.json" showLineNumbers
+{
+	"scripts": {
+		"drizzle:generate": "drizzle-kit generate:pg",
+		"drizzle:push": "drizzle-kit push:pg",
+		"drizzle:seed": "node --loader esbuild-register/loader -r esbuild-register ./src/db/seed.ts"
+	}
+}
+```
+
+### Migrations & Push
+
+```bash
+npm run drizzle:generate
+npm run drizzle:push
+```
+
+## Seed
+
+```typescript title="src/db/seed.ts" showLineNumbers
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
+import { users } from "./schema.ts";
+import { faker } from "@faker-js/faker";
+import * as dotenv from "dotenv";
+dotenv.config({ path: "./.env.development" });
+
+if (!("DATABASE_URL" in process.env))
+	throw new Error("DATABASE_URL not found on .env.development");
+
+const main = async () => {
+	const client = new Pool({
+		connectionString: process.env.DATABASE_URL,
+	});
+	const db = drizzle(client);
+	const data: (typeof users.$inferInsert)[] = [];
+
+	for (let i = 0; i < 20; i++) {
+		data.push({
+			username: faker.internet.userName(),
+			email: faker.internet.email(),
+		});
+	}
+
+	console.log("Seed start");
+	await db.insert(users).values(data);
+	console.log("Seed done");
+};
+
+main();
+```
+
+```bash
+npm run drizzle:seed
+```
