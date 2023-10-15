@@ -10,7 +10,7 @@ import vercel from "@astrojs/vercel/serverless";
 /** @type {import("rehype-pretty-code").Options} */
 export const rehypePrettyCodeOptions = {
 	theme: JSON.parse(
-		await readFile("./src/shiki/themes/tokyo-night.json", "utf8")
+		await readFile("./src/shiki/themes/github-dark-default.json", "utf8")
 	),
 	keepBackground: false,
 	onVisitLine(node) {

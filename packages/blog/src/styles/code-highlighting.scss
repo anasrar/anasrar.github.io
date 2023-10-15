@@ -1,5 +1,6 @@
 [data-rehype-pretty-code-fragment] {
-	--md-pre-background: #161821;
+	--md-shiki-line-number-color: #6e7681;
+	--md-pre-background: #0d1117;
 	--md-pre-border-color: #495057;
 
 	html.light & {
@@ -37,8 +38,8 @@
 				content: "";
 				position: absolute;
 				inset: 0.1rem -3.5rem 0.1rem -0.75rem;
-				border-left: 2px solid rgba($color: #7aa2f7, $alpha: 1);
-				background: rgba($color: #7aa2f7, $alpha: 0.1);
+				border-left: 2px solid rgba($color: #58a6ff, $alpha: 1);
+				background: rgba($color: #58a6ff, $alpha: 0.1);
 				pointer-events: none;
 			}
 		}
@@ -46,7 +47,7 @@
 		& .word {
 			padding: 0 0.25rem;
 			border-radius: 0.25rem;
-			background: rgba($color: #7aa2f7, $alpha: 0.1);
+			background: rgba($color: #58a6ff, $alpha: 0.1);
 		}
 	}
 }
