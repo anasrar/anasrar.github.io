@@ -20,7 +20,7 @@
 		<meta name="twitter:image" content="https://og-anasrin.vercel.app/img.png?title=Contentlayer: Optimisasi getStaticProps pada Next.js&#38;bg=19397&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
 		<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Contentlayer: Optimisasi getStaticProps pada Next.js","image":"https://og-anasrin.vercel.app/img.png?title=Contentlayer: Optimisasi getStaticProps pada Next.js&bg=19397&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrin.vercel.app/"}],"url":"https://anasrar.github.io/blog/contentlayer-optimize-getstaticprops-on-next-js/id/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-02-09T00:00:00.000Z","description":" TL:DR Hapus data yang tidak akan digunakan saat render pada getStaticProps. Kenapa? Pada saat anda memberikan data Contentlayer ke getStaticProps pada Next...."}</script>
 	<link rel="stylesheet" href="/_astro/_...slug_.ff61d769.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.7499b7e1.css" />
+<link rel="stylesheet" href="/_astro/_...slug_.519179bf.css" />
 <link rel="stylesheet" href="/_astro/_...slug_.24db8cc1.css" />
 <link rel="stylesheet" href="/_astro/_...slug_.95b65d35.css" />
 <link rel="stylesheet" href="/_astro/_...slug_.ff2c03f6.css" /><script type="module" src="/_astro/hoisted.61378737.js"></script></head>
@@ -248,16 +248,16 @@
 <div data-rehype-pretty-code-fragment="">
 
 <div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-language="typescript" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">allPosts</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">Post</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&#39;</span><span style="color:#9ECE6A">contentlayer/generated</span><span style="color:#89DDFF">&#39;</span><span style="color:#89DDFF">;</span></span>
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-language="typescript" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { allPosts, Post } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&#39;contentlayer/generated&#39;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"> </span>
-<span class="line"><span style="color:#7DCFFF">export</span><span style="color:#A9B1D6"> </span><span style="color:#9D7CD8;font-style:italic">async</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">function</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">getStaticProps</span><span style="color:#9ABDF5">()</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
-<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">posts</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">Post</span><span style="color:#9ABDF5">[] </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">allPosts</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#BB9AF7;font-style:italic">return</span><span style="color:#9ABDF5"> {</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#73DACA">props</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> {</span></span>
-<span class="line"><span style="color:#9ABDF5">      </span><span style="color:#C0CAF5">posts</span><span style="color:#89DDFF">,</span></span>
-<span class="line"><span style="color:#9ABDF5">    }</span></span>
-<span class="line"><span style="color:#9ABDF5">  }</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">}</span></span></code></pre></div>
+<span class="line"><span style="color:#FF7B72">export</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">async</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">function</span><span style="color:#E6EDF3"> </span><span style="color:#D2A8FF">getStaticProps</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#E6EDF3">  </span><span style="color:#FF7B72">const</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">posts</span><span style="color:#FF7B72">:</span><span style="color:#E6EDF3"> </span><span style="color:#FFA657">Post</span><span style="color:#E6EDF3">[] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> allPosts;</span></span>
+<span class="line"><span style="color:#E6EDF3">  </span><span style="color:#FF7B72">return</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    props: {</span></span>
+<span class="line"><span style="color:#E6EDF3">      posts,</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  };</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre></div>
 	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
 			
 		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -272,77 +272,77 @@
 <div data-rehype-pretty-code-fragment="">
 
 <div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="html" data-theme="default" class="astro-JIMS2NUM"><code data-language="html" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#BA3C97">&lt;</span><span style="color:#F7768E">script</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">id</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">__NEXT_DATA__</span><span style="color:#89DDFF">&quot;</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">application/json</span><span style="color:#89DDFF">&quot;</span><span style="color:#BA3C97">&gt;</span></span>
-<span class="line"><span style="color:#C0CAF5">  {</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;props&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">      &quot;pageProps&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">        &quot;posts&quot;: [</span></span>
-<span class="line"><span style="color:#C0CAF5">          {</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Change me!&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-03-11T00:00:00.000Z&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;\nWhen you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.\n&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.&lt;/p&gt;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;change-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;change-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;change-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;change-me&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/change-me&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">          },</span></span>
-<span class="line"><span style="color:#C0CAF5">          {</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Click me!&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-28T00:00:00.000Z&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;\nBlog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.\n&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.&lt;/p&gt;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;click-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;click-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;click-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;click-me&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/click-me&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">          },</span></span>
-<span class="line"><span style="color:#C0CAF5">          {</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;What is Contentlayer?&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-22T00:00:00.000Z&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;\n**Contentlayer makes working with content easy.** It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.\n&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Contentlayer makes working with content easy.&lt;/strong&gt; It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.&lt;/p&gt;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;what-is-contentlayer&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/what-is-contentlayer&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">          }</span></span>
-<span class="line"><span style="color:#C0CAF5">        ]</span></span>
-<span class="line"><span style="color:#C0CAF5">      },</span></span>
-<span class="line"><span style="color:#C0CAF5">      &quot;__N_SSG&quot;: true</span></span>
-<span class="line"><span style="color:#C0CAF5">    },</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;page&quot;: &quot;/&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;query&quot;: {},</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;buildId&quot;: &quot;lJqgQzHmHoKqCJDQ-Nldm&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;isFallback&quot;: false,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;gsp&quot;: true,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;scriptLoader&quot;: []</span></span>
-<span class="line"><span style="color:#C0CAF5">  }</span></span>
-<span class="line"><span style="color:#BA3C97">&lt;/</span><span style="color:#F7768E">script</span><span style="color:#BA3C97">&gt;</span></span></code></pre></div>
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="html" data-theme="default" class="astro-JIMS2NUM"><code data-language="html" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#E6EDF3">&lt;</span><span style="color:#7EE787">script</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">id</span><span style="color:#E6EDF3">=</span><span style="color:#A5D6FF">&quot;__NEXT_DATA__&quot;</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">type</span><span style="color:#E6EDF3">=</span><span style="color:#A5D6FF">&quot;application/json&quot;</span><span style="color:#E6EDF3">&gt;</span></span>
+<span class="line"><span style="color:#E6EDF3">  {</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;props&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">      &quot;pageProps&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">        &quot;posts&quot;: [</span></span>
+<span class="line"><span style="color:#E6EDF3">          {</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;title&quot;: &quot;Change me!&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;date&quot;: &quot;2022-03-11T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;raw&quot;: &quot;\nWhen you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.\n&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;html&quot;: &quot;&lt;p&gt;When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_id&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFilePath&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileName&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;flattenedPath&quot;: &quot;change-me&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;url&quot;: &quot;/posts/change-me&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">          },</span></span>
+<span class="line"><span style="color:#E6EDF3">          {</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;title&quot;: &quot;Click me!&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;date&quot;: &quot;2022-02-28T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;raw&quot;: &quot;\nBlog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.\n&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;html&quot;: &quot;&lt;p&gt;Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_id&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFilePath&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileName&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;flattenedPath&quot;: &quot;click-me&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;url&quot;: &quot;/posts/click-me&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">          },</span></span>
+<span class="line"><span style="color:#E6EDF3">          {</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;title&quot;: &quot;What is Contentlayer?&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;date&quot;: &quot;2022-02-22T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;raw&quot;: &quot;\n**Contentlayer makes working with content easy.** It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.\n&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Contentlayer makes working with content easy.&lt;/strong&gt; It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_id&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFilePath&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileName&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileDir&quot;: &quot;.&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;flattenedPath&quot;: &quot;what-is-contentlayer&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;url&quot;: &quot;/posts/what-is-contentlayer&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        ]</span></span>
+<span class="line"><span style="color:#E6EDF3">      },</span></span>
+<span class="line"><span style="color:#E6EDF3">      &quot;__N_SSG&quot;: true</span></span>
+<span class="line"><span style="color:#E6EDF3">    },</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;page&quot;: &quot;/&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;query&quot;: {},</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;buildId&quot;: &quot;lJqgQzHmHoKqCJDQ-Nldm&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;isFallback&quot;: false,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;gsp&quot;: true,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;scriptLoader&quot;: []</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">&lt;/</span><span style="color:#7EE787">script</span><span style="color:#E6EDF3">&gt;</span></span></code></pre></div>
 	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
 			
 		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -371,24 +371,24 @@
 <div data-rehype-pretty-code-fragment="">
 
 <div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-language="typescript" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#7DCFFF">import</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{ </span><span style="color:#0DB9D7">allPosts</span><span style="color:#89DDFF">,</span><span style="color:#9ABDF5"> </span><span style="color:#0DB9D7">Post</span><span style="color:#9ABDF5"> }</span><span style="color:#A9B1D6"> </span><span style="color:#7DCFFF">from</span><span style="color:#A9B1D6"> </span><span style="color:#89DDFF">&#39;</span><span style="color:#9ECE6A">contentlayer/generated</span><span style="color:#89DDFF">&#39;</span><span style="color:#89DDFF">;</span></span>
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="typescript" data-theme="default" class="astro-JIMS2NUM"><code data-language="typescript" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { allPosts, Post } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&#39;contentlayer/generated&#39;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"> </span>
-<span class="line"><span style="color:#7DCFFF">export</span><span style="color:#A9B1D6"> </span><span style="color:#9D7CD8;font-style:italic">async</span><span style="color:#A9B1D6"> </span><span style="color:#BB9AF7">function</span><span style="color:#A9B1D6"> </span><span style="color:#7AA2F7">getStaticProps</span><span style="color:#9ABDF5">()</span><span style="color:#A9B1D6"> </span><span style="color:#9ABDF5">{</span></span>
-<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">posts</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">Post</span><span style="color:#9ABDF5">[] </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">allPosts</span><span style="color:#89DDFF">.</span><span style="color:#7AA2F7">map</span><span style="color:#9ABDF5">((</span><span style="color:#E0AF68">post</span><span style="color:#9ABDF5">) </span><span style="color:#BB9AF7">=&gt;</span><span style="color:#9ABDF5"> {</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#9D7CD8;font-style:italic">const</span><span style="color:#9ABDF5"> </span><span style="color:#BB9AF7">copy</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#7AA2F7">structuredClone</span><span style="color:#9ABDF5">(</span><span style="color:#C0CAF5">post</span><span style="color:#9ABDF5">)</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">body</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">raw</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">sourceFilePath</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">sourceFileName</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">sourceFileDir</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">.</span><span style="color:#C0CAF5">_raw</span><span style="color:#89DDFF">.</span><span style="color:#7DCFFF">flattenedPath</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">=</span><span style="color:#9ABDF5"> </span><span style="color:#89DDFF">&quot;&quot;</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#BB9AF7;font-style:italic">return</span><span style="color:#9ABDF5"> </span><span style="color:#C0CAF5">copy</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">  })</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">  </span><span style="color:#BB9AF7;font-style:italic">return</span><span style="color:#9ABDF5"> {</span></span>
-<span class="line"><span style="color:#9ABDF5">    </span><span style="color:#73DACA">props</span><span style="color:#89DDFF">:</span><span style="color:#9ABDF5"> {</span></span>
-<span class="line"><span style="color:#9ABDF5">      </span><span style="color:#C0CAF5">posts</span><span style="color:#89DDFF">,</span></span>
-<span class="line"><span style="color:#9ABDF5">    }</span></span>
-<span class="line"><span style="color:#9ABDF5">  }</span><span style="color:#89DDFF">;</span></span>
-<span class="line"><span style="color:#9ABDF5">}</span></span></code></pre></div>
+<span class="line"><span style="color:#FF7B72">export</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">async</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">function</span><span style="color:#E6EDF3"> </span><span style="color:#D2A8FF">getStaticProps</span><span style="color:#E6EDF3">() {</span></span>
+<span class="line"><span style="color:#E6EDF3">  </span><span style="color:#FF7B72">const</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">posts</span><span style="color:#FF7B72">:</span><span style="color:#E6EDF3"> </span><span style="color:#FFA657">Post</span><span style="color:#E6EDF3">[] </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> allPosts.</span><span style="color:#D2A8FF">map</span><span style="color:#E6EDF3">((</span><span style="color:#FFA657">post</span><span style="color:#E6EDF3">) </span><span style="color:#FF7B72">=&gt;</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    </span><span style="color:#FF7B72">const</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">copy</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> </span><span style="color:#D2A8FF">structuredClone</span><span style="color:#E6EDF3">(post);</span></span>
+<span class="line"><span style="color:#E6EDF3">    copy.body.raw </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    copy._raw.sourceFilePath </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    copy._raw.sourceFileName </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    copy._raw.sourceFileDir </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    copy._raw.flattenedPath </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#E6EDF3">    </span><span style="color:#FF7B72">return</span><span style="color:#E6EDF3"> copy;</span></span>
+<span class="line"><span style="color:#E6EDF3">  });</span></span>
+<span class="line"><span style="color:#E6EDF3">  </span><span style="color:#FF7B72">return</span><span style="color:#E6EDF3"> {</span></span>
+<span class="line"><span style="color:#E6EDF3">    props: {</span></span>
+<span class="line"><span style="color:#E6EDF3">      posts,</span></span>
+<span class="line"><span style="color:#E6EDF3">    }</span></span>
+<span class="line"><span style="color:#E6EDF3">  };</span></span>
+<span class="line"><span style="color:#E6EDF3">}</span></span></code></pre></div>
 	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
 			
 		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -470,77 +470,77 @@
 <div data-rehype-pretty-code-fragment="">
 
 <div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="html" data-theme="default" class="astro-JIMS2NUM"><code data-language="html" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#BA3C97">&lt;</span><span style="color:#F7768E">script</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">id</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">__NEXT_DATA__</span><span style="color:#89DDFF">&quot;</span><span style="color:#DE5971"> </span><span style="color:#BB9AF7">type</span><span style="color:#89DDFF">=</span><span style="color:#89DDFF">&quot;</span><span style="color:#9ECE6A">application/json</span><span style="color:#89DDFF">&quot;</span><span style="color:#BA3C97">&gt;</span></span>
-<span class="line"><span style="color:#C0CAF5">  {</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;props&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">      &quot;pageProps&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">        &quot;posts&quot;: [</span></span>
-<span class="line"><span style="color:#C0CAF5">          {</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Change me!&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-03-11T00:00:00.000Z&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.&lt;/p&gt;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;change-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/change-me&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">          },</span></span>
-<span class="line"><span style="color:#C0CAF5">          {</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;Click me!&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-28T00:00:00.000Z&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.&lt;/p&gt;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;click-me.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/click-me&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">          },</span></span>
-<span class="line"><span style="color:#C0CAF5">          {</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;title&quot;: &quot;What is Contentlayer?&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;date&quot;: &quot;2022-02-22T00:00:00.000Z&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;body&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;raw&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Contentlayer makes working with content easy.&lt;/strong&gt; It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.&lt;/p&gt;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_id&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;_raw&quot;: {</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">            },</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;type&quot;: &quot;Post&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">            &quot;url&quot;: &quot;/posts/what-is-contentlayer&quot;</span></span>
-<span class="line"><span style="color:#C0CAF5">          }</span></span>
-<span class="line"><span style="color:#C0CAF5">        ]</span></span>
-<span class="line"><span style="color:#C0CAF5">      },</span></span>
-<span class="line"><span style="color:#C0CAF5">      &quot;__N_SSG&quot;: true</span></span>
-<span class="line"><span style="color:#C0CAF5">    },</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;page&quot;: &quot;/&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;query&quot;: {},</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;buildId&quot;: &quot;toHJpUjQDJpnE6IPRFO4s&quot;,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;isFallback&quot;: false,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;gsp&quot;: true,</span></span>
-<span class="line"><span style="color:#C0CAF5">    &quot;scriptLoader&quot;: []</span></span>
-<span class="line"><span style="color:#C0CAF5">  }</span></span>
-<span class="line"><span style="color:#BA3C97">&lt;/</span><span style="color:#F7768E">script</span><span style="color:#BA3C97">&gt;</span></span></code></pre></div>
+	<div class="wrapper astro-JIMS2NUM"><pre data-language="html" data-theme="default" class="astro-JIMS2NUM"><code data-language="html" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#E6EDF3">&lt;</span><span style="color:#7EE787">script</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">id</span><span style="color:#E6EDF3">=</span><span style="color:#A5D6FF">&quot;__NEXT_DATA__&quot;</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">type</span><span style="color:#E6EDF3">=</span><span style="color:#A5D6FF">&quot;application/json&quot;</span><span style="color:#E6EDF3">&gt;</span></span>
+<span class="line"><span style="color:#E6EDF3">  {</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;props&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">      &quot;pageProps&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">        &quot;posts&quot;: [</span></span>
+<span class="line"><span style="color:#E6EDF3">          {</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;title&quot;: &quot;Change me!&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;date&quot;: &quot;2022-03-11T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;raw&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;html&quot;: &quot;&lt;p&gt;When you change a source file, Contentlayer automatically updates the content cache, which prompts Next.js to reload the content on screen.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_id&quot;: &quot;change-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;url&quot;: &quot;/posts/change-me&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">          },</span></span>
+<span class="line"><span style="color:#E6EDF3">          {</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;title&quot;: &quot;Click me!&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;date&quot;: &quot;2022-02-28T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;raw&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;html&quot;: &quot;&lt;p&gt;Blog posts have their own pages. The content source is a markdown file, parsed to HTML by Contentlayer.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_id&quot;: &quot;click-me.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;url&quot;: &quot;/posts/click-me&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">          },</span></span>
+<span class="line"><span style="color:#E6EDF3">          {</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;title&quot;: &quot;What is Contentlayer?&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;date&quot;: &quot;2022-02-22T00:00:00.000Z&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;body&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;raw&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;html&quot;: &quot;&lt;p&gt;&lt;strong&gt;Contentlayer makes working with content easy.&lt;/strong&gt; It is a content preprocessor that validates and transforms your content into type-safe JSON you can easily import into your application.&lt;/p&gt;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_id&quot;: &quot;what-is-contentlayer.md&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;_raw&quot;: {</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFilePath&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileName&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;sourceFileDir&quot;: &quot;&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;contentType&quot;: &quot;markdown&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">              &quot;flattenedPath&quot;: &quot;&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">            },</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;type&quot;: &quot;Post&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">            &quot;url&quot;: &quot;/posts/what-is-contentlayer&quot;</span></span>
+<span class="line"><span style="color:#E6EDF3">          }</span></span>
+<span class="line"><span style="color:#E6EDF3">        ]</span></span>
+<span class="line"><span style="color:#E6EDF3">      },</span></span>
+<span class="line"><span style="color:#E6EDF3">      &quot;__N_SSG&quot;: true</span></span>
+<span class="line"><span style="color:#E6EDF3">    },</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;page&quot;: &quot;/&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;query&quot;: {},</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;buildId&quot;: &quot;toHJpUjQDJpnE6IPRFO4s&quot;,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;isFallback&quot;: false,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;gsp&quot;: true,</span></span>
+<span class="line"><span style="color:#E6EDF3">    &quot;scriptLoader&quot;: []</span></span>
+<span class="line"><span style="color:#E6EDF3">  }</span></span>
+<span class="line"><span style="color:#E6EDF3">&lt;/</span><span style="color:#7EE787">script</span><span style="color:#E6EDF3">&gt;</span></span></code></pre></div>
 	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
 			
 		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
