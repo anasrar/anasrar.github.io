@@ -3,7 +3,7 @@ import { visit } from "unist-util-visit";
 import { diagrams } from "./diagrams/main";
 
 export const rehypeDiagrams = () => {
-	const visitTest: Omit<Element, "children"> = {
+	const visitTest: Omit<Element, "children" | "properties"> = {
 		type: "element",
 		tagName: "pre",
 	};
@@ -13,8 +13,8 @@ export const rehypeDiagrams = () => {
 
 		visit(root, visitTest, (node, index, parent) => {
 			if (
-				index !== null &&
-				parent !== null &&
+				index &&
+				parent &&
 				node.children[0]?.type === "element" &&
 				node.children[0]?.tagName === "code" &&
 				Array.isArray(node.children[0]?.properties?.className) &&
@@ -46,7 +46,7 @@ export const rehypeDiagrams = () => {
 						code,
 					});
 				}
-			})
+			}),
 		);
 	};
 };

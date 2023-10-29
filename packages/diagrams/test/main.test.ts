@@ -14,7 +14,7 @@ const transform = async (mock: string) => {
 	await rehypeDiagrams()(hast);
 	const html = toHtml(hast);
 
-	return format(html, {
+	return await format(html, {
 		filepath: `mock.html`,
 	});
 };
@@ -30,16 +30,15 @@ describe("Diagrams", async () => {
 			`./test/snapshot/${parse(file).name}.html`,
 			{
 				encoding: "utf8",
-			}
+			},
 		);
 		const t = await transform(mock);
+		const s = await format(snapshot, {
+			filepath: `snapshot.html`,
+		});
 
 		it(file, () => {
-			expect(t).toStrictEqual(
-				format(snapshot, {
-					filepath: `snapshot.html`,
-				})
-			);
+			expect(t).toStrictEqual(s);
 		});
 	}
 });

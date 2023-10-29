@@ -260,7 +260,7 @@ export const Plot: Diagram = async ({ index, parent, code }) => {
 		}
 	);
 
-	const visitTest: Omit<Element, "children" | "tagName"> = {
+	const visitTest: Omit<Element, "children" | "tagName" | "properties"> = {
 		type: "element",
 	};
 
