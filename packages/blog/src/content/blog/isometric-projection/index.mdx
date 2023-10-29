@@ -1,0 +1,181 @@
+---
+# vi:ft=markdown
+title: "Isometric Projection"
+date: 2023-10-28
+---
+
+## TL;DR
+
+This blog post about isometric projection math and code.
+
+## From 2D
+
+### SR45⁰
+
+**Rotate** $45\degree = \frac{\pi}{4}$ and **scale** vertical direction with $0.577 \approx tan(30\degree) = tan(\frac{\pi}{6}) = \frac{\sqrt 3}{3}$.
+
+#### Preview
+
+<video class="media-frame ratio" style="--ratio: 1.75" controls>
+	<source
+		src="../../assets/blog/isometric-projection/sr45.mp4"
+		type="video/mp4"
+	/>
+</video>
+
+#### Math
+
+$$
+\begin{aligned}
+a &= \pi/4\\
+s &= tan(\pi/6)\\
+f(x,y) &= \begin{bmatrix}
+x \cos(a) - y \sin(a)\\
+(x \sin(a) + y \cos(a)) s
+\end{bmatrix}
+\end{aligned}
+$$
+
+#### Code
+
+```typescript title="main.ts" showLineNumbers
+const ANGLE = Math.PI / 4;
+const SCALE = Math.tan(Math.PI / 6);
+
+function sr45(x: number, y: number): [number, number] {
+	return [
+		x * Math.cos(ANGLE) - y * Math.sin(ANGLE),
+		(x * Math.sin(ANGLE) + y * Math.cos(ANGLE)) * SCALE,
+	];
+}
+```
+
+### SSR30⁰
+
+**Scale** vertical direction with $0.866 \approx \cos(30\degree) = \cos(\frac{\pi}{6}) = \frac{\sqrt 3}{2}$, **Skew** horizontal direction $\pm30\degree$, **Rotate** $\pm30\degree$.
+
+#### Preview
+
+<video class="media-frame ratio" style="--ratio: 1.75" controls>
+	<source
+		src="../../assets/blog/isometric-projection/ssr30.mp4"
+		type="video/mp4"
+	/>
+</video>
+
+#### Math
+
+$$
+\begin{aligned}
+s &= \cos(\pi/6)\\
+M_{scale}(x,y) &= \begin{bmatrix}
+1 & 0\\
+0 & s
+\end{bmatrix}
+\begin{bmatrix}
+x\\
+y
+\end{bmatrix}\\
+&= \begin{bmatrix}
+x\\
+y s
+\end{bmatrix}\\
+M_{skew}(x,y, \theta) &= \begin{bmatrix}
+1 & \tan(\theta)\\
+0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+x\\
+y
+\end{bmatrix}\\
+&= \begin{bmatrix}
+x + y \tan(\theta)\\
+y
+\end{bmatrix}\\
+M_{rotate}(x,y,\theta) & = \begin{bmatrix}
+\cos(\theta) & -\sin(\theta) \\
+\sin(\theta) & \cos(\theta)
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix} \\
+& = \begin{bmatrix}
+x \cos(\theta) - y \sin(\theta) \\
+x \sin(\theta) + y \cos(\theta)
+\end{bmatrix}
+\end{aligned}
+$$
+
+#### Code
+
+```typescript title="main.ts" showLineNumbers
+const ANGLE = Math.PI / 6;
+const SCALE = Math.cos(ANGLE);
+
+function scale(x: number, y: number): [number, number] {
+	return [x, y * SCALE];
+}
+
+function skew(x: number, y: number, angle: number): [number, number] {
+	return [x + y * Math.tan(angle), y];
+}
+
+function rotate(x: number, y: number, angle: number): [number, number] {
+	return [
+		x * Math.cos(angle) - y * Math.sin(angle),
+		x * Math.sin(angle) + y * Math.cos(angle),
+	];
+}
+```
+
+## From 3D
+
+### Projection
+
+You can directly project 3D point to 2D point and swap the up axis easily.
+
+#### Preview
+
+<video class="media-frame ratio" style="--ratio: 1.75" controls>
+	<source
+		src="../../assets/blog/isometric-projection/3d2d.mp4"
+		type="video/mp4"
+	/>
+</video>
+
+#### Math
+
+$$
+\begin{aligned}
+a &= \pi/6\\
+P_{y}(x,y,z) &= \begin{bmatrix}
+(x - z) \cos(a)\\
+(x + z) \sin(a) + y
+\end{bmatrix}\\
+P_{z}(x,y,z) &= \begin{bmatrix}
+(x - y) \cos(a)\\
+(x + y) \sin(a) + z
+\end{bmatrix}
+\end{aligned}
+$$
+
+#### Code
+
+```typescript title="main.ts" showLineNumbers
+const ANGLE = Math.PI / 6;
+
+function upY(x: number, y: number, z: number): [number, number] {
+	return [(x - z) * Math.cos(ANGLE), (x + z) * Math.sin(ANGLE) + y];
+}
+
+function upZ(x: number, y: number, z: number): [number, number] {
+	return [(x - y) * Math.cos(ANGLE), (x + y) * Math.sin(ANGLE) + z];
+}
+```
+
+## References
+
+-   https://www.linearity.io/blog/isometric-illustration/
+-   https://nicoguaro.github.io/posts/isometric_inkscape/
+-   https://medium.com/gravitdesigner/designers-guide-to-isometric-projection-6bfd66934fc7
