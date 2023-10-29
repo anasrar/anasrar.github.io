@@ -11,32 +11,32 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"@astrojs/mdx": "^0.19.7",
-		"@astrojs/rss": "^2.4.3",
-		"@astrojs/sitemap": "^1.3.3",
-		"@astrojs/vercel": "3.4.1",
-		"astro": "^2.6.6",
+		"@astrojs/mdx": "^1.1.3",
+		"@astrojs/rss": "^3.0.0",
+		"@astrojs/sitemap": "^3.0.2",
+		"@astrojs/vercel": "5.1.0",
+		"astro": "^3.3.4",
 		"date-fns": "^2.30.0",
 		"diagrams": "workspace:0.0.1",
-		"iso-639-1": "^2.1.15",
+		"iso-639-1": "^3.1.0",
 		"js-cookie": "^3.0.5",
 		"rehype-katex": "^6.0.3",
 		"rehype-pretty-code": "^0.9.9",
 		"remark-math": "^5.1.1",
 		"remove-markdown": "^0.5.0",
-		"shiki": "^0.14.2"
+		"shiki": "^0.14.5"
 	},
 	"devDependencies": {
-		"@types/js-cookie": "^3.0.3",
-		"@types/remove-markdown": "^0.3.1",
-		"@typescript-eslint/eslint-plugin": "^5.60.0",
-		"@typescript-eslint/parser": "^5.60.0",
-		"eslint": "^8.43.0",
-		"eslint-plugin-astro": "^0.27.1",
+		"@types/js-cookie": "^3.0.5",
+		"@types/remove-markdown": "^0.3.3",
+		"@typescript-eslint/eslint-plugin": "^6.9.0",
+		"@typescript-eslint/parser": "^6.9.0",
+		"eslint": "^8.52.0",
+		"eslint-plugin-astro": "^0.29.1",
 		"node-graphviz": "^0.1.1",
-		"prettier": "^2.8.8",
-		"prettier-plugin-astro": "^0.10.0",
-		"sass": "^1.63.5",
-		"typescript": "^5.1.3"
+		"prettier": "^3.0.3",
+		"prettier-plugin-astro": "^0.12.0",
+		"sass": "^1.69.4",
+		"typescript": "^5.2.2"
 	}
 }
