@@ -25,3 +25,20 @@ img,
 video {
 	max-width: 100%;
 }
+
+.ratio {
+	aspect-ratio: var(--ratio, calc(16 / 9));
+}
+
+.media-frame {
+	border: 1px solid #495057;
+	border-radius: 0.25rem;
+
+	html.light & {
+		border-color: #ced4da;
+	}
+
+	iframe:is(&) {
+		width: 100%;
+	}
+}
