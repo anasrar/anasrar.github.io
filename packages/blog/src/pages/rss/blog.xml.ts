@@ -4,7 +4,7 @@ import { getCollection } from "astro:content";
 import { compareDesc } from "date-fns";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
 
-export const get: APIRoute = async () => {
+export const GET: APIRoute = async () => {
 	const posts = await getCollection("blog");
 	return rss({
 		title: SITE_TITLE,

@@ -23,7 +23,7 @@ const BACKGROUND_URL: string[] = [
 	"https://img.freepik.com/free-vector/gradient-grainy-gradient-background_23-2149928512.jpg",
 ];
 
-export const get = async (context: APIContext) => {
+export const GET = async (context: APIContext) => {
 	const bg =
 		BACKGROUND_URL[
 			(Number(context.url.searchParams.get("bg")) ?? 0) %

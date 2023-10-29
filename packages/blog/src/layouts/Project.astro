@@ -11,7 +11,7 @@ import BalanceText from "../components/global/BalanceText.astro";
 import type { CollectionEntry } from "astro:content";
 import RemoveMarkdown from "remove-markdown";
 
-const lightMode = Astro.cookies.get("colorscheme").value == "light";
+const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
 
 interface Props {
 	project: CollectionEntry<"projects">;
@@ -50,7 +50,7 @@ const jsonld = JSON.stringify({
 });
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html class:list={[{ light: lightMode }]} lang="en">
 	<head>
 		<meta charset="utf-8" />

@@ -4,7 +4,7 @@ import Footer from "../components/global/Footer.astro";
 import Header from "../components/global/Header.astro";
 import PrefersColorScheme from "../components/global/PrefersColorScheme.astro";
 
-const lightMode = Astro.cookies.get("colorscheme").value == "light";
+const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
 
 interface Props {
 	title: string;
@@ -14,7 +14,7 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html class:list={[{ light: lightMode }]} lang="en">
 	<head>
 		<meta charset="utf-8" />
