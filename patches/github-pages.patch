@@ -45,7 +45,7 @@ index c48a69d..9765345 100644
  import type { CollectionEntry } from "astro:content";
  import RemoveMarkdown from "remove-markdown";
  
--const lightMode = Astro.cookies.get("colorscheme").value == "light";
+-const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
 +// const lightMode = Astro.cookies.get("colorscheme").value == "light";
  
  interface Props {
@@ -53,7 +53,7 @@ index c48a69d..9765345 100644
 @@ -51,7 +51,7 @@ const jsonld = JSON.stringify({
  ---
  
- <!DOCTYPE html>
+ <!doctype html>
 -<html class:list={[{ light: lightMode }]} lang="en">
 +<html lang="en">
  	<head>
@@ -67,7 +67,7 @@ index decc397..c17d511 100644
  import Header from "../components/global/Header.astro";
  import PrefersColorScheme from "../components/global/PrefersColorScheme.astro";
  
--const lightMode = Astro.cookies.get("colorscheme").value == "light";
+-const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
 +// const lightMode = Astro.cookies.get("colorscheme").value == "light";
  
  interface Props {
@@ -75,7 +75,7 @@ index decc397..c17d511 100644
 @@ -15,7 +15,7 @@ const { title, description } = Astro.props;
  ---
  
- <!DOCTYPE html>
+ <!doctype html>
 -<html class:list={[{ light: lightMode }]} lang="en">
 +<html lang="en">
  	<head>
@@ -89,7 +89,7 @@ index b994667..add0a73 100644
  import type { CollectionEntry } from "astro:content";
  import RemoveMarkdown from "remove-markdown";
  
--const lightMode = Astro.cookies.get("colorscheme").value == "light";
+-const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
 +// const lightMode = Astro.cookies.get("colorscheme").value == "light";
  
  interface Props {
@@ -97,7 +97,7 @@ index b994667..add0a73 100644
 @@ -51,7 +51,7 @@ const jsonld = JSON.stringify({
  ---
  
- <!DOCTYPE html>
+ <!doctype html>
 -<html class:list={[{ light: lightMode }]} lang="en">
 +<html lang="en">
  	<head>
