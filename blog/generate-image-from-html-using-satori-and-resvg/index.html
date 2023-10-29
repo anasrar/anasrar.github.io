@@ -1,417 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<title>Generate Image From HTML Using Satori and Resvg - Anas Rin</title>
-		<meta name="description" content=" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and...">
-		<meta property="og:site_name" content="Anas Rin">
-		<meta property="og:title" content="Generate Image From HTML Using Satori and Resvg - Anas Rin">
-		<meta property="og:type" content="article">
-		<meta property="og:url" content="https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/">
-		<meta property="og:image" content="https://og-anasrin.vercel.app/img.png?title=Generate Image From HTML Using Satori and Resvg&#38;bg=19362&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
-		<meta property="og:description" content=" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and...">
-		<meta property="article:published_time" content="2023-01-05T00:00:00.000Z">
-		<meta property="article:author" content="https://anasrin.vercel.app">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content="@rrrriiiiiinnnn">
-		<meta name="twitter:title" content="Generate Image From HTML Using Satori and Resvg">
-		<meta name="twitter:description" content=" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and...">
-		<meta name="twitter:image" content="https://og-anasrin.vercel.app/img.png?title=Generate Image From HTML Using Satori and Resvg&#38;bg=19362&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
-		<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Generate Image From HTML Using Satori and Resvg","image":"https://og-anasrin.vercel.app/img.png?title=Generate Image From HTML Using Satori and Resvg&bg=19362&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrin.vercel.app/"}],"url":"https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-01-05T00:00:00.000Z","description":" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and..."}</script>
-	<link rel="stylesheet" href="/_astro/_...slug_.ff61d769.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.519179bf.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.24db8cc1.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.95b65d35.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.ff2c03f6.css" /><script type="module" src="/_astro/hoisted.61378737.js"></script></head>
-	<body>
-		<header class="sticky-header astro-EIYD7VOQ">
-	<div class="container astro-EIYD7VOQ">
-		<nav class="group md astro-EIYD7VOQ">
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
-					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
-					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
-				</svg> Home
-			
-		</a>
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
-					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
-				</svg>
-				Guestbook
-			
-		</a>
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
-				</svg>
-				Projects
-			
-		</a>
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
-					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
-				</svg> Blog
-			
-		</a>
-		</nav>
-		<nav class="group xs astro-EIYD7VOQ">
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/" title="Home">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
-					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
-					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/" title="Guestbook">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
-					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/" title="Projects">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/" title="Blog">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
-					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
-				</svg>
-			
-		</a>
-		</nav>
-		<nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center astro-EIYD7VOQ">
-			<button class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" title="Toggle Dark/Light Mode" toggle-colorscheme="true">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="only-dark icon icon-tabler icon-tabler-sun astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<circle cx="12" cy="12" r="4" class="astro-EIYD7VOQ"></circle>
-					<path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" class="astro-EIYD7VOQ"></path>
-				</svg>
-				<svg xmlns="http://www.w3.org/2000/svg" class="only-light icon icon-tabler icon-tabler-moon-stars astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" class="astro-EIYD7VOQ"></path>
-					<path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" class="astro-EIYD7VOQ"></path>
-					<path d="M19 11h2m-1 -1v2" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</button>
-		</nav>
-	</div>
-</header>
-		
-	<article class="container astro-7JJQPTXK">
-		<section id="toc" class="astro-USK3TZSR">
-	<h4 class="astro-USK3TZSR">Table of Contents</h4>
-	<ul class="astro-USK3TZSR">
-		<li class="astro-USK3TZSR">
-					<a id="toc-tldr" href="#tldr" style="--depth: 0" title="TL;DR" class="astro-USK3TZSR">
-						TL;DR
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-background" href="#background" style="--depth: 0" title="Background" class="astro-USK3TZSR">
-						Background
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-dependencies" href="#dependencies" style="--depth: 0" title="Dependencies" class="astro-USK3TZSR">
-						Dependencies
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-satori" href="#satori" style="--depth: 1" title="Satori" class="astro-USK3TZSR">
-						Satori
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-pros" href="#pros" style="--depth: 2" title="Pros" class="astro-USK3TZSR">
-						Pros
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-cons" href="#cons" style="--depth: 2" title="Cons" class="astro-USK3TZSR">
-						Cons
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-satori-html" href="#satori-html" style="--depth: 1" title="Satori-html" class="astro-USK3TZSR">
-						Satori-html
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-resvg-js" href="#resvg-js" style="--depth: 1" title="Resvg-js" class="astro-USK3TZSR">
-						Resvg-js
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-victor-mono" href="#victor-mono" style="--depth: 1" title="Victor Mono" class="astro-USK3TZSR">
-						Victor Mono
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-flow" href="#flow" style="--depth: 0" title="Flow" class="astro-USK3TZSR">
-						Flow
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-nodejs" href="#nodejs" style="--depth: 0" title="Node.js" class="astro-USK3TZSR">
-						Node.js
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-output" href="#output" style="--depth: 1" title="Output" class="astro-USK3TZSR">
-						Output
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-deno" href="#deno" style="--depth: 0" title="Deno" class="astro-USK3TZSR">
-						Deno
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-output-1" href="#output-1" style="--depth: 1" title="Output" class="astro-USK3TZSR">
-						Output
-					</a>
-				</li>
-	</ul>
-</section>
-		<section class="medium astro-54VG6WIR">
-	<ul class="astro-54VG6WIR">
-		<li class="astro-54VG6WIR">
-						<a class="active astro-54VG6WIR" href="./" title="English">
-							English
-						</a>
-					</li><li class="astro-54VG6WIR">
-						<a class="astro-54VG6WIR" href="./id/" title="Bahasa Indonesia">
-							Bahasa Indonesia
-						</a>
-					</li>
-	</ul>
-</section>
-<section class="small astro-54VG6WIR">
-	<section class="small-wrapper astro-54VG6WIR">
-		<button class="btn btn-square astro-54VG6WIR astro-7AB5KPLB" id="language" aria-label="Language">
-			
-			<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language astro-54VG6WIR" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-				<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-54VG6WIR"></path>
-				<path d="M4 5h7" class="astro-54VG6WIR"></path>
-				<path d="M9 3v2c0 4.418 -2.239 8 -5 8" class="astro-54VG6WIR"></path>
-				<path d="M5 9c0 2.144 2.952 3.908 6.7 4" class="astro-54VG6WIR"></path>
-				<path d="M12 20l4 -9l4 9" class="astro-54VG6WIR"></path>
-				<path d="M19.1 18h-6.2" class="astro-54VG6WIR"></path>
-			</svg>
-		
-		</button>
-		<ul class="astro-54VG6WIR">
-			<li class="astro-54VG6WIR">
-							<a class="active astro-54VG6WIR" href="./" title="English">
-								English
-							</a>
-						</li><li class="astro-54VG6WIR">
-							<a class="astro-54VG6WIR" href="./id/" title="Bahasa Indonesia">
-								Bahasa Indonesia
-							</a>
-						</li>
-		</ul>
-	</section>
-</section>
-		<a class="btn back astro-7JJQPTXK astro-7AB5KPLB" href="../">
-			
-			&lt;-- &nbsp; Back
-		
-		</a>
-		<header class="astro-7JJQPTXK">
-			<div class="information astro-7JJQPTXK">
-				<time title="2023-01-05T00:00:00.000Z" datetime="2023-01-05T00:00:00.000Z" class="astro-7JJQPTXK">January 05, 2023</time>
-			</div>
-			<h1 class="title size-h1 balance-text astro-7JJQPTXK astro-6IDPVE2O">Generate Image From HTML Using Satori and Resvg</h1>
-		</header>
-		<hr class="astro-7JJQPTXK">
-		<main class="astro-7JJQPTXK">
-			<section class="astro-WCJWFPCE">
-	<h2 id="tldr" class="heading astro-WCJWFPCE">
-		
-	TL;DR
-
-	</h2>
-	<a href="#tldr" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Generate image from HTML using <a href="//github.com/vercel/satori/">github.com/vercel/satori</a> (to convert HTML to SVG) and <a href="//github.com/yisibl/resvg-js">github.com/yisibl/resvg-js</a> (to convert SVG to PNG) on Node.js and Deno.</p>
-<p class="astro-6R4UOCDA">Example: <a href="//github.com/anasrar/satori-resvg">github.com/anasrar/satori-resvg</a>.</p>
-<section class="astro-WCJWFPCE">
-	<h2 id="background" class="heading astro-WCJWFPCE">
-		
-	Background
-
-	</h2>
-	<a href="#background" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">When <a href="https://vercel.com/blog/introducing-vercel-og-image-generation-fast-dynamic-social-card-images">Vercel Introducing OG Image Generation: Fast, dynamic social card images at the Edge</a>, and play around with <a href="//www.npmjs.com/package/@vercel/og">@vercel/og</a> and realize it only work with <a href="https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation#limits">Edge Runtime</a> and I want to create script that generate fully static image.</p>
-<p class="astro-6R4UOCDA">Vercel explain <a href="//vercel.com/docs/concepts/functions/edge-functions/og-image-generation#technical-details">technical details</a> behind <a href="//www.npmjs.com/package/@vercel/og">@vercel/og</a>, that it using <a href="//github.com/vercel/satori/">github.com/vercel/satori</a> and <a href="//github.com/RazrFalcon/resvg">github.com/RazrFalcon/resvg</a>.</p>
-<p class="astro-6R4UOCDA">Now let’s create from scratch using Node.js and Deno.</p>
-<section class="astro-WCJWFPCE">
-	<h2 id="dependencies" class="heading astro-WCJWFPCE">
-		
-	Dependencies
-
-	</h2>
-	<a href="#dependencies" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<section class="astro-WCJWFPCE">
-	<h3 id="satori" class="heading astro-WCJWFPCE">
-		
-	Satori
-
-	</h3>
-	<a href="#satori" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA"><a href="//github.com/vercel/satori/">Satori</a> convert HTML to SVG, automatically wrap text and using <a href="//yogalayout.com/">Yoga Layout</a> under the hood.</p>
-<section class="astro-WCJWFPCE">
-	<h4 id="pros" class="heading astro-WCJWFPCE">
-		
-	Pros
-
-	</h4>
-	<a href="#pros" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<ul class="astro-SDK65A7J">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Generate Image From HTML Using Satori and Resvg - Anas Rin</title><meta name="description" content=" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and..."><meta property="og:site_name" content="Anas Rin"><meta property="og:title" content="Generate Image From HTML Using Satori and Resvg - Anas Rin"><meta property="og:type" content="article"><meta property="og:url" content="https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/"><meta property="og:image" content="https://og-anasrin.vercel.app/img.png?title=Generate Image From HTML Using Satori and Resvg&#38;bg=19362&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app"><meta property="og:description" content=" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and..."><meta property="article:published_time" content="2023-01-05T00:00:00.000Z"><meta property="article:author" content="https://anasrin.vercel.app"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@rrrriiiiiinnnn"><meta name="twitter:title" content="Generate Image From HTML Using Satori and Resvg"><meta name="twitter:description" content=" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and..."><meta name="twitter:image" content="https://og-anasrin.vercel.app/img.png?title=Generate Image From HTML Using Satori and Resvg&#38;bg=19362&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Generate Image From HTML Using Satori and Resvg","image":"https://og-anasrin.vercel.app/img.png?title=Generate Image From HTML Using Satori and Resvg&bg=19362&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrin.vercel.app/"}],"url":"https://anasrar.github.io/blog/generate-image-from-html-using-satori-and-resvg/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-01-05T00:00:00.000Z","description":" TL;DR Generate image from HTML using github.com/vercel/satori (to convert HTML to SVG) and github.com/yisibl/resvg-js (to convert SVG to PNG) on Node.js and..."}</script><link rel="stylesheet" href="/_astro/_slug_.3562f142.css" />
+<link rel="stylesheet" href="/_astro/_slug_.e6dc6cf8.css" />
+<style>.title[data-astro-cid-6idpve2o]{margin:0;font-weight:600}h1[data-astro-cid-6idpve2o],.size-h1[data-astro-cid-6idpve2o]{font-size:1.802rem}h2[data-astro-cid-6idpve2o],.size-h2[data-astro-cid-6idpve2o]{font-size:1.602rem}h3[data-astro-cid-6idpve2o],.size-h3[data-astro-cid-6idpve2o]{font-size:1.424rem}h4[data-astro-cid-6idpve2o],.size-h4[data-astro-cid-6idpve2o]{font-size:1.266rem}h5[data-astro-cid-6idpve2o],.size-h5[data-astro-cid-6idpve2o]{font-size:1.125rem}h6[data-astro-cid-6idpve2o],.size-h6[data-astro-cid-6idpve2o]{font-size:1rem}
+section[data-astro-cid-v6wdqmfp]{display:flex;flex-flow:column nowrap;gap:.75rem;margin:.5rem 0 0}.open-discussion[data-astro-cid-v6wdqmfp],.write-giscus[data-astro-cid-v6wdqmfp]{align-self:center}.write-giscus[data-astro-cid-v6wdqmfp]{display:none!important;position:sticky;bottom:.5rem}.write-giscus[data-astro-cid-v6wdqmfp].show{display:inline-flex!important}
+.container[data-astro-cid-7jjqptxk]{width:100%;max-width:var(--container-sm);margin:1rem auto 0;padding:1.5rem .75rem .75rem}article[data-astro-cid-7jjqptxk]{display:flex;flex-flow:column nowrap;gap:1.5rem}.back[data-astro-cid-7jjqptxk]{align-self:flex-start}header[data-astro-cid-7jjqptxk]{display:flex;flex-flow:column nowrap;gap:.5rem}.title[data-astro-cid-7jjqptxk]{line-height:2.25rem}.authors[data-astro-cid-7jjqptxk]{display:flex;flex-flow:row nowrap;gap:1.25rem;margin-top:.75rem}@media (max-width: 32.25rem){.authors[data-astro-cid-7jjqptxk]{gap:.5rem}}.information[data-astro-cid-7jjqptxk]{align-self:flex-start;color:#a6a7ab;font-size:.875rem;font-variant-numeric:tabular-nums;cursor:help}html.light .information[data-astro-cid-7jjqptxk]{color:#5c5f66}hr[data-astro-cid-7jjqptxk]{height:1px;margin:0;border:0;border-top:1px solid #343a40;transition:border-top .1s linear}html.light hr[data-astro-cid-7jjqptxk]{border-top:1px solid #ced4da}main[data-astro-cid-7jjqptxk]>:first-child{margin-top:0}
+</style><script type="module" src="/_astro/hoisted.61378737.js"></script></head><body><header class="sticky-header" data-astro-cid-eiyd7voq><div class="container" data-astro-cid-eiyd7voq><nav class="group md" data-astro-cid-eiyd7voq><a class="btn undefined" href="https://anasrar.github.io/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" data-astro-cid-eiyd7voq></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" data-astro-cid-eiyd7voq></path><path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" data-astro-cid-eiyd7voq></path></svg> Home
+</a><a class="btn undefined" href="https://anasrar.github.io/guestbook/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" data-astro-cid-eiyd7voq></path><path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" data-astro-cid-eiyd7voq></path></svg>
+Guestbook
+</a><a class="btn undefined" href="https://anasrar.github.io/projects/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><rect x="4" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="14" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="4" y="14" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><path d="M14 17h6m-3 -3v6" data-astro-cid-eiyd7voq></path></svg>
+Projects
+</a><a class="btn undefined" href="https://anasrar.github.io/blog/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" data-astro-cid-eiyd7voq></path><line x1="8" y1="8" x2="12" y2="8" data-astro-cid-eiyd7voq></line><line x1="8" y1="12" x2="12" y2="12" data-astro-cid-eiyd7voq></line><line x1="8" y1="16" x2="12" y2="16" data-astro-cid-eiyd7voq></line></svg> Blog
+</a></nav><nav class="group xs" data-astro-cid-eiyd7voq><a class="btn btn-square" href="https://anasrar.github.io/" title="Home" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" data-astro-cid-eiyd7voq></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" data-astro-cid-eiyd7voq></path><path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" data-astro-cid-eiyd7voq></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/guestbook/" title="Guestbook" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" data-astro-cid-eiyd7voq></path><path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" data-astro-cid-eiyd7voq></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/projects/" title="Projects" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><rect x="4" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="14" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="4" y="14" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><path d="M14 17h6m-3 -3v6" data-astro-cid-eiyd7voq></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/blog/" title="Blog" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" data-astro-cid-eiyd7voq></path><line x1="8" y1="8" x2="12" y2="8" data-astro-cid-eiyd7voq></line><line x1="8" y1="12" x2="12" y2="12" data-astro-cid-eiyd7voq></line><line x1="8" y1="16" x2="12" y2="16" data-astro-cid-eiyd7voq></line></svg></a></nav><nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center" data-astro-cid-eiyd7voq><button class="btn btn-square" title="Toggle Dark/Light Mode" toggle-colorscheme="true" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="only-dark icon icon-tabler icon-tabler-sun" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><circle cx="12" cy="12" r="4" data-astro-cid-eiyd7voq></circle><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" data-astro-cid-eiyd7voq></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="only-light icon icon-tabler icon-tabler-moon-stars" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" data-astro-cid-eiyd7voq></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" data-astro-cid-eiyd7voq></path><path d="M19 11h2m-1 -1v2" data-astro-cid-eiyd7voq></path></svg></button></nav></div></header><article class="container" data-astro-cid-7jjqptxk><section id="toc" data-astro-cid-usk3tzsr><h4 data-astro-cid-usk3tzsr>Table of Contents</h4><ul data-astro-cid-usk3tzsr><li data-astro-cid-usk3tzsr><a id="toc-tldr" href="#tldr" style="--depth: 0" title="TL;DR" data-astro-cid-usk3tzsr>TL;DR</a></li><li data-astro-cid-usk3tzsr><a id="toc-background" href="#background" style="--depth: 0" title="Background" data-astro-cid-usk3tzsr>Background</a></li><li data-astro-cid-usk3tzsr><a id="toc-dependencies" href="#dependencies" style="--depth: 0" title="Dependencies" data-astro-cid-usk3tzsr>Dependencies</a></li><li data-astro-cid-usk3tzsr><a id="toc-satori" href="#satori" style="--depth: 1" title="Satori" data-astro-cid-usk3tzsr>Satori</a></li><li data-astro-cid-usk3tzsr><a id="toc-pros" href="#pros" style="--depth: 2" title="Pros" data-astro-cid-usk3tzsr>Pros</a></li><li data-astro-cid-usk3tzsr><a id="toc-cons" href="#cons" style="--depth: 2" title="Cons" data-astro-cid-usk3tzsr>Cons</a></li><li data-astro-cid-usk3tzsr><a id="toc-satori-html" href="#satori-html" style="--depth: 1" title="Satori-html" data-astro-cid-usk3tzsr>Satori-html</a></li><li data-astro-cid-usk3tzsr><a id="toc-resvg-js" href="#resvg-js" style="--depth: 1" title="Resvg-js" data-astro-cid-usk3tzsr>Resvg-js</a></li><li data-astro-cid-usk3tzsr><a id="toc-victor-mono" href="#victor-mono" style="--depth: 1" title="Victor Mono" data-astro-cid-usk3tzsr>Victor Mono</a></li><li data-astro-cid-usk3tzsr><a id="toc-flow" href="#flow" style="--depth: 0" title="Flow" data-astro-cid-usk3tzsr>Flow</a></li><li data-astro-cid-usk3tzsr><a id="toc-nodejs" href="#nodejs" style="--depth: 0" title="Node.js" data-astro-cid-usk3tzsr>Node.js</a></li><li data-astro-cid-usk3tzsr><a id="toc-output" href="#output" style="--depth: 1" title="Output" data-astro-cid-usk3tzsr>Output</a></li><li data-astro-cid-usk3tzsr><a id="toc-deno" href="#deno" style="--depth: 0" title="Deno" data-astro-cid-usk3tzsr>Deno</a></li><li data-astro-cid-usk3tzsr><a id="toc-output-1" href="#output-1" style="--depth: 1" title="Output" data-astro-cid-usk3tzsr>Output</a></li></ul></section><section class="medium" data-astro-cid-54vg6wir><ul data-astro-cid-54vg6wir><li data-astro-cid-54vg6wir><a class="active" href="./" title="English" data-astro-cid-54vg6wir>English</a></li><li data-astro-cid-54vg6wir><a href="./id/" title="Bahasa Indonesia" data-astro-cid-54vg6wir>Bahasa Indonesia</a></li></ul></section><section class="small" data-astro-cid-54vg6wir><section class="small-wrapper" data-astro-cid-54vg6wir><button class="btn btn-square" id="language" aria-label="Language" data-astro-cid-54vg6wir data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-54vg6wir><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-54vg6wir></path><path d="M4 5h7" data-astro-cid-54vg6wir></path><path d="M9 3v2c0 4.418 -2.239 8 -5 8" data-astro-cid-54vg6wir></path><path d="M5 9c0 2.144 2.952 3.908 6.7 4" data-astro-cid-54vg6wir></path><path d="M12 20l4 -9l4 9" data-astro-cid-54vg6wir></path><path d="M19.1 18h-6.2" data-astro-cid-54vg6wir></path></svg></button><ul data-astro-cid-54vg6wir><li data-astro-cid-54vg6wir><a class="active" href="./" title="English" data-astro-cid-54vg6wir>English</a></li><li data-astro-cid-54vg6wir><a href="./id/" title="Bahasa Indonesia" data-astro-cid-54vg6wir>Bahasa Indonesia</a></li></ul></section></section><a class="btn back" href="../" data-astro-cid-7jjqptxk data-astro-cid-7ab5kplb>
+&lt;-- &nbsp; Back
+</a><header data-astro-cid-7jjqptxk><div class="information" data-astro-cid-7jjqptxk><time title="2023-01-05T00:00:00.000Z" datetime="2023-01-05T00:00:00.000Z" data-astro-cid-7jjqptxk>January 05, 2023</time></div><h1 data-astro-cid-6idpve2o class="title size-h1 balance-text">Generate Image From HTML Using Satori and Resvg</h1></header><hr data-astro-cid-7jjqptxk><main data-astro-cid-7jjqptxk><section data-astro-cid-wcjwfpce><h2 id="tldr" data-astro-cid-wcjwfpce class="heading">TL;DR</h2><a href="#tldr" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Generate image from HTML using <a href="//github.com/vercel/satori/">github.com/vercel/satori</a> (to convert HTML to SVG) and <a href="//github.com/yisibl/resvg-js">github.com/yisibl/resvg-js</a> (to convert SVG to PNG) on Node.js and Deno.</p>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Example: <a href="//github.com/anasrar/satori-resvg">github.com/anasrar/satori-resvg</a>.</p>
+<section data-astro-cid-wcjwfpce><h2 id="background" data-astro-cid-wcjwfpce class="heading">Background</h2><a href="#background" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>When <a href="https://vercel.com/blog/introducing-vercel-og-image-generation-fast-dynamic-social-card-images">Vercel Introducing OG Image Generation: Fast, dynamic social card images at the Edge</a>, and play around with <a href="//www.npmjs.com/package/@vercel/og">@vercel/og</a> and realize it only work with <a href="https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation#limits">Edge Runtime</a> and I want to create script that generate fully static image.</p>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Vercel explain <a href="//vercel.com/docs/concepts/functions/edge-functions/og-image-generation#technical-details">technical details</a> behind <a href="//www.npmjs.com/package/@vercel/og">@vercel/og</a>, that it using <a href="//github.com/vercel/satori/">github.com/vercel/satori</a> and <a href="//github.com/RazrFalcon/resvg">github.com/RazrFalcon/resvg</a>.</p>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Now let’s create from scratch using Node.js and Deno.</p>
+<section data-astro-cid-wcjwfpce><h2 id="dependencies" data-astro-cid-wcjwfpce class="heading">Dependencies</h2><a href="#dependencies" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<section data-astro-cid-wcjwfpce><h3 id="satori" data-astro-cid-wcjwfpce class="heading">Satori</h3><a href="#satori" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><a href="//github.com/vercel/satori/">Satori</a> convert HTML to SVG, automatically wrap text and using <a href="//yogalayout.com/">Yoga Layout</a> under the hood.</p>
+<section data-astro-cid-wcjwfpce><h4 id="pros" data-astro-cid-wcjwfpce class="heading">Pros</h4><a href="#pros" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<ul class="astro-sdk65a7j" data-astro-cid-sdk65a7j>
 <li>Support JSX syntax.</li>
 <li>Support image (URL and base64).</li>
 <li>Automatically wrap text.</li>
 <li>CSS Flexbox.</li>
 </ul>
-<section class="astro-WCJWFPCE">
-	<h4 id="cons" class="heading astro-WCJWFPCE">
-		
-	Cons
-
-	</h4>
-	<a href="#cons" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<ul class="astro-SDK65A7J">
+<section data-astro-cid-wcjwfpce><h4 id="cons" data-astro-cid-wcjwfpce class="heading">Cons</h4><a href="#cons" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<ul class="astro-sdk65a7j" data-astro-cid-sdk65a7j>
 <li>Only support JSX and React Node.</li>
 <li>Explicit inline style.</li>
 <li>Text baked to path.</li>
 <li>CSS features not fully implemented.</li>
 </ul>
-<section class="astro-WCJWFPCE">
-	<h3 id="satori-html" class="heading astro-WCJWFPCE">
-		
-	Satori-html
-
-	</h3>
-	<a href="#satori-html" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA"><a href="//github.com/natemoo-re/satori-html">Satori-html</a> convert HTML to React Node, this is because <a href="//github.com/vercel/satori/">Satori</a> only support React node object at least on Node.js.</p>
-<section class="astro-WCJWFPCE">
-	<h3 id="resvg-js" class="heading astro-WCJWFPCE">
-		
-	Resvg-js
-
-	</h3>
-	<a href="#resvg-js" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA"><a href="//github.com/yisibl/resvg-js">Resvg-js</a> convert SVG to PNG, Rust-Node binding for <a href="//github.com/RazrFalcon/resvg">github.com/RazrFalcon/resvg</a>.</p>
-<section class="astro-WCJWFPCE">
-	<h3 id="victor-mono" class="heading astro-WCJWFPCE">
-		
-	Victor Mono
-
-	</h3>
-	<a href="#victor-mono" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA"><a href="//github.com/rubjo/victor-mono">Victor mono</a> is font that we will use because Satori need at least 1 font as default font.</p>
-<section class="astro-WCJWFPCE">
-	<h2 id="flow" class="heading astro-WCJWFPCE">
-		
-	Flow
-
-	</h2>
-	<a href="#flow" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
+<section data-astro-cid-wcjwfpce><h3 id="satori-html" data-astro-cid-wcjwfpce class="heading">Satori-html</h3><a href="#satori-html" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><a href="//github.com/natemoo-re/satori-html">Satori-html</a> convert HTML to React Node, this is because <a href="//github.com/vercel/satori/">Satori</a> only support React node object at least on Node.js.</p>
+<section data-astro-cid-wcjwfpce><h3 id="resvg-js" data-astro-cid-wcjwfpce class="heading">Resvg-js</h3><a href="#resvg-js" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><a href="//github.com/yisibl/resvg-js">Resvg-js</a> convert SVG to PNG, Rust-Node binding for <a href="//github.com/RazrFalcon/resvg">github.com/RazrFalcon/resvg</a>.</p>
+<section data-astro-cid-wcjwfpce><h3 id="victor-mono" data-astro-cid-wcjwfpce class="heading">Victor Mono</h3><a href="#victor-mono" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><a href="//github.com/rubjo/victor-mono">Victor mono</a> is font that we will use because Satori need at least 1 font as default font.</p>
+<section data-astro-cid-wcjwfpce><h2 id="flow" data-astro-cid-wcjwfpce class="heading">Flow</h2><a href="#flow" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
 <div class="language-diagram-graphviz">
 
 
@@ -464,43 +94,14 @@
 </g>
 </svg>
 </div>
-<section class="astro-WCJWFPCE">
-	<h2 id="nodejs" class="heading astro-WCJWFPCE">
-		
-	Node.js
-
-	</h2>
-	<a href="#nodejs" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Tested on <code class="astro-ONSIZIAZ" data-is-shiki="false">node v19.0.1</code>.</p>
-<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div>
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">node-image</span></span>
+<section data-astro-cid-wcjwfpce><h2 id="nodejs" data-astro-cid-wcjwfpce class="heading">Node.js</h2><a href="#nodejs" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Tested on <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>node v19.0.1</code>.</p>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">node-image</span></span>
 <span class="line"><span style="color:#79C0FF">cd</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">node-image</span></span>
 <span class="line"><span style="color:#FFA657">pnpm</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">init</span></span>
 <span class="line"><span style="color:#FFA657">pnpm</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">add</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">satori@0.0.44</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">satori-html@0.3.2</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">@resvg/resvg-js@2.2.0</span></span>
-<span class="line"><span style="color:#FFA657">touch</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.mjs</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="js" data-theme="default">main.mjs</div>
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="js" data-theme="default" class="astro-JIMS2NUM"><code data-line-numbers="" data-language="js" data-theme="default" data-line-numbers-max-digits="2" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { readFile, writeFile } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;node:fs/promises&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FFA657">touch</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.mjs</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="js" data-theme="default">main.mjs</div><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="js" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-line-numbers="" data-language="js" data-theme="default" data-line-numbers-max-digits="2" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { readFile, writeFile } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;node:fs/promises&quot;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { html } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;satori-html&quot;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> satori </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;satori&quot;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { Resvg } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;@resvg/resvg-js&quot;</span><span style="color:#E6EDF3">;</span></span>
@@ -537,81 +138,16 @@
 <span class="line"><span style="color:#FF7B72">const</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">pngData</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> resvg.</span><span style="color:#D2A8FF">render</span><span style="color:#E6EDF3">();</span></span>
 <span class="line"><span style="color:#FF7B72">const</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">pngBuffer</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">=</span><span style="color:#E6EDF3"> pngData.</span><span style="color:#D2A8FF">asPng</span><span style="color:#E6EDF3">();</span></span>
 <span class="line"> </span>
-<span class="line"><span style="color:#FF7B72">await</span><span style="color:#E6EDF3"> </span><span style="color:#D2A8FF">writeFile</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">&quot;./output.png&quot;</span><span style="color:#E6EDF3">, pngBuffer);</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div>
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">node</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.mjs</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<section class="astro-WCJWFPCE">
-	<h3 id="output" class="heading astro-WCJWFPCE">
-		
-	Output
-
-	</h3>
-	<a href="#output" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA"><div class="astro-LCSUXZ5U"><img src="/assets/blog/generate-image-from-html-using-satori-and-resvg/node_output.png" alt="node output with cat the middle and caption the quick brown fox jumps over the lazy dog" class="astro-LCSUXZ5U"></div></p>
-<section class="astro-WCJWFPCE">
-	<h2 id="deno" class="heading astro-WCJWFPCE">
-		
-	Deno
-
-	</h2>
-	<a href="#deno" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Tested on <code class="astro-ONSIZIAZ" data-is-shiki="false">deno 1.29.1</code>.</p>
-<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div>
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">deno-image</span></span>
+<span class="line"><span style="color:#FF7B72">await</span><span style="color:#E6EDF3"> </span><span style="color:#D2A8FF">writeFile</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">&quot;./output.png&quot;</span><span style="color:#E6EDF3">, pngBuffer);</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">node</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.mjs</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<section data-astro-cid-wcjwfpce><h3 id="output" data-astro-cid-wcjwfpce class="heading">Output</h3><a href="#output" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><div data-astro-cid-lcsuxz5u><img src="/assets/blog/generate-image-from-html-using-satori-and-resvg/node_output.png" alt="node output with cat the middle and caption the quick brown fox jumps over the lazy dog" class="astro-lcsuxz5u" data-astro-cid-lcsuxz5u></div></p>
+<section data-astro-cid-wcjwfpce><h2 id="deno" data-astro-cid-wcjwfpce class="heading">Deno</h2><a href="#deno" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Tested on <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>deno 1.29.1</code>.</p>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">mkdir</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">deno-image</span></span>
 <span class="line"><span style="color:#79C0FF">cd</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">deno-image</span></span>
-<span class="line"><span style="color:#FFA657">touch</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.tsx</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="tsx" data-theme="default">main.tsx</div>
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="tsx" data-theme="default" class="astro-JIMS2NUM"><code data-line-numbers="" data-language="tsx" data-theme="default" data-line-numbers-max-digits="2" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> React </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;https://esm.sh/react@18.2.0&quot;</span><span style="color:#E6EDF3">;</span></span>
+<span class="line"><span style="color:#FFA657">touch</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.tsx</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="tsx" data-theme="default">main.tsx</div><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="tsx" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-line-numbers="" data-language="tsx" data-theme="default" data-line-numbers-max-digits="2" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> React </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;https://esm.sh/react@18.2.0&quot;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> satori, { init } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;npm:satori@0.0.44/wasm&quot;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> initYoga </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;npm:yoga-wasm-web@0.2.0&quot;</span><span style="color:#E6EDF3">;</span></span>
 <span class="line"><span style="color:#FF7B72">import</span><span style="color:#E6EDF3"> { Resvg } </span><span style="color:#FF7B72">from</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">&quot;npm:@resvg/resvg-js@2.2.0&quot;</span><span style="color:#E6EDF3">;</span></span>
@@ -699,125 +235,10 @@
 <span class="line"><span style="color:#FF7B72">await</span><span style="color:#E6EDF3"> Deno.</span><span style="color:#D2A8FF">writeFile</span><span style="color:#E6EDF3">(</span><span style="color:#A5D6FF">&quot;./output.png&quot;</span><span style="color:#E6EDF3">, pngBuffer);</span></span>
 <span class="line"> </span>
 <span class="line"><span style="color:#8B949E">// ffi block, need to force exit</span></span>
-<span class="line"><span style="color:#E6EDF3">Deno.</span><span style="color:#D2A8FF">exit</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div>
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">deno</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">run</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--unstable</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-env</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-ffi</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-net</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-read</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-write</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.tsx</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<section class="astro-WCJWFPCE">
-	<h3 id="output-1" class="heading astro-WCJWFPCE">
-		
-	Output
-
-	</h3>
-	<a href="#output-1" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA"><div class="astro-LCSUXZ5U"><img src="/assets/blog/generate-image-from-html-using-satori-and-resvg/deno_output.png" alt="deno output with cat the middle and caption the quick brown fox jumps over the lazy dog" class="astro-LCSUXZ5U"></div></p>
-		</main>
-		<hr class="astro-7JJQPTXK">
-		<section class="astro-V6WDQMFP">
-	<a class="btn open-discussion astro-V6WDQMFP astro-7AB5KPLB" href="//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q=&#34;/blog/generate-image-from-html-using-satori-and-resvg/&#34;">
-			Open GitHub Discussions<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
-					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" class="astro-V6WDQMFP"></path>
-					<line x1="10" y1="14" x2="20" y2="4" class="astro-V6WDQMFP"></line>
-					<polyline points="15 4 20 4 20 9" class="astro-V6WDQMFP"></polyline>
-				</svg>
-			
-		</a>
-	<div id="giscus" data-lang="en" class="astro-V6WDQMFP"></div>
-	<button class="btn write-giscus astro-V6WDQMFP astro-7AB5KPLB">
-			Write comment<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
-					<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" class="astro-V6WDQMFP"></path>
-					<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" class="astro-V6WDQMFP"></path>
-					<path d="M16 5l3 3" class="astro-V6WDQMFP"></path>
-				</svg>
-			
-		</button>
-</section>
-	</article>
-
-		<footer class="astro-TGC5TWW7">
-	<div class="container astro-TGC5TWW7">
-		<nav class="group-btn astro-TGC5TWW7">
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="mailto:mynameanasrar@gmail.com" title="Send Email">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<circle cx="12" cy="12" r="4" class="astro-TGC5TWW7"></circle>
-					<path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//youtube.com/@anasrin" target="_blank" title="My YouTube Channel">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<rect x="3" y="5" width="18" height="14" rx="4" class="astro-TGC5TWW7"></rect>
-					<path d="M10 9l5 3l-5 3z" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//github.com/anasrar" target="_blank" title="My GitHub Account">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="https://anasrar.github.io/rss/blog.xml" title="RSS Blog">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<circle cx="5" cy="19" r="1" class="astro-TGC5TWW7"></circle>
-					<path d="M4 4a16 16 0 0 1 16 16" class="astro-TGC5TWW7"></path>
-					<path d="M4 11a9 9 0 0 1 9 9" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-		</nav>
-		<div class="text astro-TGC5TWW7">
-			Made with <span class="heart astro-TGC5TWW7">❤</span> by Anas Rin — Powered by Astro
+<span class="line"><span style="color:#E6EDF3">Deno.</span><span style="color:#D2A8FF">exit</span><span style="color:#E6EDF3">(</span><span style="color:#79C0FF">0</span><span style="color:#E6EDF3">);</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<div data-rehype-pretty-code-fragment=""><div data-rehype-pretty-code-title="" data-language="bash" data-theme="default">Commands</div><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">deno</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">run</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--unstable</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-env</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-ffi</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-net</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-read</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">--allow-write</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">main.tsx</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<section data-astro-cid-wcjwfpce><h3 id="output-1" data-astro-cid-wcjwfpce class="heading">Output</h3><a href="#output-1" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><div data-astro-cid-lcsuxz5u><img src="/assets/blog/generate-image-from-html-using-satori-and-resvg/deno_output.png" alt="deno output with cat the middle and caption the quick brown fox jumps over the lazy dog" class="astro-lcsuxz5u" data-astro-cid-lcsuxz5u></div></p></main><hr data-astro-cid-7jjqptxk><section data-astro-cid-v6wdqmfp><a class="btn open-discussion" href="//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q=&#34;/blog/generate-image-from-html-using-satori-and-resvg/&#34;" data-astro-cid-v6wdqmfp data-astro-cid-7ab5kplb>Open GitHub Discussions<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-v6wdqmfp><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-v6wdqmfp></path><path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" data-astro-cid-v6wdqmfp></path><line x1="10" y1="14" x2="20" y2="4" data-astro-cid-v6wdqmfp></line><polyline points="15 4 20 4 20 9" data-astro-cid-v6wdqmfp></polyline></svg></a><div id="giscus" data-lang="en" data-astro-cid-v6wdqmfp></div><button class="btn write-giscus" data-astro-cid-v6wdqmfp data-astro-cid-7ab5kplb>Write comment<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-v6wdqmfp><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-v6wdqmfp></path><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" data-astro-cid-v6wdqmfp></path><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" data-astro-cid-v6wdqmfp></path><path d="M16 5l3 3" data-astro-cid-v6wdqmfp></path></svg></button></section></article><footer data-astro-cid-tgc5tww7><div class="container" data-astro-cid-tgc5tww7><nav class="group-btn" data-astro-cid-tgc5tww7><a class="btn btn-square" href="mailto:mynameanasrar@gmail.com" title="Send Email" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><circle cx="12" cy="12" r="4" data-astro-cid-tgc5tww7></circle><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="//youtube.com/@anasrin" target="_blank" title="My YouTube Channel" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><rect x="3" y="5" width="18" height="14" rx="4" data-astro-cid-tgc5tww7></rect><path d="M10 9l5 3l-5 3z" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="//github.com/anasrar" target="_blank" title="My GitHub Account" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/rss/blog.xml" title="RSS Blog" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><circle cx="5" cy="19" r="1" data-astro-cid-tgc5tww7></circle><path d="M4 4a16 16 0 0 1 16 16" data-astro-cid-tgc5tww7></path><path d="M4 11a9 9 0 0 1 9 9" data-astro-cid-tgc5tww7></path></svg></a></nav><div class="text" data-astro-cid-tgc5tww7>
+Made with <span class="heart" data-astro-cid-tgc5tww7>❤</span> by Anas Rin — Powered by Astro
 			& GitHub
-		</div>
-	</div>
-</footer>
-		
-		
-	</body></html>
+</div></div></footer></body></html>

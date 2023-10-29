@@ -1,635 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width">
-		<title>Netinstall MikroTik on Linux - Anas Rin</title>
-		<meta name="description" content=" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b...">
-		<meta property="og:site_name" content="Anas Rin">
-		<meta property="og:title" content="Netinstall MikroTik on Linux - Anas Rin">
-		<meta property="og:type" content="article">
-		<meta property="og:url" content="https://anasrar.github.io/blog/netinstall-mikrotik-on-linux/">
-		<meta property="og:image" content="https://og-anasrin.vercel.app/img.png?title=Netinstall MikroTik on Linux&#38;bg=19448&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
-		<meta property="og:description" content=" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b...">
-		<meta property="article:published_time" content="2023-04-01T00:00:00.000Z">
-		<meta property="article:author" content="https://anasrin.vercel.app">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content="@rrrriiiiiinnnn">
-		<meta name="twitter:title" content="Netinstall MikroTik on Linux">
-		<meta name="twitter:description" content=" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b...">
-		<meta name="twitter:image" content="https://og-anasrin.vercel.app/img.png?title=Netinstall MikroTik on Linux&#38;bg=19448&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app">
-		<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Netinstall MikroTik on Linux","image":"https://og-anasrin.vercel.app/img.png?title=Netinstall MikroTik on Linux&bg=19448&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrin.vercel.app/"}],"url":"https://anasrar.github.io/blog/netinstall-mikrotik-on-linux/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-04-01T00:00:00.000Z","description":" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b..."}</script>
-	<link rel="stylesheet" href="/_astro/_...slug_.ff61d769.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.519179bf.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.24db8cc1.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.95b65d35.css" />
-<link rel="stylesheet" href="/_astro/_...slug_.ff2c03f6.css" /><script type="module" src="/_astro/hoisted.61378737.js"></script></head>
-	<body>
-		<header class="sticky-header astro-EIYD7VOQ">
-	<div class="container astro-EIYD7VOQ">
-		<nav class="group md astro-EIYD7VOQ">
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
-					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
-					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
-				</svg> Home
-			
-		</a>
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
-					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
-				</svg>
-				Guestbook
-			
-		</a>
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
-				</svg>
-				Projects
-			
-		</a>
-			<a class="btn astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
-					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
-				</svg> Blog
-			
-		</a>
-		</nav>
-		<nav class="group xs astro-EIYD7VOQ">
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/" title="Home">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" class="astro-EIYD7VOQ"></path>
-					<path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" class="astro-EIYD7VOQ"></path>
-					<path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/guestbook/" title="Guestbook">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" class="astro-EIYD7VOQ"></path>
-					<path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/projects/" title="Projects">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<rect x="4" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="14" y="4" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<rect x="4" y="14" width="6" height="6" rx="1" class="astro-EIYD7VOQ"></rect>
-					<path d="M14 17h6m-3 -3v6" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" href="https://anasrar.github.io/blog/" title="Blog">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" class="astro-EIYD7VOQ"></path>
-					<line x1="8" y1="8" x2="12" y2="8" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="12" x2="12" y2="12" class="astro-EIYD7VOQ"></line>
-					<line x1="8" y1="16" x2="12" y2="16" class="astro-EIYD7VOQ"></line>
-				</svg>
-			
-		</a>
-		</nav>
-		<nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center astro-EIYD7VOQ">
-			<button class="btn btn-square astro-EIYD7VOQ astro-7AB5KPLB" title="Toggle Dark/Light Mode" toggle-colorscheme="true">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="only-dark icon icon-tabler icon-tabler-sun astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<circle cx="12" cy="12" r="4" class="astro-EIYD7VOQ"></circle>
-					<path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" class="astro-EIYD7VOQ"></path>
-				</svg>
-				<svg xmlns="http://www.w3.org/2000/svg" class="only-light icon icon-tabler icon-tabler-moon-stars astro-EIYD7VOQ" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-EIYD7VOQ"></path>
-					<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" class="astro-EIYD7VOQ"></path>
-					<path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" class="astro-EIYD7VOQ"></path>
-					<path d="M19 11h2m-1 -1v2" class="astro-EIYD7VOQ"></path>
-				</svg>
-			
-		</button>
-		</nav>
-	</div>
-</header>
-		
-	<article class="container astro-7JJQPTXK">
-		<section id="toc" class="astro-USK3TZSR">
-	<h4 class="astro-USK3TZSR">Table of Contents</h4>
-	<ul class="astro-USK3TZSR">
-		<li class="astro-USK3TZSR">
-					<a id="toc-background" href="#background" style="--depth: 0" title="Background" class="astro-USK3TZSR">
-						Background
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-requirements" href="#requirements" style="--depth: 0" title="Requirements" class="astro-USK3TZSR">
-						Requirements
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-setup" href="#setup" style="--depth: 0" title="Setup" class="astro-USK3TZSR">
-						Setup
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-files" href="#files" style="--depth: 1" title="Files" class="astro-USK3TZSR">
-						Files
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-disable-internet-interface" href="#disable-internet-interface" style="--depth: 1" title="Disable Internet Interface" class="astro-USK3TZSR">
-						Disable Internet Interface
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-ip-static" href="#ip-static" style="--depth: 1" title="IP Static" class="astro-USK3TZSR">
-						IP Static
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-ip-gateway" href="#ip-gateway" style="--depth: 1" title="IP Gateway" class="astro-USK3TZSR">
-						IP Gateway
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-check-ip" href="#check-ip" style="--depth: 1" title="Check IP" class="astro-USK3TZSR">
-						Check IP
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-netinstall" href="#netinstall" style="--depth: 1" title="Netinstall" class="astro-USK3TZSR">
-						Netinstall
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-result" href="#result" style="--depth: 0" title="Result" class="astro-USK3TZSR">
-						Result
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-known-issues" href="#known-issues" style="--depth: 0" title="Known Issues" class="astro-USK3TZSR">
-						Known Issues
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-only-show-pxe-client" href="#only-show-pxe-client" style="--depth: 1" title="Only Show PXE client" class="astro-USK3TZSR">
-						Only Show PXE client
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-failed-to-reply" href="#failed-to-reply" style="--depth: 1" title="FAILED TO REPLY" class="astro-USK3TZSR">
-						FAILED TO REPLY
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-using-server-ip-0000" href="#using-server-ip-0000" style="--depth: 1" title="Using server IP: 0.0.0.0" class="astro-USK3TZSR">
-						Using server IP: 0.0.0.0
-					</a>
-				</li><li class="astro-USK3TZSR">
-					<a id="toc-references" href="#references" style="--depth: 0" title="References" class="astro-USK3TZSR">
-						References
-					</a>
-				</li>
-	</ul>
-</section>
-		
-		<a class="btn back astro-7JJQPTXK astro-7AB5KPLB" href="../">
-			
-			&lt;-- &nbsp; Back
-		
-		</a>
-		<header class="astro-7JJQPTXK">
-			<div class="information astro-7JJQPTXK">
-				<time title="2023-04-01T00:00:00.000Z" datetime="2023-04-01T00:00:00.000Z" class="astro-7JJQPTXK">April 01, 2023</time>
-			</div>
-			<h1 class="title size-h1 balance-text astro-7JJQPTXK astro-6IDPVE2O">Netinstall MikroTik on Linux</h1>
-		</header>
-		<hr class="astro-7JJQPTXK">
-		<main class="astro-7JJQPTXK">
-			<section class="astro-WCJWFPCE">
-	<h2 id="background" class="heading astro-WCJWFPCE">
-		
-	Background
-
-	</h2>
-	<a href="#background" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">I have <code class="astro-ONSIZIAZ" data-is-shiki="false">RB941-2nD-TC (hAP-Lite2)</code> and it seem I misconfigured, so I need to reset configuration using netinstall technique.</p>
-<section class="astro-WCJWFPCE">
-	<h2 id="requirements" class="heading astro-WCJWFPCE">
-		
-	Requirements
-
-	</h2>
-	<a href="#requirements" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<ul class="astro-SDK65A7J">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Netinstall MikroTik on Linux - Anas Rin</title><meta name="description" content=" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b..."><meta property="og:site_name" content="Anas Rin"><meta property="og:title" content="Netinstall MikroTik on Linux - Anas Rin"><meta property="og:type" content="article"><meta property="og:url" content="https://anasrar.github.io/blog/netinstall-mikrotik-on-linux/"><meta property="og:image" content="https://og-anasrin.vercel.app/img.png?title=Netinstall MikroTik on Linux&#38;bg=19448&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app"><meta property="og:description" content=" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b..."><meta property="article:published_time" content="2023-04-01T00:00:00.000Z"><meta property="article:author" content="https://anasrin.vercel.app"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@rrrriiiiiinnnn"><meta name="twitter:title" content="Netinstall MikroTik on Linux"><meta name="twitter:description" content=" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b..."><meta name="twitter:image" content="https://og-anasrin.vercel.app/img.png?title=Netinstall MikroTik on Linux&#38;bg=19448&#38;authorImg=http://avatars.githubusercontent.com/u/38805204&#38;authorName=Anas Rin&#38;website=anasrin.vercel.app"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Netinstall MikroTik on Linux","image":"https://og-anasrin.vercel.app/img.png?title=Netinstall MikroTik on Linux&bg=19448&authorImg=http://avatars.githubusercontent.com/u/38805204&authorName=Anas Rin&website=anasrin.vercel.app","author":[{"@type":"Person","name":"Anas Rin","url":"https://anasrin.vercel.app/"}],"url":"https://anasrar.github.io/blog/netinstall-mikrotik-on-linux/","mainEntityOfPage":{"@type":"WebPage","@id":"https://google.com/article"},"datePublished":"2023-04-01T00:00:00.000Z","description":" Background I have RB941-2nD-TC (hAP-Lite2) and it seem I misconfigured, so I need to reset configuration using netinstall technique. Requirements RouterOS b..."}</script><link rel="stylesheet" href="/_astro/_slug_.3562f142.css" />
+<link rel="stylesheet" href="/_astro/_slug_.e6dc6cf8.css" />
+<style>.title[data-astro-cid-6idpve2o]{margin:0;font-weight:600}h1[data-astro-cid-6idpve2o],.size-h1[data-astro-cid-6idpve2o]{font-size:1.802rem}h2[data-astro-cid-6idpve2o],.size-h2[data-astro-cid-6idpve2o]{font-size:1.602rem}h3[data-astro-cid-6idpve2o],.size-h3[data-astro-cid-6idpve2o]{font-size:1.424rem}h4[data-astro-cid-6idpve2o],.size-h4[data-astro-cid-6idpve2o]{font-size:1.266rem}h5[data-astro-cid-6idpve2o],.size-h5[data-astro-cid-6idpve2o]{font-size:1.125rem}h6[data-astro-cid-6idpve2o],.size-h6[data-astro-cid-6idpve2o]{font-size:1rem}
+section[data-astro-cid-v6wdqmfp]{display:flex;flex-flow:column nowrap;gap:.75rem;margin:.5rem 0 0}.open-discussion[data-astro-cid-v6wdqmfp],.write-giscus[data-astro-cid-v6wdqmfp]{align-self:center}.write-giscus[data-astro-cid-v6wdqmfp]{display:none!important;position:sticky;bottom:.5rem}.write-giscus[data-astro-cid-v6wdqmfp].show{display:inline-flex!important}
+.container[data-astro-cid-7jjqptxk]{width:100%;max-width:var(--container-sm);margin:1rem auto 0;padding:1.5rem .75rem .75rem}article[data-astro-cid-7jjqptxk]{display:flex;flex-flow:column nowrap;gap:1.5rem}.back[data-astro-cid-7jjqptxk]{align-self:flex-start}header[data-astro-cid-7jjqptxk]{display:flex;flex-flow:column nowrap;gap:.5rem}.title[data-astro-cid-7jjqptxk]{line-height:2.25rem}.authors[data-astro-cid-7jjqptxk]{display:flex;flex-flow:row nowrap;gap:1.25rem;margin-top:.75rem}@media (max-width: 32.25rem){.authors[data-astro-cid-7jjqptxk]{gap:.5rem}}.information[data-astro-cid-7jjqptxk]{align-self:flex-start;color:#a6a7ab;font-size:.875rem;font-variant-numeric:tabular-nums;cursor:help}html.light .information[data-astro-cid-7jjqptxk]{color:#5c5f66}hr[data-astro-cid-7jjqptxk]{height:1px;margin:0;border:0;border-top:1px solid #343a40;transition:border-top .1s linear}html.light hr[data-astro-cid-7jjqptxk]{border-top:1px solid #ced4da}main[data-astro-cid-7jjqptxk]>:first-child{margin-top:0}
+</style><script type="module" src="/_astro/hoisted.61378737.js"></script></head><body><header class="sticky-header" data-astro-cid-eiyd7voq><div class="container" data-astro-cid-eiyd7voq><nav class="group md" data-astro-cid-eiyd7voq><a class="btn undefined" href="https://anasrar.github.io/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" data-astro-cid-eiyd7voq></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" data-astro-cid-eiyd7voq></path><path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" data-astro-cid-eiyd7voq></path></svg> Home
+</a><a class="btn undefined" href="https://anasrar.github.io/guestbook/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" data-astro-cid-eiyd7voq></path><path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" data-astro-cid-eiyd7voq></path></svg>
+Guestbook
+</a><a class="btn undefined" href="https://anasrar.github.io/projects/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><rect x="4" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="14" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="4" y="14" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><path d="M14 17h6m-3 -3v6" data-astro-cid-eiyd7voq></path></svg>
+Projects
+</a><a class="btn undefined" href="https://anasrar.github.io/blog/" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" data-astro-cid-eiyd7voq></path><line x1="8" y1="8" x2="12" y2="8" data-astro-cid-eiyd7voq></line><line x1="8" y1="12" x2="12" y2="12" data-astro-cid-eiyd7voq></line><line x1="8" y1="16" x2="12" y2="16" data-astro-cid-eiyd7voq></line></svg> Blog
+</a></nav><nav class="group xs" data-astro-cid-eiyd7voq><a class="btn btn-square" href="https://anasrar.github.io/" title="Home" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home-heart" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 12l-9 -9l-9 9h2v7a2 2 0 0 0 2 2h6" data-astro-cid-eiyd7voq></path><path d="M9 21v-6a2 2 0 0 1 2 -2h2c.39 0 .754 .112 1.061 .304" data-astro-cid-eiyd7voq></path><path d="M18.994 21.5l2.518 -2.58a1.74 1.74 0 0 0 .004 -2.413a1.627 1.627 0 0 0 -2.346 -.005l-.168 .172l-.168 -.172a1.627 1.627 0 0 0 -2.346 -.004a1.74 1.74 0 0 0 -.004 2.412l2.51 2.59z" data-astro-cid-eiyd7voq></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/guestbook/" title="Guestbook" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-messages" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M21 14l-3 -3h-7a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1h9a1 1 0 0 1 1 1v10" data-astro-cid-eiyd7voq></path><path d="M14 15v2a1 1 0 0 1 -1 1h-7l-3 3v-10a1 1 0 0 1 1 -1h2" data-astro-cid-eiyd7voq></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/projects/" title="Projects" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid-add" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><rect x="4" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="14" y="4" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><rect x="4" y="14" width="6" height="6" rx="1" data-astro-cid-eiyd7voq></rect><path d="M14 17h6m-3 -3v6" data-astro-cid-eiyd7voq></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/blog/" title="Blog" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-news" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" data-astro-cid-eiyd7voq></path><line x1="8" y1="8" x2="12" y2="8" data-astro-cid-eiyd7voq></line><line x1="8" y1="12" x2="12" y2="12" data-astro-cid-eiyd7voq></line><line x1="8" y1="16" x2="12" y2="16" data-astro-cid-eiyd7voq></line></svg></a></nav><nav class="display:flex flex-flow:row_wrap gap:0.5rem align-items:center" data-astro-cid-eiyd7voq><button class="btn btn-square" title="Toggle Dark/Light Mode" toggle-colorscheme="true" data-astro-cid-eiyd7voq data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="only-dark icon icon-tabler icon-tabler-sun" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><circle cx="12" cy="12" r="4" data-astro-cid-eiyd7voq></circle><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" data-astro-cid-eiyd7voq></path></svg><svg xmlns="http://www.w3.org/2000/svg" class="only-light icon icon-tabler icon-tabler-moon-stars" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-eiyd7voq><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-eiyd7voq></path><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" data-astro-cid-eiyd7voq></path><path d="M17 4a2 2 0 0 0 2 2a2 2 0 0 0 -2 2a2 2 0 0 0 -2 -2a2 2 0 0 0 2 -2" data-astro-cid-eiyd7voq></path><path d="M19 11h2m-1 -1v2" data-astro-cid-eiyd7voq></path></svg></button></nav></div></header><article class="container" data-astro-cid-7jjqptxk><section id="toc" data-astro-cid-usk3tzsr><h4 data-astro-cid-usk3tzsr>Table of Contents</h4><ul data-astro-cid-usk3tzsr><li data-astro-cid-usk3tzsr><a id="toc-background" href="#background" style="--depth: 0" title="Background" data-astro-cid-usk3tzsr>Background</a></li><li data-astro-cid-usk3tzsr><a id="toc-requirements" href="#requirements" style="--depth: 0" title="Requirements" data-astro-cid-usk3tzsr>Requirements</a></li><li data-astro-cid-usk3tzsr><a id="toc-setup" href="#setup" style="--depth: 0" title="Setup" data-astro-cid-usk3tzsr>Setup</a></li><li data-astro-cid-usk3tzsr><a id="toc-files" href="#files" style="--depth: 1" title="Files" data-astro-cid-usk3tzsr>Files</a></li><li data-astro-cid-usk3tzsr><a id="toc-disable-internet-interface" href="#disable-internet-interface" style="--depth: 1" title="Disable Internet Interface" data-astro-cid-usk3tzsr>Disable Internet Interface</a></li><li data-astro-cid-usk3tzsr><a id="toc-ip-static" href="#ip-static" style="--depth: 1" title="IP Static" data-astro-cid-usk3tzsr>IP Static</a></li><li data-astro-cid-usk3tzsr><a id="toc-ip-gateway" href="#ip-gateway" style="--depth: 1" title="IP Gateway" data-astro-cid-usk3tzsr>IP Gateway</a></li><li data-astro-cid-usk3tzsr><a id="toc-check-ip" href="#check-ip" style="--depth: 1" title="Check IP" data-astro-cid-usk3tzsr>Check IP</a></li><li data-astro-cid-usk3tzsr><a id="toc-netinstall" href="#netinstall" style="--depth: 1" title="Netinstall" data-astro-cid-usk3tzsr>Netinstall</a></li><li data-astro-cid-usk3tzsr><a id="toc-result" href="#result" style="--depth: 0" title="Result" data-astro-cid-usk3tzsr>Result</a></li><li data-astro-cid-usk3tzsr><a id="toc-known-issues" href="#known-issues" style="--depth: 0" title="Known Issues" data-astro-cid-usk3tzsr>Known Issues</a></li><li data-astro-cid-usk3tzsr><a id="toc-only-show-pxe-client" href="#only-show-pxe-client" style="--depth: 1" title="Only Show PXE client" data-astro-cid-usk3tzsr>Only Show PXE client</a></li><li data-astro-cid-usk3tzsr><a id="toc-failed-to-reply" href="#failed-to-reply" style="--depth: 1" title="FAILED TO REPLY" data-astro-cid-usk3tzsr>FAILED TO REPLY</a></li><li data-astro-cid-usk3tzsr><a id="toc-using-server-ip-0000" href="#using-server-ip-0000" style="--depth: 1" title="Using server IP: 0.0.0.0" data-astro-cid-usk3tzsr>Using server IP: 0.0.0.0</a></li><li data-astro-cid-usk3tzsr><a id="toc-references" href="#references" style="--depth: 0" title="References" data-astro-cid-usk3tzsr>References</a></li></ul></section><a class="btn back" href="../" data-astro-cid-7jjqptxk data-astro-cid-7ab5kplb>
+&lt;-- &nbsp; Back
+</a><header data-astro-cid-7jjqptxk><div class="information" data-astro-cid-7jjqptxk><time title="2023-04-01T00:00:00.000Z" datetime="2023-04-01T00:00:00.000Z" data-astro-cid-7jjqptxk>April 01, 2023</time></div><h1 data-astro-cid-6idpve2o class="title size-h1 balance-text">Netinstall MikroTik on Linux</h1></header><hr data-astro-cid-7jjqptxk><main data-astro-cid-7jjqptxk><section data-astro-cid-wcjwfpce><h2 id="background" data-astro-cid-wcjwfpce class="heading">Background</h2><a href="#background" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>I have <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>RB941-2nD-TC (hAP-Lite2)</code> and it seem I misconfigured, so I need to reset configuration using netinstall technique.</p>
+<section data-astro-cid-wcjwfpce><h2 id="requirements" data-astro-cid-wcjwfpce class="heading">Requirements</h2><a href="#requirements" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<ul class="astro-sdk65a7j" data-astro-cid-sdk65a7j>
 <li>RouterOS base on your router architecture (in my case is <strong>SMIPS</strong>).</li>
 <li>Netinstall (CLI Linux).</li>
 <li>Plug out router from powerline.</li>
 </ul>
-<p class="astro-6R4UOCDA">Download all requirements files from <a href="https://mikrotik.com/download">https://mikrotik.com/download</a>, and select <strong>RouterOS</strong> version (in my case is <strong>RouterOS v6</strong>).</p>
-<section class="astro-WCJWFPCE">
-	<h2 id="setup" class="heading astro-WCJWFPCE">
-		
-	Setup
-
-	</h2>
-	<a href="#setup" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<section class="astro-WCJWFPCE">
-	<h3 id="files" class="heading astro-WCJWFPCE">
-		
-	Files
-
-	</h3>
-	<a href="#files" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Extract all files to single folder, so we can work with the files easily.</p>
-<section class="astro-WCJWFPCE">
-	<h3 id="disable-internet-interface" class="heading astro-WCJWFPCE">
-		
-	Disable Internet Interface
-
-	</h3>
-	<a href="#disable-internet-interface" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Disable all internet interface such as WiFi, and only leaving with Ethernet.</p>
-<section class="astro-WCJWFPCE">
-	<h3 id="ip-static" class="heading astro-WCJWFPCE">
-		
-	IP Static
-
-	</h3>
-	<a href="#ip-static" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Using <code class="astro-ONSIZIAZ" data-is-shiki="false">ip</code> command.</p>
-<div data-rehype-pretty-code-fragment="">
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">ip</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">addr</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">add</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.2/24</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">dev</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span><span style="color:#E6EDF3">; </span><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">ip</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">link</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">set</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">dev</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">up</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<p class="astro-6R4UOCDA">Using <code class="astro-ONSIZIAZ" data-is-shiki="false">ifconfig</code> command.</p>
-<div data-rehype-pretty-code-fragment="">
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">ifconfig</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.2/24</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">up</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<p class="astro-6R4UOCDA">Where <code class="astro-ONSIZIAZ" data-is-shiki="false">&lt;interface&gt;</code> is your ethernet interface name, you can print list ethernet interface using <code class="astro-ONSIZIAZ" data-is-shiki="false">netstat -i</code>, something like <code class="astro-ONSIZIAZ" data-is-shiki="false">eth*</code> or <code class="astro-ONSIZIAZ" data-is-shiki="false">enp0s*</code> is your interface.</p>
-<section class="astro-WCJWFPCE">
-	<h3 id="ip-gateway" class="heading astro-WCJWFPCE">
-		
-	IP Gateway
-
-	</h3>
-	<a href="#ip-gateway" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Using <code class="astro-ONSIZIAZ" data-is-shiki="false">route</code> command.</p>
-<div data-rehype-pretty-code-fragment="">
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">route</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">add</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">default</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">gw</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.1</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<section class="astro-WCJWFPCE">
-	<h3 id="check-ip" class="heading astro-WCJWFPCE">
-		
-	Check IP
-
-	</h3>
-	<a href="#check-ip" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Using <code class="astro-ONSIZIAZ" data-is-shiki="false">route</code> command to check if we success to setup IP.</p>
-<div data-rehype-pretty-code-fragment="">
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">route</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">-n</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<p class="astro-6R4UOCDA">It will print something like this.</p>
-
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre class="astro-JIMS2NUM"><code class="astro-ONSIZIAZ" data-is-shiki="false">Kernel IP routing table
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Download all requirements files from <a href="https://mikrotik.com/download">https://mikrotik.com/download</a>, and select <strong>RouterOS</strong> version (in my case is <strong>RouterOS v6</strong>).</p>
+<section data-astro-cid-wcjwfpce><h2 id="setup" data-astro-cid-wcjwfpce class="heading">Setup</h2><a href="#setup" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<section data-astro-cid-wcjwfpce><h3 id="files" data-astro-cid-wcjwfpce class="heading">Files</h3><a href="#files" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Extract all files to single folder, so we can work with the files easily.</p>
+<section data-astro-cid-wcjwfpce><h3 id="disable-internet-interface" data-astro-cid-wcjwfpce class="heading">Disable Internet Interface</h3><a href="#disable-internet-interface" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Disable all internet interface such as WiFi, and only leaving with Ethernet.</p>
+<section data-astro-cid-wcjwfpce><h3 id="ip-static" data-astro-cid-wcjwfpce class="heading">IP Static</h3><a href="#ip-static" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Using <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>ip</code> command.</p>
+<div data-rehype-pretty-code-fragment=""><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">ip</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">addr</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">add</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.2/24</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">dev</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span><span style="color:#E6EDF3">; </span><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">ip</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">link</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">set</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">dev</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">up</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Using <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>ifconfig</code> command.</p>
+<div data-rehype-pretty-code-fragment=""><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">ifconfig</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.2/24</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">up</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Where <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>&lt;interface&gt;</code> is your ethernet interface name, you can print list ethernet interface using <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>netstat -i</code>, something like <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>eth*</code> or <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>enp0s*</code> is your interface.</p>
+<section data-astro-cid-wcjwfpce><h3 id="ip-gateway" data-astro-cid-wcjwfpce class="heading">IP Gateway</h3><a href="#ip-gateway" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Using <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>route</code> command.</p>
+<div data-rehype-pretty-code-fragment=""><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">route</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">add</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">default</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">gw</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.1</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">interfac</span><span style="color:#E6EDF3">e</span><span style="color:#FF7B72">&gt;</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<section data-astro-cid-wcjwfpce><h3 id="check-ip" data-astro-cid-wcjwfpce class="heading">Check IP</h3><a href="#check-ip" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Using <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>route</code> command to check if we success to setup IP.</p>
+<div data-rehype-pretty-code-fragment=""><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">route</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">-n</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>It will print something like this.</p>
+<div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre class="astro-jims2num" data-astro-cid-jims2num><code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>Kernel IP routing table
 Destination     Gateway         Genmask          Flags  Metric  Ref  Use  Iface
 0.0.0.0         192.168.88.1    0.0.0.0          UG     0       0      0  enp0s25
 192.168.88.0    0.0.0.0         255.255.255.0    U      0       0      0  enp0s25
-</code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div>
-<section class="astro-WCJWFPCE">
-	<h3 id="netinstall" class="heading astro-WCJWFPCE">
-		
-	Netinstall
-
-	</h3>
-	<a href="#netinstall" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Run <code class="astro-ONSIZIAZ" data-is-shiki="false">netinstall</code> with <code class="astro-ONSIZIAZ" data-is-shiki="false">sudo</code>.</p>
-<div data-rehype-pretty-code-fragment="">
-
-<div class="astro-JIMS2NUM">
-	<div class="wrapper astro-JIMS2NUM"><pre data-language="bash" data-theme="default" class="astro-JIMS2NUM"><code data-language="bash" data-theme="default" class="astro-ONSIZIAZ" data-is-shiki="true"><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">./netinstall</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">-r</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">-a</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.1</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">routero</span><span style="color:#E6EDF3">s</span><span style="color:#FF7B72">&gt;</span></span></code></pre></div>
-	<button class="btn btn-square astro-JIMS2NUM astro-7AB5KPLB" title="Copy code" copy-code="true">
-			
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy astro-JIMS2NUM" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-JIMS2NUM"></path>
-			<rect x="8" y="8" width="12" height="12" rx="2" class="astro-JIMS2NUM"></rect>
-			<path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" class="astro-JIMS2NUM"></path>
-		</svg>
-	
-		</button>
-</div></div>
-<ul class="astro-SDK65A7J">
+</code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div>
+<section data-astro-cid-wcjwfpce><h3 id="netinstall" data-astro-cid-wcjwfpce class="heading">Netinstall</h3><a href="#netinstall" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Run <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>netinstall</code> with <code class="astro-onsiziaz" data-is-shiki="false" data-astro-cid-onsiziaz>sudo</code>.</p>
+<div data-rehype-pretty-code-fragment=""><div data-astro-cid-jims2num><div class="wrapper" data-astro-cid-jims2num><pre data-language="bash" data-theme="default" class="astro-jims2num" data-astro-cid-jims2num><code data-language="bash" data-theme="default" class="astro-onsiziaz" data-is-shiki="true" data-astro-cid-onsiziaz><span class="line"><span style="color:#FFA657">sudo</span><span style="color:#E6EDF3"> </span><span style="color:#A5D6FF">./netinstall</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">-r</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">-a</span><span style="color:#E6EDF3"> </span><span style="color:#79C0FF">192.168</span><span style="color:#A5D6FF">.88.1</span><span style="color:#E6EDF3"> </span><span style="color:#FF7B72">&lt;</span><span style="color:#A5D6FF">routero</span><span style="color:#E6EDF3">s</span><span style="color:#FF7B72">&gt;</span></span></code></pre></div><button class="btn btn-square" title="Copy code" copy-code="true" data-astro-cid-jims2num data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-jims2num><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-jims2num></path><rect x="8" y="8" width="12" height="12" rx="2" data-astro-cid-jims2num></rect><path d="M16 8v-2a2 2 0 0 0 -2 -2h-8a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h2" data-astro-cid-jims2num></path></svg></button></div></div>
+<ul class="astro-sdk65a7j" data-astro-cid-sdk65a7j>
 <li>Plug ethernet cable from PC to router.</li>
 <li>Press reset button on router.</li>
 <li>Plug router to powerline.</li>
 </ul>
-<section class="astro-WCJWFPCE">
-	<h2 id="result" class="heading astro-WCJWFPCE">
-		
-	Result
-
-	</h2>
-	<a href="#result" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">My netinstall result.</p>
-<p class="astro-6R4UOCDA"><div class="astro-LCSUXZ5U"><img src="/assets/blog/netinstall-mikrotik-on-linux/result.png" alt="Netinstall Mikrotik on Linux" class="astro-LCSUXZ5U"></div></p>
-<section class="astro-WCJWFPCE">
-	<h2 id="known-issues" class="heading astro-WCJWFPCE">
-		
-	Known Issues
-
-	</h2>
-	<a href="#known-issues" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<ul class="astro-SDK65A7J">
+<section data-astro-cid-wcjwfpce><h2 id="result" data-astro-cid-wcjwfpce class="heading">Result</h2><a href="#result" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>My netinstall result.</p>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda><div data-astro-cid-lcsuxz5u><img src="/assets/blog/netinstall-mikrotik-on-linux/result.png" alt="Netinstall Mikrotik on Linux" class="astro-lcsuxz5u" data-astro-cid-lcsuxz5u></div></p>
+<section data-astro-cid-wcjwfpce><h2 id="known-issues" data-astro-cid-wcjwfpce class="heading">Known Issues</h2><a href="#known-issues" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<ul class="astro-sdk65a7j" data-astro-cid-sdk65a7j>
 <li>
-<section class="astro-WCJWFPCE">
-	<h3 id="only-show-pxe-client" class="heading astro-WCJWFPCE">
-		
-	Only Show PXE client
-
-	</h3>
-	<a href="#only-show-pxe-client" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Disable all interface except ethernet.</p>
+<section data-astro-cid-wcjwfpce><h3 id="only-show-pxe-client" data-astro-cid-wcjwfpce class="heading">Only Show PXE client</h3><a href="#only-show-pxe-client" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Disable all interface except ethernet.</p>
 </li>
 <li>
-<section class="astro-WCJWFPCE">
-	<h3 id="failed-to-reply" class="heading astro-WCJWFPCE">
-		
-	FAILED TO REPLY
-
-	</h3>
-	<a href="#failed-to-reply" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Make sure you set IP gateway.</p>
+<section data-astro-cid-wcjwfpce><h3 id="failed-to-reply" data-astro-cid-wcjwfpce class="heading">FAILED TO REPLY</h3><a href="#failed-to-reply" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Make sure you set IP gateway.</p>
 </li>
 <li>
-<section class="astro-WCJWFPCE">
-	<h3 id="using-server-ip-0000" class="heading astro-WCJWFPCE">
-		
-	Using server IP: 0.0.0.0
-
-	</h3>
-	<a href="#using-server-ip-0000" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<p class="astro-6R4UOCDA">Make sure you plug out router from powerline before you run netinstall.</p>
+<section data-astro-cid-wcjwfpce><h3 id="using-server-ip-0000" data-astro-cid-wcjwfpce class="heading">Using server IP: 0.0.0.0</h3><a href="#using-server-ip-0000" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<p class="astro-6r4uocda" data-astro-cid-6r4uocda>Make sure you plug out router from powerline before you run netinstall.</p>
 </li>
 </ul>
-<section class="astro-WCJWFPCE">
-	<h2 id="references" class="heading astro-WCJWFPCE">
-		
-	References
-
-	</h2>
-	<a href="#references" title="Copy URL" copy-heading-url class="astro-WCJWFPCE">
-		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link astro-WCJWFPCE" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-WCJWFPCE"></path>
-			<path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" class="astro-WCJWFPCE"></path>
-			<path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" class="astro-WCJWFPCE"></path>
-		</svg>
-	</a>
-</section>
-<ul class="astro-SDK65A7J">
+<section data-astro-cid-wcjwfpce><h2 id="references" data-astro-cid-wcjwfpce class="heading">References</h2><a href="#references" title="Copy URL" copy-heading-url data-astro-cid-wcjwfpce><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-wcjwfpce><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-wcjwfpce></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" data-astro-cid-wcjwfpce></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" data-astro-cid-wcjwfpce></path></svg></a></section>
+<ul class="astro-sdk65a7j" data-astro-cid-sdk65a7j>
 <li><a href="https://blog.webiptek.com/2021/01/tutorial-netinstall-mikrotik-di-linux.html">https://blog.webiptek.com/2021/01/tutorial-netinstall-mikrotik-di-linux.html</a></li>
-</ul>
-		</main>
-		<hr class="astro-7JJQPTXK">
-		<section class="astro-V6WDQMFP">
-	<a class="btn open-discussion astro-V6WDQMFP astro-7AB5KPLB" href="//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q=&#34;/blog/netinstall-mikrotik-on-linux/&#34;">
-			Open GitHub Discussions<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
-					<path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" class="astro-V6WDQMFP"></path>
-					<line x1="10" y1="14" x2="20" y2="4" class="astro-V6WDQMFP"></line>
-					<polyline points="15 4 20 4 20 9" class="astro-V6WDQMFP"></polyline>
-				</svg>
-			
-		</a>
-	<div id="giscus" data-lang="en" class="astro-V6WDQMFP"></div>
-	<button class="btn write-giscus astro-V6WDQMFP astro-7AB5KPLB">
-			Write comment<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit astro-V6WDQMFP" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-V6WDQMFP"></path>
-					<path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" class="astro-V6WDQMFP"></path>
-					<path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" class="astro-V6WDQMFP"></path>
-					<path d="M16 5l3 3" class="astro-V6WDQMFP"></path>
-				</svg>
-			
-		</button>
-</section>
-	</article>
-
-		<footer class="astro-TGC5TWW7">
-	<div class="container astro-TGC5TWW7">
-		<nav class="group-btn astro-TGC5TWW7">
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="mailto:mynameanasrar@gmail.com" title="Send Email">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<circle cx="12" cy="12" r="4" class="astro-TGC5TWW7"></circle>
-					<path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//youtube.com/@anasrin" target="_blank" title="My YouTube Channel">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<rect x="3" y="5" width="18" height="14" rx="4" class="astro-TGC5TWW7"></rect>
-					<path d="M10 9l5 3l-5 3z" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="//github.com/anasrar" target="_blank" title="My GitHub Account">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-			<a class="btn btn-square astro-TGC5TWW7 astro-7AB5KPLB" href="https://anasrar.github.io/rss/blog.xml" title="RSS Blog">
-			
-				<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss astro-TGC5TWW7" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-					<path stroke="none" d="M0 0h24v24H0z" fill="none" class="astro-TGC5TWW7"></path>
-					<circle cx="5" cy="19" r="1" class="astro-TGC5TWW7"></circle>
-					<path d="M4 4a16 16 0 0 1 16 16" class="astro-TGC5TWW7"></path>
-					<path d="M4 11a9 9 0 0 1 9 9" class="astro-TGC5TWW7"></path>
-				</svg>
-			
-		</a>
-		</nav>
-		<div class="text astro-TGC5TWW7">
-			Made with <span class="heart astro-TGC5TWW7">❤</span> by Anas Rin — Powered by Astro
+</ul></main><hr data-astro-cid-7jjqptxk><section data-astro-cid-v6wdqmfp><a class="btn open-discussion" href="//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q=&#34;/blog/netinstall-mikrotik-on-linux/&#34;" data-astro-cid-v6wdqmfp data-astro-cid-7ab5kplb>Open GitHub Discussions<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-external-link" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-v6wdqmfp><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-v6wdqmfp></path><path d="M11 7h-5a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-5" data-astro-cid-v6wdqmfp></path><line x1="10" y1="14" x2="20" y2="4" data-astro-cid-v6wdqmfp></line><polyline points="15 4 20 4 20 9" data-astro-cid-v6wdqmfp></polyline></svg></a><div id="giscus" data-lang="en" data-astro-cid-v6wdqmfp></div><button class="btn write-giscus" data-astro-cid-v6wdqmfp data-astro-cid-7ab5kplb>Write comment<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-v6wdqmfp><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-v6wdqmfp></path><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" data-astro-cid-v6wdqmfp></path><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" data-astro-cid-v6wdqmfp></path><path d="M16 5l3 3" data-astro-cid-v6wdqmfp></path></svg></button></section></article><footer data-astro-cid-tgc5tww7><div class="container" data-astro-cid-tgc5tww7><nav class="group-btn" data-astro-cid-tgc5tww7><a class="btn btn-square" href="mailto:mynameanasrar@gmail.com" title="Send Email" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-at" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><circle cx="12" cy="12" r="4" data-astro-cid-tgc5tww7></circle><path d="M16 12v1.5a2.5 2.5 0 0 0 5 0v-1.5a9 9 0 1 0 -5.5 8.28" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="//twitter.com/rrrriiiiiinnnn" target="_blank" title="My Twitter Account" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="//youtube.com/@anasrin" target="_blank" title="My YouTube Channel" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><rect x="3" y="5" width="18" height="14" rx="4" data-astro-cid-tgc5tww7></rect><path d="M10 9l5 3l-5 3z" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="//github.com/anasrar" target="_blank" title="My GitHub Account" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" data-astro-cid-tgc5tww7></path></svg></a><a class="btn btn-square" href="https://anasrar.github.io/rss/blog.xml" title="RSS Blog" data-astro-cid-tgc5tww7 data-astro-cid-7ab5kplb><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" data-astro-cid-tgc5tww7><path stroke="none" d="M0 0h24v24H0z" fill="none" data-astro-cid-tgc5tww7></path><circle cx="5" cy="19" r="1" data-astro-cid-tgc5tww7></circle><path d="M4 4a16 16 0 0 1 16 16" data-astro-cid-tgc5tww7></path><path d="M4 11a9 9 0 0 1 9 9" data-astro-cid-tgc5tww7></path></svg></a></nav><div class="text" data-astro-cid-tgc5tww7>
+Made with <span class="heart" data-astro-cid-tgc5tww7>❤</span> by Anas Rin — Powered by Astro
 			& GitHub
-		</div>
-	</div>
-</footer>
-		
-		
-	</body></html>
+</div></div></footer></body></html>
