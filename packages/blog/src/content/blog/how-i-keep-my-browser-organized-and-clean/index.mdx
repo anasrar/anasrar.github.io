@@ -1,0 +1,97 @@
+---
+# vi:ft=markdown
+title: "How I Keep My Browser Organized and Clean"
+date: 2023-11-08
+---
+
+## TL;DR
+
+Use custom user data directory for `chromium` based browser or profile for `firefox`, simple script to launch it, and don't forget to close unused tab.
+
+<video
+	class="media-frame ratio"
+	style="--ratio: 1.75"
+	controls
+	mute
+	autoplay
+	loop
+>
+	<source
+		src="../../assets/blog/how-i-keep-my-browser-organized-and-clean/tldr.mp4"
+		type="video/mp4"
+	/>
+</video>
+
+## User Data Directory
+
+> **Chromium**
+>
+> The user data directory contains profile data such as history, bookmarks, and cookies, as well as other per-installation local state[^1].
+
+> **Firefox**
+>
+> What information is stored in my profile? Bookmarks, Downloads, Browsing History, Passwords, Cookies, Extensions, et cetera[^2].
+
+[^1]: https://chromium.googlesource.com/chromium/src/+/master/docs/user_data_dir.md#introduction
+[^2]: https://support.mozilla.org/id/kb/profiles-where-firefox-stores-user-data#w_what-information-is-stored-in-my-profile
+
+### Custom User Data Directory
+
+Using custom user data directory allow me to focus and separate my workflow like for personal where all email and social media related, work where I use for work related, and development where I do webdev stuff.
+
+To use custom user data directly, first you need to create new directory, and start browser with user data directory to new directory path.
+
+```bash
+chromium-browser --user-data-dir=./dir
+firefox --new-instance --profile ./dir
+```
+
+To differentiate each browser I use different themes or colors.
+
+![Chrome Color Scheme](/assets/blog/how-i-keep-my-browser-organized-and-clean/theme.png)
+
+#### Pros
+
+-   At least prevent cookie stealer[^3].
+-   Manage extension, **no extension** allowed for personal and work.
+
+#### Cons
+
+-   Can not copy user data directly to other machine, use sync, export, and import feature (so far I just tested with chrome, feel free to correct me).
+-   Each user data start around ~200MB and grow as cache being stored, but it was worth it.
+
+[^3]: https://github.com/topics/cookie-stealer
+
+## Shell Script
+
+You can create custom shortcut, but I use simple shell script with [fzf](//github.com/junegunn/fzf) to launch browser with custom argument.
+
+<video
+	class="media-frame ratio"
+	style="--ratio: 1.75"
+	controls
+	mute
+	autoplay
+	loop
+>
+	<source
+		src="../../assets/blog/how-i-keep-my-browser-organized-and-clean/demo.mp4"
+		type="video/mp4"
+	/>
+</video>
+
+```bash showLineNumbers
+#!/usr/bin/sh
+
+RESULT=$(fzf --delimiter " " --with-nth 1 -- "$@" < <(
+  echo "Firefox:Development firefox --new-instance --start-debugger-server 6222 --profile \"$HOME/secret/path/ff/development/\""
+  echo "Chrome:Development google-chrome-stable --remote-debugging-port=9222 --user-data-dir=\"$HOME/secret/path/c/development/\""
+  echo "Chrome:Personal google-chrome-stable --user-data-dir=\"$HOME/secret/path/c/personal/\""
+  echo "Chrome:Work google-chrome-stable --user-data-dir=\"$HOME/secret/path/c/work/\""
+))
+
+if [ "$RESULT" != "" ]; then
+  COMMAND=$(echo $RESULT | sed 's/[^ ]* //')
+  eval $COMMAND &>/dev/null &
+fi
+```
