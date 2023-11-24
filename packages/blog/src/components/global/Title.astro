@@ -1,5 +1,7 @@
 ---
-interface Props extends astroHTML.JSX.HTMLAttributes {
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"h1"> {
 	as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 	size?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }

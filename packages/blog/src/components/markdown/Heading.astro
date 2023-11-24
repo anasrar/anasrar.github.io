@@ -1,5 +1,7 @@
 ---
-interface Props extends astroHTML.JSX.HTMLAttributes {
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"h1"> {
 	as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 const { as: As = "h1", id, class: className, slot, ...props } = Astro.props;
@@ -39,10 +41,10 @@ const { as: As = "h1", id, class: className, slot, ...props } = Astro.props;
 			const { protocol, host, pathname } = window.location;
 			const slug =
 				(ev.currentTarget as Element).parentElement?.querySelector(
-					"[id]"
+					"[id]",
 				)?.id ?? ":(";
 			navigator.clipboard.writeText(
-				`${protocol}//${host}${pathname}#${slug}`
+				`${protocol}//${host}${pathname}#${slug}`,
 			);
 		});
 	}

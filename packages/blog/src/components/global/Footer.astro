@@ -6,7 +6,7 @@ import Button from "./Button.astro";
 	<div class="container">
 		<nav class="group-btn">
 			<Button
-				as="anchor"
+				as="a"
 				class="btn-square"
 				href="mailto:mynameanasrar@gmail.com"
 				title="Send Email"
@@ -31,7 +31,7 @@ import Button from "./Button.astro";
 				</svg>
 			</Button>
 			<Button
-				as="anchor"
+				as="a"
 				class="btn-square"
 				href="//twitter.com/rrrriiiiiinnnn"
 				target="_blank"
@@ -56,7 +56,7 @@ import Button from "./Button.astro";
 				</svg>
 			</Button>
 			<Button
-				as="anchor"
+				as="a"
 				class="btn-square"
 				href="//youtube.com/@anasrin"
 				target="_blank"
@@ -80,7 +80,7 @@ import Button from "./Button.astro";
 				</svg>
 			</Button>
 			<Button
-				as="anchor"
+				as="a"
 				class="btn-square"
 				href="//github.com/anasrar"
 				target="_blank"
@@ -105,7 +105,7 @@ import Button from "./Button.astro";
 				</svg>
 			</Button>
 			<Button
-				as="anchor"
+				as="a"
 				href={`${
 					import.meta.env.DEV
 						? "http://" + Astro.url.host + "/"
@@ -134,8 +134,8 @@ import Button from "./Button.astro";
 			</Button>
 		</nav>
 		<div class="text">
-			Made with <span class="heart">❤</span> by Anas Rin — Powered by Astro
-			& Vercel
+			Made with <span class="heart">❤</span> by Anas Rin — Powered by
+			Astro & Vercel
 		</div>
 	</div>
 </footer>

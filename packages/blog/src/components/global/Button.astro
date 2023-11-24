@@ -1,31 +1,12 @@
 ---
-type Anchor = {
-	as?: "anchor";
-} & astroHTML.JSX.AnchorHTMLAttributes;
-type Button = {
-	as?: "button";
-} & astroHTML.JSX.ButtonHTMLAttributes;
-type Props = Anchor | Button;
-const { as = "button", class: className, ...props } = Astro.props;
+import { type HTMLTag, type Polymorphic } from "astro/types";
+type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }>;
+const { as: As = "button", class: className, ...props } = Astro.props;
 ---
 
-{
-	as === "button" ? (
-		<button
-			class={`btn ${className}`}
-			{...(props as astroHTML.JSX.ButtonHTMLAttributes)}
-		>
-			<slot />
-		</button>
-	) : (
-		<a
-			class={`btn ${className}`}
-			{...(props as astroHTML.JSX.AnchorHTMLAttributes)}
-		>
-			<slot />
-		</a>
-	)
-}
+<As class={`btn ${className}`} {...props}>
+	<slot />
+</As>
 
 <style lang="scss">
 	.btn {
@@ -45,7 +26,9 @@ const { as = "button", class: className, ...props } = Astro.props;
 		font-size: 0.8rem;
 		text-decoration: none;
 		cursor: pointer;
-		transition: background 0.1s linear, color 0.1s linear;
+		transition:
+			background 0.1s linear,
+			color 0.1s linear;
 
 		html.light & {
 			border-color: #ced4da;

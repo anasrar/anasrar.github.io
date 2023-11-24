@@ -17,7 +17,11 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
 import OrderedList from "../../components/markdown/OrderedList.astro";
 import Blockquote from "../../components/markdown/Blockquote.astro";
 import Table from "../../components/markdown/Table.astro";
-import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
+import {
+	type CollectionEntry,
+	getCollection,
+	getEntryBySlug,
+} from "astro:content";
 import { format } from "date-fns";
 
 interface Props {
@@ -52,7 +56,7 @@ language.list.push(
 		})
 	).map((e) => {
 		return e.slug.split("/")[1] as string;
-	})
+	}),
 );
 
 const { Content, headings } = await post.render();
@@ -63,7 +67,7 @@ const { Content, headings } = await post.render();
 		<TableOfContents headings={headings} />
 		{language.list.length !== 1 ? <Languages language={language} /> : null}
 		<Button
-			as="anchor"
+			as="a"
 			href={language.current === "en" ? "../" : "../../"}
 			class="back"
 		>

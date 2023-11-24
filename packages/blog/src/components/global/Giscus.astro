@@ -21,7 +21,7 @@ const {
 	{
 		!hideDirectButton ? (
 			<Button
-				as="anchor"
+				as="a"
 				href={`//github.com/anasrar/anasrar.github.io/discussions/categories/giscus?discussions_q="${Astro.url.pathname}"`}
 				class="open-discussion"
 			>
@@ -93,7 +93,7 @@ const {
 	script.setAttribute("data-input-position", "top");
 	script.setAttribute(
 		"data-theme",
-		Cookies.get("colorscheme") === "light" ? "light" : "dark"
+		Cookies.get("colorscheme") === "light" ? "light" : "dark",
 	);
 	script.setAttribute("data-lang", giscus?.dataset?.lang ?? "en");
 	script.setAttribute("data-loading", "lazy");
@@ -104,7 +104,7 @@ const {
 	// Giscus switch dark/light
 	const mutation = new MutationObserver((mutations) => {
 		const iframe = document.querySelector<HTMLIFrameElement>(
-			"iframe.giscus-frame"
+			"iframe.giscus-frame",
 		);
 		if (!iframe) return;
 
@@ -114,7 +114,7 @@ const {
 				mutation.attributeName === "class"
 			) {
 				const light = (mutation.target as Element).classList.contains(
-					"light"
+					"light",
 				);
 				iframe.contentWindow?.postMessage(
 					{
@@ -124,7 +124,7 @@ const {
 							},
 						},
 					},
-					"https://giscus.app"
+					"https://giscus.app",
 				);
 			}
 		}
