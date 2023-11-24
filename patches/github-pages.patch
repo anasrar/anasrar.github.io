@@ -1,8 +1,8 @@
 diff --git a/packages/blog/astro.config.mjs b/packages/blog/astro.config.mjs
-index e7d5b97..f42b1b5 100644
+index b89da7c..506ad34 100644
 --- a/packages/blog/astro.config.mjs
 +++ b/packages/blog/astro.config.mjs
-@@ -5,7 +5,7 @@ import remarkMath from "remark-math";
+@@ -5,12 +5,12 @@ import remarkMath from "remark-math";
  import rehypeDiagrams from "diagrams";
  import rehypePrettyCode from "rehype-pretty-code";
  import rehypeKatex from "rehype-katex";
@@ -11,6 +11,12 @@ index e7d5b97..f42b1b5 100644
  
  /** @type {import("rehype-pretty-code").Options} */
  export const rehypePrettyCodeOptions = {
+ 	theme: JSON.parse(
+-		await readFile("./src/shiki/themes/github-dark-default.json", "utf8")
++		await readFile("./src/shiki/themes/github-dark-default.json", "utf8"),
+ 	),
+ 	keepBackground: false,
+ 	onVisitLine(node) {
 @@ -28,9 +28,9 @@ export const rehypePrettyCodeOptions = {
  
  /** @type {import("astro/config").AstroUserConfig} */
@@ -25,20 +31,20 @@ index e7d5b97..f42b1b5 100644
  	integrations: [
  		mdx({
 diff --git a/packages/blog/src/components/global/Footer.astro b/packages/blog/src/components/global/Footer.astro
-index bc5c5fc..f96933d 100644
+index fe0dddc..ab5435c 100644
 --- a/packages/blog/src/components/global/Footer.astro
 +++ b/packages/blog/src/components/global/Footer.astro
 @@ -135,7 +135,7 @@ import Button from "./Button.astro";
  		</nav>
  		<div class="text">
- 			Made with <span class="heart">❤</span> by Anas Rin — Powered by Astro
--			& Vercel
-+			& GitHub
+ 			Made with <span class="heart">❤</span> by Anas Rin — Powered by
+-			Astro & Vercel
++			Astro & GitHub
  		</div>
  	</div>
  </footer>
 diff --git a/packages/blog/src/layouts/Blog.astro b/packages/blog/src/layouts/Blog.astro
-index c48a69d..9765345 100644
+index e1d1be7..787e7cf 100644
 --- a/packages/blog/src/layouts/Blog.astro
 +++ b/packages/blog/src/layouts/Blog.astro
 @@ -11,7 +11,7 @@ import BalanceText from "../components/global/BalanceText.astro";
@@ -46,7 +52,7 @@ index c48a69d..9765345 100644
  import RemoveMarkdown from "remove-markdown";
  
 -const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
-+// const lightMode = Astro.cookies.get("colorscheme").value == "light";
++// const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
  
  interface Props {
  	post: CollectionEntry<"blog">;
@@ -60,7 +66,7 @@ index c48a69d..9765345 100644
  		<meta charset="utf-8" />
  		<meta name="viewport" content="width=device-width" />
 diff --git a/packages/blog/src/layouts/Default.astro b/packages/blog/src/layouts/Default.astro
-index decc397..c17d511 100644
+index 10d9dfd..8da1970 100644
 --- a/packages/blog/src/layouts/Default.astro
 +++ b/packages/blog/src/layouts/Default.astro
 @@ -4,7 +4,7 @@ import Footer from "../components/global/Footer.astro";
@@ -68,7 +74,7 @@ index decc397..c17d511 100644
  import PrefersColorScheme from "../components/global/PrefersColorScheme.astro";
  
 -const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
-+// const lightMode = Astro.cookies.get("colorscheme").value == "light";
++// const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
  
  interface Props {
  	title: string;
@@ -82,7 +88,7 @@ index decc397..c17d511 100644
  		<meta charset="utf-8" />
  		<meta name="viewport" content="width=device-width" />
 diff --git a/packages/blog/src/layouts/Project.astro b/packages/blog/src/layouts/Project.astro
-index b994667..add0a73 100644
+index 1b6fa8d..46e2e6a 100644
 --- a/packages/blog/src/layouts/Project.astro
 +++ b/packages/blog/src/layouts/Project.astro
 @@ -11,7 +11,7 @@ import BalanceText from "../components/global/BalanceText.astro";
@@ -90,7 +96,7 @@ index b994667..add0a73 100644
  import RemoveMarkdown from "remove-markdown";
  
 -const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
-+// const lightMode = Astro.cookies.get("colorscheme").value == "light";
++// const lightMode = Astro.cookies.get("colorscheme")?.value == "light";
  
  interface Props {
  	project: CollectionEntry<"projects">;
@@ -104,7 +110,7 @@ index b994667..add0a73 100644
  		<meta charset="utf-8" />
  		<meta name="viewport" content="width=device-width" />
 diff --git a/packages/blog/src/pages/blog/[...slug].astro b/packages/blog/src/pages/blog/[...slug].astro
-index 72411eb..363727c 100644
+index a2efb46..384357d 100644
 --- a/packages/blog/src/pages/blog/[...slug].astro
 +++ b/packages/blog/src/pages/blog/[...slug].astro
 @@ -1,4 +1,5 @@
@@ -113,16 +119,20 @@ index 72411eb..363727c 100644
  import LayoutBlog from "../../layouts/Blog.astro";
  import Button from "../../components/global/Button.astro";
  import TableOfContents from "../../components/global/TableOfContents.astro";
-@@ -17,7 +18,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
+@@ -17,11 +18,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
  import OrderedList from "../../components/markdown/OrderedList.astro";
  import Blockquote from "../../components/markdown/Blockquote.astro";
  import Table from "../../components/markdown/Table.astro";
--import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
-+import { CollectionEntry, getCollection } from "astro:content";
+-import {
+-	type CollectionEntry,
+-	getCollection,
+-	getEntryBySlug,
+-} from "astro:content";
++import { type CollectionEntry, getCollection } from "astro:content";
  import { format } from "date-fns";
  
  interface Props {
-@@ -28,33 +29,47 @@ interface Props {
+@@ -32,33 +29,42 @@ interface Props {
  	};
  }
  
@@ -131,17 +141,20 @@ index 72411eb..363727c 100644
 -if (post === undefined) {
 -	return Astro.redirect("/blog/");
 -}
+-
+-const slugSegments = post.slug.split("/");
+-const language: Props["language"] = {
+-	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
+-	list: ["en"],
 +export const getStaticPaths = async () => {
 +	const posts = await getCollection("blog");
 +	const paths: { params: { slug: string }; props: Props }[] = [];
 +	const langSlugs: Map<string, string[]> = new Map();
-+
 +	for (const post of posts) {
 +		const slugSegments = post.slug.split("/");
 +		const language = slugSegments.length === 1 ? "en" : slugSegments[1]!;
 +		const languages: string[] = [];
 +		const l = langSlugs.get(slugSegments[0] ?? "");
-+
 +		if (l) {
 +			languages.push("en", ...l);
 +		} else {
@@ -155,12 +168,6 @@ index 72411eb..363727c 100644
 +			langSlugs.set(slugSegments[0] ?? "", r);
 +			languages.push("en", ...r);
 +		}
- 
--const slugSegments = post.slug.split("/");
--const language: Props["language"] = {
--	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
--	list: ["en"],
--};
 +		paths.push({
 +			params: { slug: post.slug },
 +			props: {
@@ -172,7 +179,9 @@ index 72411eb..363727c 100644
 +			},
 +		});
 +	}
- 
++	return paths;
+ };
+-
 -language.list.push(
 -	...(
 -		await getCollection("blog", (e) => {
@@ -185,17 +194,15 @@ index 72411eb..363727c 100644
 -		})
 -	).map((e) => {
 -		return e.slug.split("/")[1] as string;
--	})
+-	}),
 -);
-+	return paths;
-+};
- 
+-
 +const { post, language } = Astro.props;
  const { Content, headings } = await post.render();
  ---
  
 diff --git a/packages/blog/src/pages/projects/[...slug].astro b/packages/blog/src/pages/projects/[...slug].astro
-index f840893..beac820 100644
+index b91406b..c60d159 100644
 --- a/packages/blog/src/pages/projects/[...slug].astro
 +++ b/packages/blog/src/pages/projects/[...slug].astro
 @@ -1,4 +1,5 @@
@@ -204,16 +211,20 @@ index f840893..beac820 100644
  import LayoutProject from "../../layouts/Project.astro";
  import Button from "../../components/global/Button.astro";
  import TableOfContents from "../../components/global/TableOfContents.astro";
-@@ -16,7 +17,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
+@@ -16,11 +17,7 @@ import UnorderedList from "../../components/markdown/UnorderedList.astro";
  import OrderedList from "../../components/markdown/OrderedList.astro";
  import Blockquote from "../../components/markdown/Blockquote.astro";
  import Table from "../../components/markdown/Table.astro";
--import { CollectionEntry, getCollection, getEntryBySlug } from "astro:content";
-+import { CollectionEntry, getCollection } from "astro:content";
+-import {
+-	type CollectionEntry,
+-	getCollection,
+-	getEntryBySlug,
+-} from "astro:content";
++import { type CollectionEntry, getCollection } from "astro:content";
  import { format } from "date-fns";
  
  interface Props {
-@@ -27,32 +28,47 @@ interface Props {
+@@ -31,32 +28,42 @@ interface Props {
  	};
  }
  
@@ -222,17 +233,20 @@ index f840893..beac820 100644
 -if (project === undefined) {
 -	return Astro.redirect("/projects/");
 -}
+-
+-const slugSegments = project.slug.split("/");
+-const language: Props["language"] = {
+-	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
+-	list: ["en"],
 +export const getStaticPaths = async () => {
 +	const projects = await getCollection("projects");
 +	const paths: { params: { slug: string }; props: Props }[] = [];
 +	const langSlugs: Map<string, string[]> = new Map();
-+
 +	for (const project of projects) {
 +		const slugSegments = project.slug.split("/");
 +		const language = slugSegments.length === 1 ? "en" : slugSegments[1]!;
 +		const languages: string[] = [];
 +		const l = langSlugs.get(slugSegments[0] ?? "");
-+
 +		if (l) {
 +			languages.push("en", ...l);
 +		} else {
@@ -246,7 +260,6 @@ index f840893..beac820 100644
 +			langSlugs.set(slugSegments[0] ?? "", r);
 +			languages.push("en", ...r);
 +		}
-+
 +		paths.push({
 +			params: { slug: project.slug },
 +			props: {
@@ -258,11 +271,6 @@ index f840893..beac820 100644
 +			},
 +		});
 +	}
- 
--const slugSegments = project.slug.split("/");
--const language: Props["language"] = {
--	current: slugSegments.length === 1 ? "en" : slugSegments[1]!,
--	list: ["en"],
 +	return paths;
  };
 -language.list.push(
@@ -277,9 +285,9 @@ index f840893..beac820 100644
 -		})
 -	).map((e) => {
 -		return e.slug.split("/")[1] as string;
--	})
+-	}),
 -);
- 
+-
 +const { project, language } = Astro.props;
  const { Content, headings } = await project.render();
  ---
