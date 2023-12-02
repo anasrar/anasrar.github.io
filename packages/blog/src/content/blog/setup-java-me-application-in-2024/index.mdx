@@ -1,0 +1,97 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Setup Java ME Application in 2024"
+date: 2023-12-02
+---
+
+Before iPhone and Android, Java ME[^jme] is the de facto to write mobile application on phone, such as Nokia and Ericsson. Most phone on that era was built-in with Java ME CLDC MIDP, allow us to run Java application and most of them is game.
+
+[^jme]: https://en.wikipedia.org/wiki/Java_Platform,_Micro_Edition
+
+```diagram-graphviz layout="dot"
+graph G {
+  bgcolor="transparent"
+  rankdir=TB
+  fontname="Sans-Serif"
+  fontsize="12px"
+  node [shape=rect, fontname="sans-serif", fontsize="10px"]
+  edge [fontname="Sans-Serif", fontsize="8px", labeldistance=4.5 ]
+
+  subgraph cluster_j2me {
+    label=<<B>Java ME</B>>
+
+    subgraph cluster_jvm {
+      label="  Java Virtual Machine  "
+      "CDC" -- "  Foundation Profile  "
+    }
+
+    subgraph cluster_kvm {
+      label="  K Virtual Machine  "
+      "CLDC" -- "MIDP"
+    }
+  }
+}
+```
+
+This post is about to setup Java ME CLDC MIDP on Linux and Windows.
+
+## Requirements
+
+Some requirements that need to run this old technology on current year.
+
+### Linux
+
+Install 32-bit library, here packages name on Arch Linux, so try to search equivalent on specific distro:
+
+```bash
+sudo pacman -S lib32-gcc-libs lib32-libxtst lib32-libxext lib32-libxt lib32-libxrender
+```
+
+### Windows
+
+Nothing, You good to go.
+
+## Java SDK 1.8
+
+Download and install **Java SE Development Kit 8u202** x86: https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html.
+
+## Sun Java Wireless Toolkit 2.5.2
+
+**WTK2.5.2** is build tools, utilities, and a device emulator that only support Linux but you can also run it on Windows. Since Java ME 3 has no support for Linux and Java ME 8 has no CLDC and MIDP.
+
+Download and install: https://www.oracle.com/java/technologies/java-archive-downloads-javame-downloads.html.
+
+## NetBeans 8.2
+
+**NetBeans 8.2** IDE is the last version ship with **Mobility** plugin.
+
+Download and install: https://web.archive.org/web/20170428223910/https://netbeans.org/downloads/.
+
+### Mobility Plugin
+
+Install mobility plugin: `Tools > Plugins > Available Plugins`. Check all plugins within Java ME category and install.
+
+### Java Platforms
+
+Integrate WTK2.5.2 to NetBeans: `Tools > Java Platforms`, select Java ME CLDC Platform Emulator, choose WTK2.5.2 directory, next and finish.
+
+Now you can create new project `Java Me > Mobile Application` and select CLDC and MIDP.
+
+## Demo
+
+Some snake game I write[^snake].
+
+[^snake]: https://github.com/anasrar/java-me-snake
+
+<video class="media-frame ratio" style="--ratio: 1" controls>
+	<source
+		src="https://github.com/anasrar/anasrar.github.io/assets/38805204/5a525e17-44ce-4476-ab05-b5763e6981f1"
+		type="video/mp4"
+	/>
+</video>
+
+## Notes
+
+-   **WTK2.5.2** emulator has bug loading localization and time zone causing emulator got stuck.
+-   The best way is to use VM Windows or Wine and install **JDK 1.6** x86 and **NetBeans 7.1.1** (Java ME already included).
