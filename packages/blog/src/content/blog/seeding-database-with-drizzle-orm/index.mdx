@@ -18,6 +18,8 @@ npm i drizzle-orm pg dotenv
 npm i -D drizzle-kit @types/pg esbuild-register @faker-js/faker
 ```
 
+You can replace `esbuild-register` to `tsx` for running TypeScript without compile to JavaScript, more information in [Scripts](./#scripts) section.
+
 ### Environment Variables
 
 ```sh title=".env.development"
@@ -68,6 +70,18 @@ export const users = pgTable("users", {
 	}
 }
 ```
+
+For some reason if your use `esbuild-register` and had an error, you can try use `tsx` instead:
+
+```json
+{
+	"scripts": {
+		"drizzle:seed": "tsx ./src/db/seed.ts"
+	}
+}
+```
+
+Credit to [deadcoder0904](//github.com/deadcoder0904) [[Comment](//github.com/anasrar/anasrar.github.io/discussions/47#discussioncomment-7937430)].
 
 ### Migrations & Push
 
