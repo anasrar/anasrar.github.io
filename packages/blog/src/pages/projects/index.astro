@@ -93,12 +93,7 @@ const posts = (await getCollection("projects"))
 		margin: 0;
 		padding: 0;
 
-		&:hover > a {
-			opacity: 0.75;
-		}
-
 		& > a {
-			flex: 1 0;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			color: inherit !important;
@@ -106,6 +101,9 @@ const posts = (await getCollection("projects"))
 			font-size: 1rem;
 			text-decoration: none !important;
 			white-space: nowrap;
+			&:hover {
+				opacity: 0.75;
+			}
 		}
 	}
 
@@ -114,6 +112,7 @@ const posts = (await getCollection("projects"))
 		font-size: 0.875rem;
 		font-variant-numeric: tabular-nums;
 		cursor: help;
+		white-space: nowrap;
 
 		html.light & {
 			color: #5c5f66;

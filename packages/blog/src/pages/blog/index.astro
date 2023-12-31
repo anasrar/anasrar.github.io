@@ -19,8 +19,7 @@ const posts = (await getCollection("blog"))
 		<div class="page-info">
 			<Title as="h1" size="h3">Blog</Title>
 			<p class="description">
-				Mostly write all about programming, projects, and technology. I
-				also post on <a href="//dev.to/anasrin">DEV Community 👩‍💻👨‍💻</a>.
+				Mostly write all about programming, projects, and technology.
 			</p>
 		</div>
 		<div>
@@ -91,12 +90,7 @@ const posts = (await getCollection("blog"))
 		margin: 0;
 		padding: 0;
 
-		&:hover > a {
-			opacity: 0.75;
-		}
-
 		& > a {
-			flex: 1 0;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			color: inherit !important;
@@ -104,6 +98,9 @@ const posts = (await getCollection("blog"))
 			font-size: 1rem;
 			text-decoration: none !important;
 			white-space: nowrap;
+			&:hover {
+				opacity: 0.75;
+			}
 		}
 	}
 
@@ -112,6 +109,7 @@ const posts = (await getCollection("blog"))
 		font-size: 0.875rem;
 		font-variant-numeric: tabular-nums;
 		cursor: help;
+		white-space: nowrap;
 
 		html.light & {
 			color: #5c5f66;

@@ -2,6 +2,8 @@
 import LayoutDefault from "../layouts/Default.astro";
 import Title from "../components/global/Title.astro";
 import Button from "../components/global/Button.astro";
+import { getCollection } from "astro:content";
+import { compareDesc, format } from "date-fns";
 
 const description =
 	"Create and develop web app using TypeScript, Next.js, Go, SQL database, React, Vue, and Svelte. Contribute to open-source community. Interested in web technology, 3D in technical side, game development, and technology in general.";
@@ -21,6 +23,20 @@ const jsonld = JSON.stringify({
 		"http://github.com/anasrar/",
 	],
 });
+
+const projects = (await getCollection("projects"))
+	.filter(({ slug }) => {
+		return !slug.includes("/"); // exclude i18n
+	})
+	.sort((a, b) => compareDesc(a.data.date, b.data.date))
+	.slice(0, 3);
+
+const posts = (await getCollection("blog"))
+	.filter(({ slug }) => {
+		return !slug.includes("/"); // exclude i18n
+	})
+	.sort((a, b) => compareDesc(a.data.date, b.data.date))
+	.slice(0, 3);
 ---
 
 <LayoutDefault
@@ -102,6 +118,62 @@ const jsonld = JSON.stringify({
 				</Button>
 			</div>
 		</div>
+		<div class="projects">
+			<div class="heading">
+				<Title as="h3" size="h6">Recent Personal Projects</Title>
+				<a href="./projects/">View all</a>
+			</div>
+			<ul>
+				{
+					projects.map((post) => (
+						<li>
+							<a
+								href={`./projects/${post.slug}/`}
+								title={post.data.title}
+							>
+								{post.data.title}
+							</a>
+							<div class="information">
+								<time
+									title={post.data.date.toISOString()}
+									datetime={post.data.date.toISOString()}
+								>
+									{format(post.data.date, "LLLL dd, yyyy")}
+								</time>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+		<div class="blog">
+			<div class="heading">
+				<Title as="h3" size="h6">Recent Blog</Title>
+				<a href="./blog/">View all</a>
+			</div>
+			<ul>
+				{
+					posts.map((post) => (
+						<li>
+							<a
+								href={`./blog/${post.slug}/`}
+								title={post.data.title}
+							>
+								{post.data.title}
+							</a>
+							<div class="information">
+								<time
+									title={post.data.date.toISOString()}
+									datetime={post.data.date.toISOString()}
+								>
+									{format(post.data.date, "LLLL dd, yyyy")}
+								</time>
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
 	</main>
 </LayoutDefault>
 <style lang="scss">
@@ -163,5 +235,61 @@ const jsonld = JSON.stringify({
 		display: flex;
 		flex-flow: row nowrap;
 		gap: 0.5rem;
+	}
+
+	.heading {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 0.4rem;
+
+		a {
+			font-size: 0.875rem;
+		}
+	}
+
+	ul {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: 0.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	li {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1rem;
+		margin: 0;
+		padding: 0;
+
+		& > a {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: inherit !important;
+			font-weight: 600;
+			font-size: 1rem;
+			text-decoration: none !important;
+			white-space: nowrap;
+			&:hover {
+				opacity: 0.75;
+			}
+		}
+	}
+
+	.information {
+		color: #a6a7ab;
+		font-size: 0.875rem;
+		font-variant-numeric: tabular-nums;
+		cursor: help;
+		white-space: nowrap;
+
+		html.light & {
+			color: #5c5f66;
+		}
 	}
 </style>
