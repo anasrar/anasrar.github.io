@@ -27,7 +27,9 @@ html {
 	font-size: 100%;
 	font-variation-settings: "opsz" 22; // 14 - 32
 	line-height: 1.75rem;
-	transition: background 0.1s linear, color 0.1s linear;
+	transition:
+		background 0.1s linear,
+		color 0.1s linear;
 
 	&:not(.light) .only-light {
 		display: none;
@@ -54,12 +56,8 @@ body {
 
 a:not(.btn) {
 	color: #339af0;
-	text-decoration: none;
+	text-decoration: underline;
 	word-break: break-word;
-
-	&:hover {
-		text-decoration: wavy underline;
-	}
 
 	html.light & {
 		color: #364fc7;
