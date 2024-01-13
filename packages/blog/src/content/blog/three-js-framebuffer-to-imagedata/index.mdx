@@ -1,0 +1,66 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Three.js: FrameBuffer to ImageData"
+date: 2024-01-13
+---
+
+Snippet code for transforming Three.js FrameBuffer to [ImageData](//developer.mozilla.org/en-US/docs/Web/API/ImageData), use case: take screenshot from render and use it as texture.
+
+## Code
+
+```typescript
+import * as THREE from "three";
+
+// Generic Three.js scene
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(
+	75,
+	window.innerWidth / window.innerHeight,
+	0.1,
+	1000,
+);
+
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+camera.position.z = 5;
+
+renderer.render(scene, camera);
+
+// Here we go
+// Copy from https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/readPixels#examples
+
+const context = renderer.getContext();
+
+const pixels = new Uint8ClampedArray(
+	context.drawingBufferWidth * context.drawingBufferHeight * 4,
+);
+context.readPixels(
+	0,
+	0,
+	context.drawingBufferWidth,
+	context.drawingBufferHeight,
+	context.RGBA,
+	context.UNSIGNED_BYTE,
+	pixels,
+);
+
+const result = new ImageData(
+	pixels,
+	context.drawingBufferWidth,
+	context.drawingBufferHeight,
+);
+```
+
+## References
+
+-   https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene
+-   https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext/readPixels#examples
+-   https://developer.mozilla.org/en-US/docs/Web/API/ImageData
