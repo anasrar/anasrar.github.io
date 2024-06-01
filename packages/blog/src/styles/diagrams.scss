@@ -1,6 +1,6 @@
 [class^="language-diagram-"] {
 	display: flex;
-	direction: row nowrap;
+	flex-flow: row nowrap;
 	justify-content: center;
 	align-items: center;
 }
@@ -37,6 +37,22 @@
 		color: #868e96;
 		html.light & {
 			color: currentColor;
+		}
+	}
+}
+
+.language-diagram-pintora {
+	--diagram-pintora-font-family: var(--font-family-mono);
+
+	svg {
+		max-width: 100%;
+	}
+
+	:is(.activation, .note__bg) {
+		fill: #141517;
+		stroke: currentColor;
+		html.light & {
+			fill: #f8f9fa;
 		}
 	}
 }
