@@ -56,11 +56,13 @@
 		}
 	}
 
-	text {
-		transform: translateY(0.25rem);
+	@-moz-document url-prefix() {
+		text {
+			transform: translateY(1%);
 
-		&:is(.label-text, .loop__title, .message__text) {
-			transform: translateY(0.9rem);
+			&:is(.label-text, .loop__title, .message__text) {
+				transform: translateY(3%);
+			}
 		}
 	}
 }
