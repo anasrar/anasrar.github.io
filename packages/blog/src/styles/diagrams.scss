@@ -55,4 +55,12 @@
 			fill: #f8f9fa;
 		}
 	}
+
+	text {
+		transform: translateY(0.25rem);
+
+		&:is(.label-text, .loop__title, .message__text) {
+			transform: translateY(0.9rem);
+		}
+	}
 }
