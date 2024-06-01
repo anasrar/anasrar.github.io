@@ -1,0 +1,172 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Go: Server-Sent Events"
+date: 2024-06-01
+---
+
+## Background
+
+I work on project that use Go as HTTP server, and need to constantly send information to the client in real time. At first I think about websocket using [HTTP Upgrade](//developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Upgrade) like this [Deno example](//docs.deno.com/examples/http-server-websocket) or just set interval on client to fetch like the good old days (but I'm not prefer for client to send bunch of request).
+
+```diagram-pintora
+sequenceDiagram
+  @param {
+    actorBackground transparent
+    actorTextColor currentColor
+    actorBorderColor currentColor
+    actorLineColor currentColor
+
+    messageTextColor currentColor
+    loopLineColor #5c7cfa
+    noteTextColor currentColor
+  }
+
+  title: SOCKET
+  CLIENT-->SERVER: CONNECTED
+  activate SERVER
+    loop BIDIRECTIONAL
+      SERVER->>CLIENT: SERVER SEND SOME DATA
+      CLIENT->>SERVER: CLIENT SEND SOME DATA
+      @start_note left of SERVER
+        SERVER CAN SEND DATA WITHOUT CLIENT REQUEST
+      @end_note
+      SERVER->>CLIENT: SERVER SEND SOME DATA
+    end
+  deactivate SERVER
+  @note over CLIENT,SERVER: UNTIL DISCONNECTED
+```
+
+```diagram-pintora
+sequenceDiagram
+  @param {
+    actorBackground transparent
+    actorTextColor currentColor
+    actorBorderColor currentColor
+    actorLineColor currentColor
+
+    messageTextColor currentColor
+    loopLineColor #5c7cfa
+    noteTextColor currentColor
+  }
+
+  title: HTTP POOLING
+  loop EACH
+    @start_note right of CLIENT
+      INTERVAL EACH REQUEST
+    @end_note
+    @start_note left of SERVER
+      CLIENT NEED REQUEST TO SERVER TO GET DATA
+    @end_note
+    CLIENT->>SERVER: CLIENT REQUEST SOME DATA
+    SERVER->>CLIENT: SERVER RESPONSE SOME DATA
+  end
+```
+
+But I too lazy to setup websocket and let alone the requirement to have bidirectional communication between server and client, so **Server-Sent Events** (SSE) is perfect for this.
+
+```diagram-pintora
+sequenceDiagram
+  @param {
+    actorBackground transparent
+    actorTextColor currentColor
+    actorBorderColor currentColor
+    actorLineColor currentColor
+
+    messageTextColor currentColor
+    loopLineColor #5c7cfa
+    noteTextColor currentColor
+  }
+
+  title: SERVER-SENT EVENTS
+  CLIENT->>SERVER: HTTP REQUEST
+  activate SERVER
+    loop ONE WAY COMMUNICATION
+      SERVER->>CLIENT: SERVER RESPONSED WITH HEADER event-stream AND keep-alive
+      @start_note left of SERVER
+        SERVER CAN SEND DATA WHEN EVER THEY WANT
+      @end_note
+      SERVER->>CLIENT: SERVER SEND SOME DATA
+      SERVER->>CLIENT: SERVER SEND SOME DATA
+      SERVER->>CLIENT: SERVER SEND SOME DATA
+    end
+  deactivate SERVER
+  @note over CLIENT,SERVER: UNTIL DISCONNECTED
+```
+
+## Result
+
+![Terminal SSE](/assets/blog/go-server-sent-events/terminal-sse.png)
+
+Implementing server-sent events in Go is relatively easy, you can detect server and client is disconnect. The downside of server-sent events is only support string UTF-8, you can convert any binary to base64 but for small amount. If you need to send large binary data, I will suggest to use websocket.
+
+## The Code
+
+```go
+package main
+
+import (
+	"context"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+)
+
+func main() {
+	ctxShutdown, cancelShutdown := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer cancelShutdown()
+
+	http.HandleFunc("/sse", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/event-stream")
+		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Connection", "keep-alive")
+		log.Println("INFO(SSE): CLIENT CONNECTED")
+
+		ticker := time.NewTicker(time.Second * 2)
+		defer ticker.Stop()
+
+		for {
+			select {
+			case <-ticker.C:
+				log.Println("INFO(SSE): SEND MESSAGE")
+				if f, ok := w.(http.Flusher); !ok {
+					log.Println("ERROR(SSE): UNABLE TO FLUSH MESSAGE")
+				} else {
+					w.Write([]byte("data: Hello World\n\n"))
+					f.Flush()
+				}
+			case <-r.Context().Done():
+				log.Println("INFO(SSE): CLIENT CLOSE CONNECTION")
+				return
+			case <-ctxShutdown.Done():
+				log.Println("INFO(SSE): DISCONNECT TO THE CLIENT")
+				return
+			}
+		}
+	})
+
+	server := &http.Server{
+		Addr: "0.0.0.0:4321",
+	}
+
+	go func() {
+		log.Printf("INFO(SERVER START): %v\n", server.Addr)
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Panicf("ERROR(SERVER START): %v\n", err)
+		}
+	}()
+
+	<-ctxShutdown.Done()
+	log.Println("INFO: SHUTDOWN")
+
+	ctxServerShutdown, cancelServerShutdown := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelServerShutdown()
+
+	if err := server.Shutdown(ctxServerShutdown); err != nil {
+		log.Panicf("ERROR(SERVER SHUTDOWN): %v\n", err)
+	}
+}
+```
