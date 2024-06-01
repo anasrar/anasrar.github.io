@@ -44,6 +44,7 @@
 		"node-graphviz": "^0.1.1"
 	},
 	"dependencies": {
+		"@pintora/cli": "^0.7.4",
 		"d3": "^7.8.5",
 		"expr-eval": "^2.0.2",
 		"jsdom": "^22.1.0",
