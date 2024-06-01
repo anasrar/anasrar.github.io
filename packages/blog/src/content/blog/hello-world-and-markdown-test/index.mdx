@@ -22,9 +22,9 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at ne
 ullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
 
 Aenean ornare neque sed facilisis lobortis. Sed posuere mattis condimentum. Vestibulum condimentum velit metus, sed pulvinar neque dictum quis. Class aptent taciti
- sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Donec convallis volutpat ipsum, eu placerat magna vestibulum sed. M
+sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam erat volutpat. Donec convallis volutpat ipsum, eu placerat magna vestibulum sed. M
 aecenas gravida nibh quam, id ornare orci auctor eget. Etiam posuere ante ac nisl porta convallis. Proin viverra, metus sed auctor vestibulum, tellus ipsum gravida
- velit, vel consectetur augue ligula nec sapien. Morbi tristique dignissim tempus.
+velit, vel consectetur augue ligula nec sapien. Morbi tristique dignissim tempus.
 
 ### Emphasis
 
@@ -34,7 +34,7 @@ aecenas gravida nibh quam, id ornare orci auctor eget. Etiam posuere ante ac nis
 
 #### Italic
 
-*Lorem ipsum dolor sit amet, consectetur adipiscing elit.* Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+_Lorem ipsum dolor sit amet, consectetur adipiscing elit._ Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
 
 ### List
 
@@ -48,19 +48,19 @@ aecenas gravida nibh quam, id ornare orci auctor eget. Etiam posuere ante ac nis
 
 #### Unordered
 
-- Lorem ipsum dolor sit amet.
-- Lorem ipsum dolor sit amet.
-- Lorem ipsum dolor sit amet.
-- Lorem ipsum dolor sit amet.
-- Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
 
 #### Nested
 
-- Lorem ipsum dolor sit amet.
-  1. Lorem ipsum dolor sit amet.
-  1. Lorem ipsum dolor sit amet.
-- Lorem ipsum dolor sit amet.
-- Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
+    1. Lorem ipsum dolor sit amet.
+    1. Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
+-   Lorem ipsum dolor sit amet.
 
 ### Links
 
@@ -75,15 +75,16 @@ aecenas gravida nibh quam, id ornare orci auctor eget. Etiam posuere ante ac nis
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
 >
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
->> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
+>
+> > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
 >
 > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nec dolor at neque tincidunt mattis. Mauris ex libero, elementum a tempor vitae, ornare ac elit. Nullam nulla tortor, iaculis sit amet sagittis in, cursus sit amet nunc.
 >
-> - Lorem ipsum dolor sit amet.
->   1. Lorem ipsum dolor sit amet.
->   1. Lorem ipsum dolor sit amet.
-> - Lorem ipsum dolor sit amet.
-> - Lorem ipsum dolor sit amet.
+> -   Lorem ipsum dolor sit amet.
+>     1. Lorem ipsum dolor sit amet.
+>     1. Lorem ipsum dolor sit amet.
+> -   Lorem ipsum dolor sit amet.
+> -   Lorem ipsum dolor sit amet.
 
 ## Code
 
@@ -103,16 +104,15 @@ Set language using `` `...{:lang}` `` at the end will highlight the output, some
 
 #### Default
 
-No language after `` ``` ``.
+No language after ` ``` `.
 
 ```
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris elementum ipsum nibh, ac bibendum turpis consectetur eu. Ut cursus dapibus ante, eget dignissim libero tristique vel. Suspendisse potenti. Phasellus a dui eget nulla varius dapibus. Mauris et convallis quam. Sed convallis sodales est. Cras et accumsan justo. Morbi venenatis accumsan sem, ac imperdiet felis vestibulum non. Maecenas volutpat sapien metus.
- ```
+```
 
 #### Highlighting
 
-
-Set language after `` ``` ``, like `` ```python ``.
+Set language after ` ``` `, like ` ```python `.
 
 ```python
 def magnitude(a: Vec2D) -> float:
@@ -170,24 +170,25 @@ https://wikipedia.org, Wikipedia is a free online encyclopedia, created and edit
 
 ### Tasks
 
-- [x] foo
-- [x] bar
-  - [x] nested 0
-  - [x] nested 1
-  - [x] nested 2
-  - [x] nested 3
-- [ ] fizz
-  - [x] nested 0
-  - [ ] nested 1
-  - [x] nested 2
-- [ ] buzz
+-   [x] foo
+-   [x] bar
+    -   [x] nested 0
+    -   [x] nested 1
+    -   [x] nested 2
+    -   [x] nested 3
+-   [ ] fizz
+    -   [x] nested 0
+    -   [ ] nested 1
+    -   [x] nested 2
+-   [ ] buzz
 
 ### Footnotes
 
 Here is a simple footnote[^1]. With some additional text after it.
 
-[^1]: My reference.\
-breakline and other `content`.
+[^1]:
+    My reference.\
+    breakline and other `content`.
 
 Here is a simple footnote[^2]. With some additional text after it.
 
@@ -199,12 +200,12 @@ Here is a simple footnote[^key]. With some additional text after it.
 
 ### Table
 
-| Header 1  | Header 2  | Header 3  |
-| --------- | --------- | --------- |
-| Text      | Text      | Text      |
-| Text      | Text      | Text      |
-| Text      | Text      | Text      |
-| Text      | Text      | Text      |
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+| Text     | Text     | Text     |
+| Text     | Text     | Text     |
+| Text     | Text     | Text     |
+| Text     | Text     | Text     |
 
 ### KaTeX Math
 
@@ -213,7 +214,6 @@ Dot product $\bold{a}$ and $\bold{b}$.
 $$
 \bold{a}\cdot\bold{b} = \displaystyle\sum_{i=1}^n a_i b_i = a_1 b_1 + a_2 b_2 + \cdot\cdot\cdot + a_n b_n
 $$
-
 
 Rotate 2D vector.
 
@@ -330,4 +330,67 @@ graph Linear {
     color="#be4bdb"
   ]
 }
+```
+
+### Pintora
+
+```diagram-pintora
+sequenceDiagram
+  @param {
+    actorBackground transparent
+    actorTextColor currentColor
+    actorBorderColor currentColor
+    actorLineColor currentColor
+
+    messageTextColor currentColor
+    loopLineColor currentColor
+    noteTextColor currentColor
+  }
+
+  title: Sequence Diagram Example
+  autonumber
+  User->>Pintora: render this
+  activate Pintora
+  loop Check input
+    Pintora-->>Pintora: Has input changed?
+  end
+  Pintora-->>User: your figure here
+  deactivate Pintora
+  @note over User,Pintora: note over
+  @note right of User: note aside actor
+  @start_note right of User
+  multiline note
+  is possible
+  @end_note
+  == Divider ==
+```
+
+```diagram-pintora
+activityDiagram
+title: Activity Example
+start
+partition Init {
+  :read config;
+  :init internal services;
+  note left: init themes
+}
+:Diagram requested;
+if (diagram registered ?) then
+  :get implementation;
+else (no)
+  :print error;
+endif
+switch ( renderer type )
+case ( svg )
+  :Generate svg;
+case ( canvas )
+  :Draw canvas;
+case ( custom )
+  :Custom renderer output;
+endswitch
+while (data available?) is (available)
+  :read data;
+  :generate diagrams;
+endwhile (no)
+end
 ```
