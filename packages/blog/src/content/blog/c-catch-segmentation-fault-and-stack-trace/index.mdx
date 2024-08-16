@@ -1,0 +1,66 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "C: Catch Segmentation Fault and Stack Trace"
+date: 2024-08-16
+---
+
+## Catch
+
+To catch segmentation fault in **C/C++** you can use `#include <signal.h>{:c}`, which use function `signal{:.entity.name.function}` to add handler `void f(int code){:c}` to `SIGSEGV{:.constant}`.
+
+```c showLineNumbers {1, 5-8, 11}
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void signal_handler(int code) {
+  printf("segfault happend\n");
+  exit(code);
+}
+
+int main() {
+  signal(SIGSEGV, signal_handler);
+
+  // Triggerd SIGSEGV
+  int *ptr = NULL;
+  *ptr = 10;
+
+  return 0;
+}
+```
+
+## Stack Trace
+
+To get stack trace in **C/C++** you can use `#include <execinfo.h>{:c}`, `backtrace{:.entity.name.function}` to get pointer to stack frame and `backtrace_symbols{:.entity.name.function}` to get array of string symbol. Combine together with catch segmentation fault.
+
+```c showLineNumbers {1, 7-16}
+#include <execinfo.h>
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void signal_handler(int code) {
+  void *buffer[10];
+  int nptrs = backtrace(buffer, sizeof(buffer) / sizeof(void *));
+  char **stacks = backtrace_symbols(buffer, nptrs);
+  if (stacks == NULL) {
+    exit(code);
+  }
+  for (int i = 0; i < nptrs; ++i) {
+    printf("%s\n", stacks[i]);
+  }
+  free(stacks);
+  exit(code);
+}
+
+int main() {
+  signal(SIGSEGV, signal_handler);
+
+  // Triggerd SIGSEGV
+  int *ptr = NULL;
+  *ptr = 10;
+
+  return 0;
+}
+```
