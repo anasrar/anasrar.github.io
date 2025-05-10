@@ -1,0 +1,36 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Windows: Flush DNS PowerShell and WSL"
+date: 2025-05-10
+---
+
+## Background
+
+Sometime when you using VPN on Windows and run container like Docker or Podman, the DNS cache give some issue because still using the VPN DNS. Resulting your container can not access the internet.
+
+To resolve this issue you need to flush the DNS cache.
+
+## Steps
+
+1. Open PowerShell as administrator or you can run this command on standart PowerShell:
+    ```bash
+    Start-Process powershell -Verb runAs
+    ```
+1. Flush DNS:
+    ```bash
+    ipconfig  /flushdns
+    ```
+    Check DNS:
+    ```bash
+    ipconfig  /displaydns
+    ```
+1. Shutdown WSL:
+    ```bash
+    wsl.exe --shutdown
+    ```
+    And try to run the container and `curl` on `ping` inside the container.
+
+## Reference
+
+https://www.ask-sheldon.com/flush-dns-cache-for-powershell-and-wsl/
