@@ -5,15 +5,16 @@ import Button from "../components/global/Button.astro";
 import { getCollection } from "astro:content";
 import { compareDesc, format } from "date-fns";
 
+const jobTitle = "Software Engineer";
 const description =
-	"Create and develop web app using TypeScript, Next.js, Go, SQL database, React, Vue, and Svelte. Contribute to open-source community. Interested in web technology, 3D in technical side, game development, and technology in general.";
+	"Create and develop web app using TypeScript, Next.js, Go, PHP, Laravel, SQL database, React, Vue, and Svelte. Contribute to open-source community. Interested in web technology, 3D in technical side, game development, and technology in general.";
 
 const jsonld = JSON.stringify({
 	"@context": "https://schema.org",
 	"@type": "Person",
 	email: "mynameanasrar@gmail.com",
 	image: "https://avatars.githubusercontent.com/u/38805204",
-	jobTitle: "Full-Stack Developer",
+	jobTitle: jobTitle,
 	name: "Anas Rin",
 	gender: "male",
 	url: "https://anasrar.gihub.io/",
@@ -39,10 +40,7 @@ const posts = (await getCollection("blog"))
 	.slice(0, 3);
 ---
 
-<LayoutDefault
-	title="Anas Rin"
-	description={`Full-Stack Developer - ${description}`}
->
+<LayoutDefault title="Anas Rin" description={`${jobTitle} - ${description}`}>
 	<Fragment slot="share-card">
 		<meta property="og:title" content="Anas Rin" />
 		<meta property="og:type" content="profile" />
@@ -55,7 +53,7 @@ const posts = (await getCollection("blog"))
 		<meta property="og:site_name" content="Anas Rin" />
 		<meta
 			property="og:description"
-			content={`Full-Stack Developer - ${description}`}
+			content={`${jobTitle} - ${description}`}
 		/>
 		<meta property="profile:first_name" content="Anas" />
 		<meta property="profile:last_name" content="Rin" />
@@ -66,7 +64,7 @@ const posts = (await getCollection("blog"))
 		<meta name="twitter:title" content="Anas Rin" />
 		<meta
 			name="twitter:description"
-			content={`Full-Stack Developer - ${description}`}
+			content={`${jobTitle} - ${description}`}
 		/>
 		<meta
 			name="twitter:image"
@@ -87,7 +85,7 @@ const posts = (await getCollection("blog"))
 				</div>
 				<section class="profile-detail">
 					<Title as="h1">Anas Rin</Title>
-					<Title as="h2" size="h5">Full-Stack Developer</Title>
+					<Title as="h2" size="h5">{jobTitle}</Title>
 					<p class="description">{description}</p>
 				</section>
 			</div>
