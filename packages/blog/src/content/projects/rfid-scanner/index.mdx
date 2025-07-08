@@ -1,0 +1,36 @@
+---
+# vi:ft=markdown
+title: "RFID Scanner"
+date: 2025-07-09
+links:
+    - label: "Repository"
+      link: "//github.com/anasrar/rfid-scanner"
+---
+
+RFID Scanner as keyboard,plug and play, tested on Windows 11, Android, Linux.
+
+![YD-RP2040 and RFID RC522 on breadboard](//github.com/anasrar/rfid-scanner/raw/main/docs/photo.jpg)
+
+## Components
+
+-   YD-RP2040
+-   RFID RC522
+
+## Schematic
+
+```
+            YD-RP2040
+GP4  GP5  GP6  GP7  GP8  GND  3V3
+|    |    |    |    |    |    |
+MISO SDA  SCK  MOSI RST  GND  3.3V
+            RFID RC522
+```
+
+## Dependencies
+
+-   CircuitPython 9.2.8 - https://circuitpython.org/board/vcc_gnd_yd_rp2040/
+-   Adafruit_CircuitPython_HID (9.x-mpy-6.1.7.zip) - https://github.com/adafruit/Adafruit_CircuitPython_HID/releases/tag/6.1.7
+
+## References
+
+-   https://www.youtube.com/watch?v=Spm1_inTUrE
