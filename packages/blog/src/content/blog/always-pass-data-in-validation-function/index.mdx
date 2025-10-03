@@ -1,0 +1,35 @@
+---
+# vi:ft=markdown
+# vi:wrap
+title: "Always Pass Data in Validation Function"
+date: 2025-10-03
+---
+
+# Example
+
+Instead of:
+
+```typescript
+function validate() {
+	const data = getGlobalData();
+	// validate the data
+}
+
+validate();
+```
+
+Always do this:
+
+```typescript
+function validate(data: Record<string, string>) {
+	// validate the data
+}
+
+validate(data);
+// or
+validate(getGlobalData());
+```
+
+# Why
+
+It's easier to debug the data or maintain the function.
