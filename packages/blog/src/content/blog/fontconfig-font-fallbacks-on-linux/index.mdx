@@ -1,0 +1,52 @@
+---
+# vi:ft=markdown
+title: "fontconfig: Font Fallbacks on Linux"
+date: 2025-10-25
+---
+
+## Font Fallbacks ?
+
+Font fallbacks is when font does not have the glyph it will search on other fonts in order of a list, lets say you have list of fonts:
+
+```
+Inter, Noto Sans JP
+```
+
+Font Inter does not have any Japanese glyph and it will use the Noto Sans JP.
+
+## On Linux
+
+To do it on Linux you can use fontconfig, the config file is on `~/.config/fontconfig/fonts.conf`.
+
+### Example
+
+Here some example to have font fallbacks on `JetBrains Mono` that fallback to `Symbols Nerd Font`:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <alias>
+      <family>JetBrains Mono</family>
+      <prefer>
+          <family>Symbols Nerd Font</family>
+      </prefer>
+  </alias>
+</fontconfig>
+```
+
+You can also have multiple fonts:
+
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <alias>
+      <family>Font 1</family>
+      <prefer>
+          <family>Font 2</family>
+          <family>Font 3</family>
+      </prefer>
+  </alias>
+</fontconfig>
+```
