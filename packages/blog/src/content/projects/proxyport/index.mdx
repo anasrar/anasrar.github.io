@@ -1,0 +1,35 @@
+---
+# vi:ft=markdown
+title: "proxyport"
+date: 2026-05-25
+links:
+    - label: "Repository"
+      link: "//github.com/anasrar/proxyport"
+---
+
+# proxyport
+
+Simple reverse proxy for port on `localhost:*` and mapping to `*.localhost`.
+
+## Build
+
+```bash
+CGO_ENABLED=0 go build -o proxyport -trimpath -ldflags="-s -w -X 'main.Version=0.0.1'" cmd/proxyport/main.go
+```
+
+## Usage
+
+```bash
+sudo proxyport -d foo -p 3000 -d bar -p 5000
+```
+
+Instead of access with `http://localhost:3000`, now you can access with `http://foo.localhost`. Same as `http://bar.localhost` it will map to `http://localhost:5000`.
+
+## Possible Improvements
+
+-   Daemon mode.
+-   `PORT=$(proxyport domain foo) && echo "$PORT"` to get random available port and assign to env `$PORT`.
+
+## Built With
+
+-   https://github.com/spf13/cobra
