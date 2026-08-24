@@ -29,6 +29,10 @@ jobs:
                   pnpm diagrams:build
                   pnpm blog:build || true
 
+            - name: Copy CNAME
+              run: |
+                  cp CNAME packages/blog/dist/
+
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
