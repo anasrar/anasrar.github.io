@@ -1,0 +1,41 @@
+---
+# vi:ft=markdown
+title: "bytepatcher - Simple program to patch file with offset"
+date: 2026-09-03
+links:
+    - label: "Repository"
+      link: "//github.com/anasrar/bytepatcher"
+---
+
+Simple program to patch file with offset.
+
+## Usage
+
+```bash
+bytepatcher --input input.txt --patch patch.txt --offset 0x1
+```
+
+### Example
+
+```
+hexdump -C input.txt
+00000000  31 32 33 34 35 36 37 38  39 30 41 42 43 44 45 46  |1234567890ABCDEF|
+00000010  47 0a                                             |G.|
+00000012
+
+hexdump -C patch.txt
+00000000  48 45 4c 4c 4f 20 57 4f  52 4c 44 0a              |HELLO WORLD.|
+0000000c
+
+bytepatcher --input input.txt --patch patch.txt --offset 0x1
+patched input.txt
+
+hexdump -C input.txt
+00000000  31 48 45 4c 4c 4f 20 57  4f 52 4c 44 0a 44 45 46  |1HELLO WORLD.DEF|
+00000010  47 0a                                             |G.|
+00000012
+```
+
+## Built With
+
+- https://github.com/spf13/cobra
